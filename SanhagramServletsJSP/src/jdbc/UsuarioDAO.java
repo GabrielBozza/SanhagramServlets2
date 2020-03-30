@@ -149,7 +149,7 @@ public class UsuarioDAO {
 			
 			if (resultado.next()) {
 				usuRetorno = new Usuario();
-				usuRetorno.setId(resultado.getInt("id"));
+				usuRetorno.setId(resultado.getInt("idusuario"));
 				usuRetorno.setNome(resultado.getString("nome"));
 				usuRetorno.setEmail(resultado.getString("email"));
 				usuRetorno.setSenha(resultado.getString("senha"));

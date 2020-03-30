@@ -2,37 +2,47 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Cadastro</title>
+    <link rel="stylesheet" href="./styles/style2.css">
+    <script src="./js/scriptregister.js"></script>
 </head>
-<script>
-function formatar(mascara, documento){
-  var i = documento.value.length;
-  var saida = mascara.substring(0,1);
-  var texto = mascara.substring(i)
-  
-  if (texto.substring(0,1) != saida){
-            documento.value += texto.substring(0,1);
-  }
-  
-}
-</script>
-<body>
-	<jsp:include page="cabecalho.jsp"></jsp:include>
-	<form action="salvarCadastro.jsp" method="post">
-		<h3>Cadastro</h3>
-		<br> 
-		<label>Nome:</label><br> 
-		<input type="text" name="nome"><br>
-		<label>Email:</label><br> 
-		<input type="text" name="email"><br> 
-		<label>Senha:</label><br>
-		<input type="password" name="senha"><br> 
-		<label>Data de Nascimento</label><br> 
-		<input type="text" name="data" OnKeyPress="formatar('##/##/####', this)"><br> 
-		
-		<input type="submit" value="ENVIAR">
-	</form>
+
+<body background="./img/img2.jpg">
+
+    <div class="top1"></div>
+
+    <div class="middle">
+
+        <div class="top">
+            <img class="displayed" src="./img/logoteste.jpeg" alt="Otario">
+        </div>
+
+        <div class="mid1">
+            <input class="bt-face" type="submit" onclick="window.location.href = 'https://pt-br.facebook.com/'" value="ENTRAR FACEBOOK">
+        </div>
+
+        <div class="mid2">
+			<jsp:include page="cabecalho.jsp"></jsp:include>
+			
+            <form class="form2" action="salvarCadastro.jsp" method="post">
+                <input class="textarea" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" type="text"
+                    id="Email" name="email">
+                <input class="textarea" placeholder="Senha" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" type="password"
+                    id="Password" name="senha">
+                <input class="textarea" placeholder="Nome de usuario" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nome de usuario'"
+                    type="text" id="Username" name="nome">
+                <input class="textarea" placeholder="Data de nascimento" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Data de nascimento'"
+                    type="text" name="data" OnKeyPress="formatar('##/##/####', this)">
+              
+                <input class="bt-login" type="submit" value="CADASTRE-SE">
+
+            </form>
+
+        </div>
+
+    </div>
+   
 </body>
+
 </html>
