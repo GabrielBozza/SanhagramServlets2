@@ -1,6 +1,4 @@
-package beans;
-
-import java.sql.Date;
+package bean;
 
 //CLASSE QUE REPRESENTA UMA TABELA(OBJ DO BD) 
 public class Usuario {
@@ -9,7 +7,7 @@ public class Usuario {
 	private String nome;
 	private String email;
 	private String senha;
-	private Date datanasc;
+	private String datanasc;
 
 	public Integer getId() {
 		return idusuario;
@@ -43,11 +41,11 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public Date getDatanasc() {
+	public String getDatanasc() {
 		return datanasc;
 	}
 
-	public void setDatanasc(Date datanasc) {
+	public void setDatanasc(String datanasc) {
 		this.datanasc = datanasc;
 	}
 

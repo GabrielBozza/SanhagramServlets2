@@ -10,7 +10,7 @@ import java.util.List;
 import bean.Usuario;
 
 //CADA CLASSE DO BD TEM UM ARQ EM BEANS COM A SUA CLASSE E OUTRO NO JDBC (DAO-DATA ACCESS OBJECT) PARA RECUPERAR DADOS DO BD
-public class UsuarioDAO {
+public class UsuarioDAO2 {
 	
 	private Connection conexao = Conexao_BD.getConnection();
 	

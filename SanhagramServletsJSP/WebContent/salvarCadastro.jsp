@@ -1,7 +1,7 @@
 <%@ page import="java.sql.Date"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="jdbc.UsuarioDAO"%>
-<%@ page import="beans.Usuario"%>
+<%@ page import="jdbc.UsuarioDAO2"%>
+<%@ page import="bean.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -18,16 +18,14 @@
 		String data = request.getParameter("data");
 
 		try {
-			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-			Date date = new Date(format.parse(data).getTime());
 			
 			Usuario usuario = new Usuario();
 			usuario.setNome(nome);
 			usuario.setEmail(email);
 			usuario.setSenha(senha);
-			usuario.setDatanasc(date);
+			usuario.setDatanasc(data);
 
-			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			UsuarioDAO2 usuarioDAO = new UsuarioDAO2();
 			usuarioDAO.cadastro(usuario);
 		}
 

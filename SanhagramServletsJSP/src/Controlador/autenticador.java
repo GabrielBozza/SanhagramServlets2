@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.Usuario;
-import jdbc.UsuarioDAO;
+import bean.Usuario;
+import jdbc.UsuarioDAO2;
 /**
  * Servlet implementation class autenticador
  */
@@ -48,7 +48,7 @@ public class autenticador extends HttpServlet {
 		usu.setNome(nome);
 		usu.setSenha(senha);
 		
-		UsuarioDAO usuDAO = new UsuarioDAO();
+		UsuarioDAO2 usuDAO = new UsuarioDAO2();
 		Usuario usuAutenticado = usuDAO.autenticacao(usu);
 		
 		if(usuAutenticado != null){

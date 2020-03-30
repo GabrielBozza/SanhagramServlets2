@@ -1,9 +1,6 @@
 package Controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans .Usuario;
-import jdbc.UsuarioDAO;
+import bean .Usuario;
+import jdbc.UsuarioDAO2;
 /**
  * Servlet implementation class UsuarioControlador
  */
@@ -37,7 +34,7 @@ public class UsuarioControlador extends HttpServlet {
 
 		Usuario usu = new Usuario();
 		String acao = request.getParameter("acao");
-		UsuarioDAO usuDAO = new UsuarioDAO();
+		UsuarioDAO2 usuDAO = new UsuarioDAO2();
 	
 		if(acao != null && acao.equals("lis")){
 		List<Usuario> lista = usuDAO.buscarTodos(usu);
@@ -67,6 +64,7 @@ public class UsuarioControlador extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Capturando parametros da tela
 		
@@ -76,28 +74,20 @@ public class UsuarioControlador extends HttpServlet {
 				String ssenha = request.getParameter("senha");
 				String sdata = request.getParameter("data");
 				
-				try{
-					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-					Date data = new Date(format.parse(sdata).getTime());
-
 				// criando objeto usuario e atribuindo valores da tela
 				Usuario usuario = new Usuario();
 				usuario.setNome(snome);
 				usuario.setEmail(semail);
 				usuario.setSenha(ssenha);
-				usuario.setDatanasc(data);
+				usuario.setDatanasc(sdata);
 				usuario.setId(Integer.parseInt(sid));
 
 				// criando um usuarioDAO
-				UsuarioDAO usuDao = new UsuarioDAO();
+				UsuarioDAO2 usuDao = new UsuarioDAO2();
 				// Salvando no banco de dados
 				usuDao.alterar(usuario);
-				//PrintWriter out = response.getWriter();
-				//out.println("Salvo!");
+
 				response.sendRedirect("UsuarioControlador?acao=lis");
-				} catch (java.text.ParseException e) {
-					System.out.println("Erro de Data - "+e.getMessage());
-				}
 	}
 
 }
