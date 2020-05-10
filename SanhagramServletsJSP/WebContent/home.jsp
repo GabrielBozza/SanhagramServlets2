@@ -48,7 +48,17 @@
                             <img class="iconegrupo1" src=".\img\teste1.jpg" alt="Otario">
                         </div>
 
-                        <div class="textocorpo">Roberta FGV</div>
+                        <div class="textocorpo" id="nomeusuario"><% String a = request.getParameter("nome");
+                        System.out.println(a);%><%=a%></div>
+                        
+                        <script>   
+                        	if(document.getElementById('nomeusuario').innerHTML!='null'){//PERDEU A REFERENCIA AO USUARIO
+                        		localStorage.setItem("nomeusuario",document.getElementById('nomeusuario').innerHTML);	
+                        	}
+                        	else{//PERDEU A REFERENCIA AO USUARIO
+                        		document.getElementById('nomeusuario').innerHTML=''+localStorage.getItem("nomeusuario");
+                        	}
+                        </script>
 
                         <div class="textocorpo1">FGV inc.</div>
 
@@ -122,10 +132,16 @@
         
         <div class="mid2" id="chat"></div>
 
-        <div class="bot2" id="escrever"></div>
-
+        <div class="bot2" id="escrever">
+            <form autocomplete="off" action="enviar_mensagem.jsp" method="post">
+            	<input type="hidden" id="remetente" name="remetente">
+            	<script> document.getElementById('remetente').value=document.getElementById('nomeusuario').innerHTML</script>
+            	<input class = "textarea" placeholder = "Destinatario" type="text" id="destinatario" name="destinatario"> 
+                <input class = "textarea" type="text" id="texto_mensagem" name="texto_mensagem">
+                <input type="submit" value="ENVIAR ">
+            </form>
+        </div>
     </div>
-
 </body>
 
 </html>
