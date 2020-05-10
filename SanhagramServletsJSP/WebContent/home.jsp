@@ -9,7 +9,7 @@
     <link href=".\styles\fontawesome-free-5.12.1-web\css\all.css" rel="stylesheet">
     <script src=".\js\scriptelaprincip.js"></script>
     <meta charset="ISO-8859-1">
-	<title>Página Inicial</title>
+	<title>Página Inicial </title>
 </head>
 
 <body>
