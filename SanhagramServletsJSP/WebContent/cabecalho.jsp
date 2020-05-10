@@ -11,7 +11,10 @@
 <a href="UsuarioControlador?acao=cad">Cadastro</a><br>
 <a href="UsuarioControlador?acao=lis">Lista de Usuarios</a><br>
 <a href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getParameter("nome") %>&destinatario=teodoro">Teodoro</a><br>
+<a id="MensagensRecentes">Mensagens recentes</a><br>
 <a href="autenticador">Sair</a><br>
+
+<script>document.getElementById("MensagensRecentes").href="UsuarioControlador?acao=lisamigos&destinatario="+localStorage.getItem('nomeusuario');</script>
 
 </body>
 </html>

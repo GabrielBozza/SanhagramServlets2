@@ -21,6 +21,7 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
  	<th>ID</th>
  	<th>Remetente</th>
  	<th>Destinatario</th>
+ 	<th>Mensagem</th>
  	<th>Data de envio</th>
  	<th>Excluir</th>
  </tr>
@@ -31,6 +32,7 @@ for(Mensagem m:listaResultado){
  	<th><%=m.getIdmensagem() %></th>
  	<th><%=m.getRemetente() %></th>
  	<th><%=m.getDestinatario() %></th>
+ 	<th><%=m.getTexto_mensagem() %></th>
  	<th><%=m.getData_envio() %></th>
  	<th><a href="UsuarioControlador?acao=exmsgm&idmensagem=<%=m.getIdmensagem() %>">Excluir</a>
  </tr>

@@ -16,13 +16,16 @@ public class MensagemDAO {
 
 	public void enviar(Mensagem mensagem) {
 		
-		String sql = "INSERT INTO MENSAGENS (remetente, destinatario, texto_mensagem) values (?,?,?)";
+		String sql ="INSERT INTO sanhagram.MENSAGENS (remetente, destinatario, texto_mensagem)\r\n" + 
+		"SELECT ?,?,?\r\n" + 
+		"WHERE EXISTS (SELECT NOME FROM sanhagram.USUARIO WHERE NOME = ?);";
 		
 		try {
 			PreparedStatement preparador = conexao.prepareStatement(sql);
 			preparador.setString(1, mensagem.getRemetente());//? 1
 			preparador.setString(2, mensagem.getDestinatario());//? 2
 			preparador.setString(3, mensagem.getTexto_mensagem());//? 3
+			preparador.setString(4, mensagem.getDestinatario());//? 4
 			
 			preparador.execute();
 			preparador.close();
@@ -87,18 +90,23 @@ public class MensagemDAO {
 		
 	}
 	
-	public List<String> buscarRecentes(Mensagem mensagem) {//BUSCA E RETORNA OS AMIGOS QUE CONVERSARAM COM O USUARIO ORDENADOS DO MAIS RECENTE PARA O MAIS ANTIGO
+	public List<String> buscarRecentes(String destinatario) {//BUSCA E RETORNA OS AMIGOS QUE CONVERSARAM COM O USUARIO ORDENADOS DO MAIS RECENTE PARA O MAIS ANTIGO
 		
-		String sql = "SELECT DISTINCT REMETENTE FROM MENSAGENS WHERE DESTINATARIO=? ORDER BY DATA_ENVIO";
+		String sql = "SELECT DISTINCT amigo FROM (SELECT REMETENTE AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS\r\n" + 
+				"WHERE DESTINATARIO=?\r\n" + 
+				"UNION ALL\r\n" + 
+				"SELECT DESTINATARIO AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS\r\n" + 
+				"WHERE REMETENTE=? ORDER BY DATA_ENVIO DESC) AS amigo";
 		List<String> lista = new ArrayList<String>();
 		
 		try {
 			PreparedStatement preparador = conexao.prepareStatement(sql);
-			preparador.setString(1, mensagem.getDestinatario());//? 1
+			preparador.setString(1, destinatario);//? 1
+			preparador.setString(2, destinatario);//? 1
 			ResultSet resultados = preparador.executeQuery();
 			
 			while(resultados.next()){
-				String prox_amigo = resultados.getString("remetente");
+				String prox_amigo = resultados.getString("amigo");
 				lista.add(prox_amigo);				
 			}
 		}
