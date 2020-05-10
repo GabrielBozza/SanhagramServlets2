@@ -10,6 +10,7 @@
 <a href="home.jsp">Inicio</a><br>
 <a href="UsuarioControlador?acao=cad">Cadastro</a><br>
 <a href="UsuarioControlador?acao=lis">Lista de Usuarios</a><br>
+<a href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getParameter("nome") %>&destinatario=teodoro">Teodoro</a><br>
 <a href="autenticador">Sair</a><br>
 
 </body>

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import bean .Usuario;
 import jdbc.UsuarioDAO2;
+import bean .Mensagem;
+import jdbc.MensagemDAO;
 /**
  * Servlet implementation class UsuarioControlador
  */
@@ -33,15 +35,31 @@ public class UsuarioControlador extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		Usuario usu = new Usuario();
+		Mensagem mensagem = new Mensagem();
 		String acao = request.getParameter("acao");
 		UsuarioDAO2 usuDAO = new UsuarioDAO2();
+		MensagemDAO mensagemDAO = new MensagemDAO();
 	
 		if(acao != null && acao.equals("lis")){
 		List<Usuario> lista = usuDAO.buscarTodos(usu);
 		request.setAttribute("lista", lista);
 		RequestDispatcher saida = request.getRequestDispatcher("listaUsuarios.jsp");
 		saida.forward(request, response);
-
+		
+		}else if(acao != null && acao.equals("lismsgm")){
+			
+		String remetente = request.getParameter("remetente");
+		String destinatario = request.getParameter("destinatario");
+		List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente,destinatario);
+		request.setAttribute("lista", lista);
+		RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");
+		saida.forward(request, response);
+		
+		}else if(acao != null && acao.equals("exmsgm")){
+			String id = request.getParameter("idmensagem");
+			mensagemDAO.deletar(Integer.parseInt(id));
+			response.sendRedirect("home.jsp");
+			
 		}else if(acao != null && acao.equals("ex")){
 			String id = request.getParameter("id");
 			usu.setId(Integer.parseInt(id));

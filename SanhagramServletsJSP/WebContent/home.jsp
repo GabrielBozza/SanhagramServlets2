@@ -136,8 +136,8 @@
             <form autocomplete="off" action="enviar_mensagem.jsp" method="post">
             	<input type="hidden" id="remetente" name="remetente">
             	<script> document.getElementById('remetente').value=document.getElementById('nomeusuario').innerHTML</script>
-            	<input class = "textarea" placeholder = "Destinatario" type="text" id="destinatario" name="destinatario"> 
-                <input class = "textarea" type="text" id="texto_mensagem" name="texto_mensagem">
+            	<input class = "textarea" placeholder = "Destinatario" type="text" id="destinatario" name="destinatario" required> 
+                <input class = "textarea" type="text" id="texto_mensagem" name="texto_mensagem" required>
                 <input type="submit" value="ENVIAR ">
             </form>
         </div>
