@@ -148,13 +148,13 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
 				for(Mensagem m:listaResultado){
 			%>
 				<tr>
-				<th>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
-				<th style="color:#f8fbfd"><b id="destino"><%=m.getDestinatario()%></b>
- 				<th><a id="fonte" style="font-family:Helvetica;font-style:normal;"><%=m.getRemetente()%></a>
- 				<th>&emsp;&emsp;&emsp;&emsp;&emsp;</th>
- 				<th style="font-family:Helvetica;font-style:normal;"><%=m.getTexto_mensagem() %></th>
- 				<th>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
- 				<th><a href="UsuarioControlador?acao=exmsgm&idmensagem=<%=m.getIdmensagem() %>" style="font-family:Helvetica;font-style:normal;">Excluir</a>
+				<td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+				<td style="color:#f8fbfd"><b id="destino"><%=m.getDestinatario()%></b>
+ 				<td><a id="fonte" style="font-family:Helvetica;font-style:normal;"><%=m.getRemetente()%></a>
+ 				<td>&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+ 				<td style="font-family:Helvetica;font-style:normal;width:200px;"><%=m.getTexto_mensagem() %></td>
+ 				<td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+ 				<td><a href="UsuarioControlador?acao=exmsgm&idmensagem=<%=m.getIdmensagem() %>" style="font-family:Helvetica;font-style:normal;color:red;" id="excluir">X</a>
  				</tr>
  				<tr></tr>
  				<tr></tr>
@@ -169,23 +169,30 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
  				<tr></tr>
  				<tr></tr>
  				<script>
+ 				
  					if(document.getElementById('fonte').innerHTML!=localStorage.getItem("nomeusuario")){
  						localStorage.setItem("destinatario",document.getElementById('fonte').innerHTML);
  						document.getElementById('titulo').innerHTML=document.getElementById('fonte').innerHTML;
+ 						document.getElementById('excluir').innerHTML='';
+ 						document.getElementById('excluir').id="excluir1";
  						document.getElementById('fonte').id="fonte1";
  					}
- 					else if (document.getElementById('destino').innerHTML!=localStorage.getItem("nomeusuario")){
+ 					else{
  						localStorage.setItem("destinatario",document.getElementById('destino').innerHTML);
  						document.getElementById('titulo').innerHTML=document.getElementById('destino').innerHTML;
+ 						document.getElementById('fonte').innerHTML='Você';
+ 						document.getElementById('excluir').id="excluir1";
  						document.getElementById('destino').id="destino1";
+ 						document.getElementById('fonte').id="fonte1";
  					}
+
  				</script>
  				
 			<%
 				}
 			%>
 			</table>
-			<br><br>
+			<br>
 			
 			    <form autocomplete="off" action="enviar_mensagem.jsp" method="post">
             	<input type="hidden" id="remetente" name="remetente">
