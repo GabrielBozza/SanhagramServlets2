@@ -31,6 +31,11 @@
 
 		}
 	%>
-	<h2>Enviada com sucesso!</h2>
+	<h2 style="font-family:Helvetica;text-align:center;">Enviada com sucesso!</h2>
+	<a id="msgm" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;margin-left:750px;">OK</a>
+	<script>
+		document.getElementById('msgm').href="UsuarioControlador?acao=lismsgm&remetente=<%= request.getParameter("remetente")%>"+"&destinatario=<%= request.getParameter("destinatario")%>";
+	</script>
+
 </body>
 </html>

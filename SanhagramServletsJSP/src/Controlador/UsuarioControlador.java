@@ -65,7 +65,13 @@ public class UsuarioControlador extends HttpServlet {
 		}else if(acao != null && acao.equals("exmsgm")){
 			String id = request.getParameter("idmensagem");
 			mensagemDAO.deletar(Integer.parseInt(id));
-			response.sendRedirect("home.jsp");
+			String remetente = request.getParameter("remetente");
+			String destinatario = request.getParameter("destinatario");
+			List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente,destinatario);
+			request.setAttribute("lista", lista);
+			RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");
+			saida.forward(request, response);
+			//response.sendRedirect("home.jsp");
 			
 		}else if(acao != null && acao.equals("ex")){
 			String id = request.getParameter("id");

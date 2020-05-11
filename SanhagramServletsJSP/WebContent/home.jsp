@@ -62,38 +62,6 @@
 
                     </div>
 
-                    <div class="conversa" h="0" p="0">
-
-                        <div class="imgconversa">
-                            <img class="iconegrupo" src=".\img\img5.png" alt="Otario">
-                        </div>
-
-                        <div class="corpoconversa desactive" onclick="mostrarconversa(this)">
-                            <img class="iconegrupo1" src=".\img\fundobranco.png" alt="Otario">
-                        </div>
-
-                        <div class="textocorpo">Ricardo IME</div>
-
-                        <div class="textocorpo1"></div>
-
-                    </div>
-
-                    <div class="conversa" h="0" p="0">
-
-                        <div class="imgconversa">
-                            <img class="iconegrupo" src=".\img\img5.png" alt="Otario">
-                        </div>
-
-                        <div class="corpoconversa desactive" onclick="mostrarconversa(this)">
-                            <img class="iconegrupo1" src=".\img\fundobranco.png" alt="Otario">
-                        </div>
-
-                        <div class="textocorpo">Carlos IME</div>
-
-                        <div class="textocorpo1"></div>
-
-                    </div>
-
                 </div>
 
             </div>
@@ -111,7 +79,7 @@
             </div>
 
             <div class="nomeconversatop2" id="topuser">
-                Roberta FGV
+                Usuario
             </div>
             
             <script>                        	

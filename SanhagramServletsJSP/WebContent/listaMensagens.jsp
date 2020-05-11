@@ -44,7 +44,7 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
                     <div class="conversa" h="0" p="0">
 
                         <div class="imgconversa">
-                            <img class="iconegrupo" src=".\img\img5.png" alt="Otario">
+                            <img class="iconegrupo" src=".\img\img4.png" alt="Otario">
                         </div>
 
                         <div class="corpoconversa desactive" onclick="mostrarconversa(this)">
@@ -65,38 +65,6 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
 
                     </div>
 
-                    <div class="conversa" h="0" p="0">
-
-                        <div class="imgconversa">
-                            <img class="iconegrupo" src=".\img\img5.png" alt="Otario">
-                        </div>
-
-                        <div class="corpoconversa desactive" onclick="mostrarconversa(this)">
-                            <img class="iconegrupo1" src=".\img\fundobranco.png" alt="Otario">
-                        </div>
-
-                        <div class="textocorpo">Ricardo IME</div>
-
-                        <div class="textocorpo1"></div>
-
-                    </div>
-
-                    <div class="conversa" h="0" p="0">
-
-                        <div class="imgconversa">
-                            <img class="iconegrupo" src=".\img\img5.png" alt="Otario">
-                        </div>
-
-                        <div class="corpoconversa desactive" onclick="mostrarconversa(this)">
-                            <img class="iconegrupo1" src=".\img\fundobranco.png" alt="Otario">
-                        </div>
-
-                        <div class="textocorpo">Carlos IME</div>
-
-                        <div class="textocorpo1"></div>
-
-                    </div>
-
                 </div>
 
             </div>
@@ -114,7 +82,7 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
             </div>
 
             <div class="nomeconversatop2" id="titulo">
-                Roberta FGV
+                Usuario
             </div>
 
         </div>
@@ -143,7 +111,7 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
  				<td>&emsp;&emsp;&emsp;&emsp;&emsp;</td>
  				<td style="font-family:Helvetica;font-style:normal;width:200px;"><%=m.getTexto_mensagem() %></td>
  				<td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
- 				<td><a href="UsuarioControlador?acao=exmsgm&idmensagem=<%=m.getIdmensagem() %>" style="font-family:Helvetica;font-style:normal;color:red;text-decoration:none;" id="excluir">X</a>
+ 				<td><a href="UsuarioControlador?remetente=<%=m.getRemetente()%>&destinatario=<%=m.getDestinatario()%>&acao=exmsgm&idmensagem=<%=m.getIdmensagem() %>" style="font-family:Helvetica;font-style:normal;color:red;text-decoration:none;" id="excluir">X</a>
  				</tr>
  				<tr></tr>
  				<tr></tr>
@@ -190,7 +158,7 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
             	<script> document.getElementById('remetente').value=localStorage.getItem("nomeusuario")</script>
             	<input type="hidden" id="destinatario" name="destinatario">
             	<script> document.getElementById('destinatario').value=localStorage.getItem("destinatario")</script>
-                <input class = "textarea" type="text" id="texto_mensagem" name="texto_mensagem" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:-80px;color:black;" required>
+                <input class = "textarea" type="text" id="texto_mensagem" placeholder="Mensagem" name="texto_mensagem" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:-80px;color:black;" required>
                 <br><input type="submit" value="ENVIAR" style="font-family:Helvetica;background:#deddd9;text-align:center;margin-left:-70px;border-radius:6px;border-width:0px;width:90px;height:35px;">
                 <br><br><br>
         </div>
