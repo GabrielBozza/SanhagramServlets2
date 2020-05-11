@@ -89,6 +89,12 @@ div.bot12{
   
 }
 
+.tabelaconversas{
+	
+	margin-left:50px;
+	
+}
+
 .far {
     font-family: 'Font Awesome 5 Free';
     font-weight: 400;
@@ -131,7 +137,7 @@ div.bot12{
     font-family: 'Font Awesome 5 Free';
     font-weight: 150px;
     margin-left: 230px;
-    margin-top: -51px;
+    margin-top: -0px;
     position: absolute;
     font-size: 14px;
     color: yellow;
@@ -349,8 +355,10 @@ img.conversatop2{
 div.mid2{
     position: relative;
     margin-top: 0px;
+    padding-left: 0px;
     width: 100%;
     height: 84%;
+    text-align: center;
     border-bottom-color: #5b5f6238;
     background: #f8fbfd;
 }
@@ -837,5 +845,4 @@ div.pesquisa {
         /* float: left; */
         font-size: 22px;
     }
-
     

@@ -56,11 +56,9 @@
                         		localStorage.setItem("nomeusuario",document.getElementById('nomeusuario').innerHTML);	
                         	}
                         	else{//PERDEU A REFERENCIA AO USUARIO
-                        		document.getElementById('nomeusuario').innerHTML=''+localStorage.getItem("nomeusuario");
+                        		document.getElementById('nomeusuario').innerHTML=localStorage.getItem("nomeusuario");
                         	}
                         </script>
-
-                        <div class="textocorpo1">FGV inc.</div>
 
                         <i id="estrelinha1" class="far fa-star estrelinha1 l" onclick="selecionastarred1(this)"></i>
                         <i class="fas fa-circle"></i>
