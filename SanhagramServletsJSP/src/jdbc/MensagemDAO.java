@@ -14,7 +14,7 @@ public class MensagemDAO {
 	
 	private Connection conexao = Conexao_BD.getConnection();
 
-	public void enviar(Mensagem mensagem) {
+	public void enviar(Mensagem mensagem) {//ENVIAR MENSAGEM CASO O DESTINATARIO EXISTA
 		
 		String sql ="INSERT INTO sanhagram.MENSAGENS (remetente, destinatario, texto_mensagem)\r\n" + 
 		"SELECT ?,?,?\r\n" + 
@@ -38,7 +38,7 @@ public class MensagemDAO {
 		
 	}
 	
-	public void deletar(Integer idmensagem) {
+	public void deletar(Integer idmensagem) {//EXCLUI MENSAGEM DADO SEU ID
 		
 		String sql = "DELETE FROM MENSAGENS WHERE IDMENSAGENS = ?";
 		

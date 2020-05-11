@@ -28,28 +28,28 @@ public class autenticador extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {//CHAMADO NO LOGOUT
 		HttpSession sessao = request.getSession(false);
 		if(sessao!=null){
 			sessao.invalidate();
 			
 		}
-		response.sendRedirect("login.jsp");
+		response.sendRedirect("login.jsp");//LOGOUT
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {//LOGIN REQUEST
 		String nome = request.getParameter("nome");
 		String senha = request.getParameter("senha");
 		
-		Usuario usu = new Usuario();
-		usu.setNome(nome);
-		usu.setSenha(senha);
+		Usuario usu = new Usuario();//CRIA UM NOVO USUARIO DE BEAN.USUARIO
+		usu.setNome(nome);//SETA SEUS PARAMETROS
+		usu.setSenha(senha);//SETA SEUS PARAMETROS
 		
-		UsuarioDAO2 usuDAO = new UsuarioDAO2();
-		Usuario usuAutenticado = usuDAO.autenticacao(usu);
+		UsuarioDAO2 usuDAO = new UsuarioDAO2();//CRIA UM OBJETO USUARIODAO PARA PODER OBTER INFOS DO BD COM RELACAO AO OBJETO USUARIO
+		Usuario usuAutenticado = usuDAO.autenticacao(usu);//CHAMA A FUNCAO AUTENTICACAO DE USUARIODAO-->RETORNA NULL SE NAO ENCONTRAR O PAR USUARIO,SENHA CORRETO
 		
 		if(usuAutenticado != null){
 			HttpSession sessao = request.getSession();
@@ -58,7 +58,7 @@ public class autenticador extends HttpServlet {
 			
 				request.getRequestDispatcher("home.jsp").forward(request, response);
 		}else {
-			response.sendRedirect("erroLogin.jsp");
+			response.sendRedirect("erroLogin.jsp");//PAGINA QUE INDICA QUE USUARIO E/OU SENHA ESTAO INCORRETOS
 		}
 	}
 

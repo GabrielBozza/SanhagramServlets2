@@ -78,7 +78,7 @@ public class UsuarioDAO2 {
 		
 	}
 	
-	public List<Usuario> buscarTodos(Usuario usuario) {
+	public List<Usuario> buscarTodos(Usuario usuario) {//LISTA TODOS OS USUARIOS CADASTRADOS
 		
 		String sql = "SELECT * FROM USUARIO";
 		List<Usuario> lista = new ArrayList<Usuario>();
@@ -107,7 +107,7 @@ public class UsuarioDAO2 {
 		
 	}
 	
-	public Usuario buscarporID(Integer id) {
+	public Usuario buscarporID(Integer id) {//BUSCA UM USUARIO DADO SEU ID
 		
 		Usuario usuRetorno = null;
 		String sql = "SELECT * FROM USUARIO WHERE IDUSUARIO = ?";
@@ -135,7 +135,7 @@ public class UsuarioDAO2 {
 		return usuRetorno;
 	}
 	
-	public Usuario autenticacao(Usuario usuario) {
+	public Usuario autenticacao(Usuario usuario) {//VERIFICA SE O USUARIO E SENHA ESTAO NO BD
 		
 		Usuario usuRetorno = null;
 		String sql = "SELECT * FROM USUARIO WHERE NOME = ? AND SENHA = ?";
