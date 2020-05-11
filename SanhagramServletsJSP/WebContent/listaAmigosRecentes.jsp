@@ -29,11 +29,14 @@ List<String> listaResultado = (List<String>)request.getAttribute("lista");
 
             <div class="bot11" id="style-2">
                 <input class="textarea" placeholder="Procurar..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Procurar...'"
-                    type="text" id="conversaslado" name="conversaslado" onkeyup="selecionatext(this)"><br><br><br><br>
+                    type="text" id="conversaslado" name="conversaslado" onkeyup="selecionatext(this)"><br><br>
 
                 <div class="barralateral" id="conversas">
 
                     <div class="conversa">
+                             <div class="imgconversa">
+                            <img class="iconegrupo" src=".\img\img4.png" alt="Otario">
+                        </div>
                         <div class="textocorpo" id="nomeusuario"><% String a = request.getParameter("nome");
                         System.out.println(a);%><%=a%></div>
                         

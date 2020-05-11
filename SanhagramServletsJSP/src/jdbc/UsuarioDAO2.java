@@ -138,7 +138,7 @@ public class UsuarioDAO2 {
 	public Usuario autenticacao(Usuario usuario) {
 		
 		Usuario usuRetorno = null;
-		String sql = "SELECT * FROM USUARIO WHERE NOME = ? AND SENHA = ? ";
+		String sql = "SELECT * FROM USUARIO WHERE NOME = ? AND SENHA = ?";
 		
 		try {
 			PreparedStatement preparador = conexao.prepareStatement(sql);

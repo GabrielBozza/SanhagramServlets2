@@ -18,10 +18,6 @@
             <img class="displayed" src="./img/logoteste.jpeg" alt="Otario">
         </div>
 
-        <div class="mid1">
-            <input class="bt-face" type="submit" onclick="window.location.href = 'https://pt-br.facebook.com/'" value="ENTRAR FACEBOOK">
-        </div>
-
         <div class="mid2">
 			<jsp:include page="cabecalho.jsp"></jsp:include>
 			
