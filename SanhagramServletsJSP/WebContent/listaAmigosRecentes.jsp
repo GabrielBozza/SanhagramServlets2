@@ -22,14 +22,14 @@ List<String> listaResultado = (List<String>)request.getAttribute("lista");
     <div class="div1">
 
         <div class="top1">
-            <p class="ttop1">Boards</p>
+            <p class="ttop1">Conversas</p>
         </div>
 
         <div class="bot1">
 
             <div class="bot11" id="style-2">
-                <input class="textarea" placeholder="Find boards by name..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Find boards by name...'"
-                    type="text" id="conversaslado" name="conversaslado" onkeyup="selecionatext(this)">
+                <input class="textarea" placeholder="Procurar..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Procurar...'"
+                    type="text" id="conversaslado" name="conversaslado" onkeyup="selecionatext(this)"><br><br><br><br>
 
                 <div class="barralateral" id="conversas">
 
@@ -50,14 +50,14 @@ List<String> listaResultado = (List<String>)request.getAttribute("lista");
 					<div class="tabelaconversas">
 						<table border="0">
  							<tr bgcolor="#ffffff">
- 							<th>Ver conversa</th>
+ 							<th>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
  							</tr>
 						<%
 							for(String s:listaResultado){
 						%>
 							<tr>
  							
- 							<th><a id="verconversa"><%=s%></a>
+ 							<th><a id="verconversa" style="font-size:18px;color:black;font-family:Helvetica;"><%=s%></a>
  							<script>
  								localStorage.setItem("conversa",localStorage.getItem("conversa").substring(0,localStorage.getItem("conversa").length-1)+localStorage.getItem("i"));
  								document.getElementById("verconversa").id=localStorage.getItem("conversa");
@@ -65,6 +65,12 @@ List<String> listaResultado = (List<String>)request.getAttribute("lista");
  								localStorage.setItem("i",(parseInt(localStorage.getItem("i"))+1).toString());		
  							</script>
  							</tr>
+ 							<tr></tr>
+ 							<tr></tr>
+ 							<tr></tr>
+ 							<tr></tr>
+ 							<tr></tr>
+ 							<tr></tr>
 						<%
 							}
 						%>
@@ -85,7 +91,6 @@ List<String> listaResultado = (List<String>)request.getAttribute("lista");
         <div class="top2" id="header">
 
             <div class="nomeconversatop2" id="nomeconversa">
-                Roberta
             </div>
         </div>
         <jsp:include page="cabecalho.jsp"></jsp:include>
@@ -96,9 +101,9 @@ List<String> listaResultado = (List<String>)request.getAttribute("lista");
             <form autocomplete="off" action="enviar_mensagem.jsp" method="post">
             	<input type="hidden" id="remetente" name="remetente">
             	<script> document.getElementById('remetente').value=document.getElementById('nomeusuario').innerHTML</script>
-            	<input class = "textarea" placeholder = "Destinatario" type="text" id="destinatario" name="destinatario" required> 
-                <input class = "textarea" type="text" id="texto_mensagem" name="texto_mensagem" required>
-                <input type="submit" value="ENVIAR ">
+            	<input class = "textarea" placeholder = "Destinatario" type="text" id="destinatario" name="destinatario" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:250px;color:black;" required> 
+                <input class = "textarea" type="text" id="texto_mensagem" name="texto_mensagem" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:250px;color:black;" required>
+                <input type="submit" value="ENVIAR" style="font-family:Helvetica;background:#deddd9;text-align:center;margin-left:510px;border-radius:6px;border-width:0px;width:90px;height:35px;">
             </form>
         </div>
     </div>

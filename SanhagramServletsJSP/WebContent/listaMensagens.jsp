@@ -55,7 +55,7 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
                         System.out.println(a);%><%=a%></div>
                         
                         <script>   
-                        	if(document.getElementById('nomeusuario').innerHTML!='null'){//PERDEU A REFERENCIA AO USUARIO
+                        	if(document.getElementById('nomeusuario').innerHTML!='null'){
                         		localStorage.setItem("nomeusuario",document.getElementById('nomeusuario').innerHTML);	
                         	}
                         	else{//PERDEU A REFERENCIA AO USUARIO
@@ -122,7 +122,7 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
                 <img class="conversatop2" src=".\img\teste1.jpg" alt="Otario">
             </div>
 
-            <div class="nomeconversatop2">
+            <div class="nomeconversatop2" id="titulo">
                 Roberta FGV
             </div>
 
@@ -131,9 +131,13 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
         </div>
         <jsp:include page="cabecalho.jsp"></jsp:include>
         
+        
         <div class="mid2" id="chat">
+        <br>
         	<table border="0">
  				<tr bgcolor="#ffffff">
+ 				<th></th>
+ 				<th></th>
  				<th></th>
  				<th></th>
  				<th></th>
@@ -144,11 +148,13 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
 				for(Mensagem m:listaResultado){
 			%>
 				<tr>
- 				<th><a id="fonte">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<%=m.getRemetente()%></a>
+				<th>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+				<th style="color:#f8fbfd"><b id="destino"><%=m.getDestinatario()%></b>
+ 				<th><a id="fonte" style="font-family:Helvetica;font-style:normal;"><%=m.getRemetente()%></a>
  				<th>&emsp;&emsp;&emsp;&emsp;&emsp;</th>
- 				<th><%=m.getTexto_mensagem() %></th>
+ 				<th style="font-family:Helvetica;font-style:normal;"><%=m.getTexto_mensagem() %></th>
  				<th>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
- 				<th><a href="UsuarioControlador?acao=exmsgm&idmensagem=<%=m.getIdmensagem() %>">Excluir</a>
+ 				<th><a href="UsuarioControlador?acao=exmsgm&idmensagem=<%=m.getIdmensagem() %>" style="font-family:Helvetica;font-style:normal;">Excluir</a>
  				</tr>
  				<tr></tr>
  				<tr></tr>
@@ -164,9 +170,14 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
  				<tr></tr>
  				<script>
  					if(document.getElementById('fonte').innerHTML!=localStorage.getItem("nomeusuario")){
- 						localStorage.setItem("destinatario",<%=m.getRemetente() %>);
- 						<%System.out.println(m.getRemetente());
- 						%>
+ 						localStorage.setItem("destinatario",document.getElementById('fonte').innerHTML);
+ 						document.getElementById('titulo').innerHTML=document.getElementById('fonte').innerHTML;
+ 						document.getElementById('fonte').id="fonte1";
+ 					}
+ 					else if (document.getElementById('destino').innerHTML!=localStorage.getItem("nomeusuario")){
+ 						localStorage.setItem("destinatario",document.getElementById('destino').innerHTML);
+ 						document.getElementById('titulo').innerHTML=document.getElementById('destino').innerHTML;
+ 						document.getElementById('destino').id="destino1";
  					}
  				</script>
  				
@@ -174,16 +185,16 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
 				}
 			%>
 			</table>
-        </div>
-
-        <div class="bot2" id="escrever">
-            <form autocomplete="off" action="enviar_mensagem.jsp" method="post">
+			<br><br>
+			
+			    <form autocomplete="off" action="enviar_mensagem.jsp" method="post">
             	<input type="hidden" id="remetente" name="remetente">
             	<script> document.getElementById('remetente').value=localStorage.getItem("nomeusuario")</script>
-            	<input class = "textarea" placeholder = "Destinatario" type="text" id="destinatario" name="destinatario" required> 
-                <input class = "textarea" type="text" id="texto_mensagem" name="texto_mensagem" required>
-                <input type="submit" value="ENVIAR ">
-            </form>
+            	<input type="hidden" id="destinatario" name="destinatario">
+            	<script> document.getElementById('destinatario').value=localStorage.getItem("destinatario")</script>
+                <input class = "textarea" type="text" id="texto_mensagem" name="texto_mensagem" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:250px;color:black;" required>
+                <input type="submit" value="ENVIAR" style="font-family:Helvetica;background:#deddd9;text-align:center;margin-left:510px;border-radius:6px;border-width:0px;width:90px;height:35px;">
+                <br><br><br>
         </div>
     </div>
 </body>
