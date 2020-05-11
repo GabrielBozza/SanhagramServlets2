@@ -41,11 +41,7 @@
         </div>
 
         <div class="bottom2">
-      
-            <a class="text" href="./poo/register.html">SIGN UP</a>
-            <a class="text" href="www.google.com">RESET PASSWORD</a>
-            <a class="text" href="www.google.com">SETTINGS</a>
-             
+     
         </div>
 
     </div>

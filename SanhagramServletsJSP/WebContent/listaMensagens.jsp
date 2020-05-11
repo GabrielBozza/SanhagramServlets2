@@ -168,7 +168,7 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
  						document.getElementById('fonte').id="fonte1";
  					}
  					else{
- 						localStorage.setItem("destinatario",document.getElementById('destino').innerHTML);
+ 						//localStorage.setItem("destinatario",document.getElementById('destino').innerHTML);
  						//document.getElementById('titulo').innerHTML=document.getElementById('destino').innerHTML;
  						document.getElementById('fonte').innerHTML='Você';
  						document.getElementById('fonte').style["color"]="#6ebf17";
