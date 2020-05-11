@@ -50,14 +50,14 @@ List<String> listaResultado = (List<String>)request.getAttribute("lista");
 					<div class="tabelaconversas">
 						<table border="0">
  							<tr bgcolor="#ffffff">
- 							<th>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+ 							<th>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
  							</tr>
 						<%
 							for(String s:listaResultado){
 						%>
-							<tr>
+							<tr bgcolor='#deddd9' height='45px'>
  							
- 							<th><a id="verconversa" style="font-size:18px;color:black;font-family:Helvetica;"><%=s%></a>
+ 							<th><a id="verconversa" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"><%=s%></a>
  							<script>
  								localStorage.setItem("conversa",localStorage.getItem("conversa").substring(0,localStorage.getItem("conversa").length-1)+localStorage.getItem("i"));
  								document.getElementById("verconversa").id=localStorage.getItem("conversa");
@@ -65,6 +65,9 @@ List<String> listaResultado = (List<String>)request.getAttribute("lista");
  								localStorage.setItem("i",(parseInt(localStorage.getItem("i"))+1).toString());		
  							</script>
  							</tr>
+ 							<tr></tr>
+ 							<tr></tr>
+ 							<tr></tr>
  							<tr></tr>
  							<tr></tr>
  							<tr></tr>
@@ -89,21 +92,35 @@ List<String> listaResultado = (List<String>)request.getAttribute("lista");
     <div class="div2">
 
         <div class="top2" id="header">
-
-            <div class="nomeconversatop2" id="nomeconversa">
+            <div class="imgconversatop2">
+                <img class="conversatop2" src=".\img\img4.png" alt="Otario">
             </div>
+
+            <div class="nomeconversatop2" id="topuser">
+                Roberta FGV
+            </div>
+            
+            <script>                        	
+            if(document.getElementById('nomeusuario').innerHTML!='null'){	
+        		document.getElementById('topuser').innerHTML=document.getElementById('nomeusuario').innerHTML;
+        	}
+        	else{//PERDEU A REFERENCIA AO USUARIO
+        		document.getElementById('topuser').innerHTML=localStorage.getItem("nomeusuario");
+        	}</script>
+
         </div>
         <jsp:include page="cabecalho.jsp"></jsp:include>
         
-        <div><br><br><br><br><br><br></div>
+        <div></div>
 
-        <div class="bot2" id="escrever">
+        <div class="mid2" id="chat">
+        <br><br>
             <form autocomplete="off" action="enviar_mensagem.jsp" method="post">
             	<input type="hidden" id="remetente" name="remetente">
             	<script> document.getElementById('remetente').value=document.getElementById('nomeusuario').innerHTML</script>
-            	<input class = "textarea" placeholder = "Destinatario" type="text" id="destinatario" name="destinatario" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:250px;color:black;" required> 
-                <input class = "textarea" type="text" id="texto_mensagem" name="texto_mensagem" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:250px;color:black;" required>
-                <input type="submit" value="ENVIAR" style="font-family:Helvetica;background:#deddd9;text-align:center;margin-left:510px;border-radius:6px;border-width:0px;width:90px;height:35px;">
+            	<input class = "textarea" placeholder = "Destinatario" type="text" id="destinatario" name="destinatario" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:-80px;color:black;" required> 
+                <br><input class = "textarea" type="text" id="texto_mensagem" name="texto_mensagem" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:-80px;color:black;" required>
+                <br><input type="submit" value="ENVIAR" style="font-family:Helvetica;background:#deddd9;text-align:center;margin-left:-70px;border-radius:6px;border-width:0px;width:-70px;height:35px;">
             </form>
         </div>
     </div>

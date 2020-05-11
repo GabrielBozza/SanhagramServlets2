@@ -8,11 +8,11 @@
 </head>
 <body>
 <br>
-<a href="home.jsp" style="font-size:18px;color:black;font-family:Helvetica;">&emsp;&emsp;Inicio</a>
-<a href="UsuarioControlador?acao=cad" style="font-size:18px;color:black;font-family:Helvetica;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Cadastro</a>
-<a href="UsuarioControlador?acao=lis" style="font-size:18px;color:black;font-family:Helvetica;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Lista de Usuarios</a>
-<a id="MensagensRecentes" style="font-size:18px;color:black;font-family:Helvetica;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Mensagens recentes</a>
-<a href="autenticador" style="font-size:18px;color:black;font-family:Helvetica;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Sair</a><br><br>
+<a href="home.jsp" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;">&emsp;&emsp;Inicio</a>
+<a href="UsuarioControlador?acao=cad" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Cadastro</a>
+<a href="UsuarioControlador?acao=lis" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Lista de Usuarios</a>
+<a id="MensagensRecentes" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Mensagens recentes</a>
+<a href="autenticador" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Sair</a><br><br>
 
 <script>document.getElementById("MensagensRecentes").href="UsuarioControlador?acao=lisamigos&destinatario="+localStorage.getItem('nomeusuario');</script>
 
