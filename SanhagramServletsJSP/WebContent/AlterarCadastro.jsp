@@ -20,7 +20,7 @@ function formatar(mascara, documento){
 }
 </script>
 <body>
-<jsp:include page="cabecalho.jsp"></jsp:include>
+<jsp:include page="cabecalhoAdmin.jsp"></jsp:include>
 	<%
 		Usuario usu = (Usuario)request.getAttribute("usuario");
 	%>

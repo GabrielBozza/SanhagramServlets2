@@ -48,19 +48,7 @@
                             <img class="iconegrupo1" src=".\img\fundobranco.png" alt="Otario">
                         </div>
 
-                        <div class="textocorpo" id="nomeusuario"><% String a = request.getParameter("nome");
-                        System.out.println(request.getSession().getAttribute("usuAutenticado"));
-                        System.out.println(a);
-                        %><%=a%></div>
-                        
-                        <script>   
-                        	if(document.getElementById('nomeusuario').innerHTML!='null'){
-                        		localStorage.setItem("nomeusuario",document.getElementById('nomeusuario').innerHTML);	
-                        	}
-                        	else{//PERDEU A REFERENCIA AO USUARIO
-                        		document.getElementById('nomeusuario').innerHTML=localStorage.getItem("nomeusuario");
-                        	}
-                        </script>
+                        <div class="textocorpo" id="nomeusuario"><%=request.getSession().getAttribute("usuAutenticado")%></div>
 
                     </div>
 
@@ -80,27 +68,20 @@
                 <img class="conversatop2" src=".\img\img4.png" alt="Otario">
             </div>
 
-            <div class="nomeconversatop2" id="topuser">
-                Usuario
-            </div>
-            
-            <script>                        	
-            if(document.getElementById('nomeusuario').innerHTML!='null'){	
-        		document.getElementById('topuser').innerHTML=document.getElementById('nomeusuario').innerHTML;
-        	}
-        	else{//PERDEU A REFERENCIA AO USUARIO
-        		document.getElementById('topuser').innerHTML=localStorage.getItem("nomeusuario");
-        	}</script>
+            <div class="nomeconversatop2" id="topuser"><%=request.getSession().getAttribute("usuAutenticado")%></div>
 
         </div>
-        <jsp:include page="cabecalho.jsp"></jsp:include>
+        <%if(request.getSession().getAttribute("usuAutenticado").equals("admin")){ %>
+        	<jsp:include page="cabecalhoAdmin.jsp"></jsp:include>
+        <%}else{ %>
+        	<jsp:include page="cabecalho.jsp"></jsp:include>
+        <%}%>	
         
         <div class="mid2" id="chat">         
         <br><br>   
         	<form autocomplete="off" action="enviar_mensagem.jsp" method="post">
-            	<input type="hidden" id="remetente" name="remetente">
-            	<script> document.getElementById('remetente').value=document.getElementById('nomeusuario').innerHTML</script>
-            	<input class = "textarea" placeholder = "Destinatario" type="text" id="destinatario" name="destinatario" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:-80px;color:black;" required> 
+            	<input type="hidden" id="remetente" name="remetente" value=<%=request.getSession().getAttribute("usuAutenticado")%>>
+            	<input class = "textarea" placeholder = "Destinatário" type="text" id="destinatario" name="destinatario" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:-80px;color:black;" required> 
                 <br><input class = "textarea" type="text" id="texto_mensagem" placeholder="Mensagem" name="texto_mensagem" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:-80px;color:black;" required>
                 <br><input type="submit" value="ENVIAR" style="font-family:Helvetica;background:#deddd9;text-align:center;margin-left:-70px;border-radius:6px;border-width:0px;width:90px;height:35px;cursor:pointer;">
             </form></div>

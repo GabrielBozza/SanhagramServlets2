@@ -8,7 +8,7 @@
     <script src="./js/scriptregister.js"></script>
 </head>
 
-<body background="./img/img2.jpg">
+<body background="#ffffff">
 
     <div class="top1"></div>
 
@@ -19,7 +19,6 @@
         </div>
 
         <div class="mid2">
-			<jsp:include page="cabecalho.jsp"></jsp:include>
 			
             <form class="form2" action="salvarCadastro.jsp" method="post">
                 <input class="textarea" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" type="text"

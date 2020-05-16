@@ -11,9 +11,6 @@
 <title>Lista Amigos Recentes</title>
 </head>
 <body>
-<script>localStorage.setItem("conversa","verconversa0");
- 			localStorage.setItem("i","0");
- 	</script>
 <%
 
 //List<Usuario> lista = usuDAO.buscarTodos(usu);
@@ -37,17 +34,7 @@ List<String> listaResultado = (List<String>)request.getAttribute("lista");
                              <div class="imgconversa">
                             <img class="iconegrupo" src=".\img\img4.png" alt="Otario">
                         </div>
-                        <div class="textocorpo" id="nomeusuario"><% String a = request.getParameter("nome");
-                        System.out.println(a);%><%=a%></div>
-                        
-                        <script>   
-                        	if(document.getElementById('nomeusuario').innerHTML!='null'){//PERDEU A REFERENCIA AO USUARIO
-                        		localStorage.setItem("nomeusuario",document.getElementById('nomeusuario').innerHTML);	
-                        	}
-                        	else{//PERDEU A REFERENCIA AO USUARIO
-                        		document.getElementById('nomeusuario').innerHTML=localStorage.getItem("nomeusuario");
-                        	}
-                        </script>
+                        <div class="textocorpo" id="nomeusuario"><%=request.getSession().getAttribute("usuAutenticado")%></div>
                     </div>
 
 					<div class="tabelaconversas">
@@ -60,12 +47,7 @@ List<String> listaResultado = (List<String>)request.getAttribute("lista");
 						%>
 							<tr bgcolor='#deddd9' height='45px'>
  							
- 							<th><a id="verconversa" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"><%=s%></a>
- 							<script>
- 								localStorage.setItem("conversa",localStorage.getItem("conversa").substring(0,localStorage.getItem("conversa").length-1)+localStorage.getItem("i"));
- 								document.getElementById("verconversa").id=localStorage.getItem("conversa");
- 								document.getElementById(localStorage.getItem("conversa")).href="UsuarioControlador?acao=lismsgm&remetente="+localStorage.getItem('nomeusuario')+"&destinatario=<%=s%>";
- 								localStorage.setItem("i",(parseInt(localStorage.getItem("i"))+1).toString());		
+ 							<th><a id="verconversa" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;" href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"><%=s%></a>
  							</script>
  							</tr>
  							<tr></tr>
@@ -99,28 +81,20 @@ List<String> listaResultado = (List<String>)request.getAttribute("lista");
                 <img class="conversatop2" src=".\img\img4.png" alt="Otario">
             </div>
 
-            <div class="nomeconversatop2" id="topuser">
-                Roberta FGV
-            </div>
-            
-            <script>                        	
-            if(document.getElementById('nomeusuario').innerHTML!='null'){	
-        		document.getElementById('topuser').innerHTML=document.getElementById('nomeusuario').innerHTML;
-        	}
-        	else{//PERDEU A REFERENCIA AO USUARIO
-        		document.getElementById('topuser').innerHTML=localStorage.getItem("nomeusuario");
-        	}</script>
-
+            <div class="nomeconversatop2" id="topuser"><%=request.getSession().getAttribute("usuAutenticado")%></div>
+           
         </div>
-        <jsp:include page="cabecalho.jsp"></jsp:include>
-        
+        <%if(request.getSession().getAttribute("usuAutenticado").equals("admin")){ %>
+        	<jsp:include page="cabecalhoAdmin.jsp"></jsp:include>
+        <%}else{ %>
+        	<jsp:include page="cabecalho.jsp"></jsp:include>
+        <%}%>	
         <div></div>
 
         <div class="mid2" id="chat">
         <br><br>
             <form autocomplete="off" action="enviar_mensagem.jsp" method="post">
-            	<input type="hidden" id="remetente" name="remetente">
-            	<script> document.getElementById('remetente').value=document.getElementById('nomeusuario').innerHTML</script>
+            	<input type="hidden" id="remetente" name="remetente" value=<%=request.getSession().getAttribute("usuAutenticado")%>>
             	<input class = "textarea" placeholder = "Destinatario" type="text" id="destinatario" name="destinatario" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:-80px;color:black;" required> 
                 <br><input class = "textarea" type="text" id="texto_mensagem" placeholder="Mensagem" name="texto_mensagem" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:-80px;color:black;" required>
                 <br><input type="submit" value="ENVIAR" style="font-family:Helvetica;background:#deddd9;text-align:center;margin-left:-70px;border-radius:6px;border-width:0px;width:90px;height:35px;cursor:pointer;">

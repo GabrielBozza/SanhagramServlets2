@@ -51,17 +51,7 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
                             <img class="iconegrupo1" src=".\img\fundobranco.png" alt="Otario">
                         </div>
 
-                        <div class="textocorpo" id="nomeusuario"><% String a = request.getParameter("nome");
-                        System.out.println(a);%><%=a%></div>
-                        
-                        <script>   
-                        	if(document.getElementById('nomeusuario').innerHTML!='null'){
-                        		localStorage.setItem("nomeusuario",document.getElementById('nomeusuario').innerHTML);	
-                        	}
-                        	else{//PERDEU A REFERENCIA AO USUARIO
-                        		document.getElementById('nomeusuario').innerHTML=localStorage.getItem("nomeusuario");
-                        	}
-                        </script>
+                        <div class="textocorpo" id="nomeusuario"><%=request.getSession().getAttribute("usuAutenticado")%></div>
 
                     </div>
 
@@ -81,13 +71,14 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
                 <img class="conversatop2" src=".\img\img5.png" alt="Otario">
             </div>
 
-            <div class="nomeconversatop2" id="titulo">
-                Usuario
-            </div>
+            <div class="nomeconversatop2" id="titulo"><%=request.getSession().getAttribute("destinatarioMsgm")%></div>
 
         </div>
-        <jsp:include page="cabecalho.jsp"></jsp:include>
-        
+         <%if(request.getSession().getAttribute("usuAutenticado").equals("admin")){ %>
+        	<jsp:include page="cabecalhoAdmin.jsp"></jsp:include>
+        <%}else{ %>
+        	<jsp:include page="cabecalho.jsp"></jsp:include>
+        <%}%>	
         
         <div class="mid2" id="chat">
         <br>
@@ -107,11 +98,19 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
 				<tr>
 				<td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
 				<td style="color:#f8fbfd"><b id="destino"><%=m.getDestinatario()%></b>
- 				<td><a id="fonte" style="font-family:Helvetica;font-style:normal;text-decoration:none;"><%=m.getRemetente()%></a>
- 				<td>&emsp;&emsp;&emsp;&emsp;&emsp;</td>
- 				<td style="font-family:Helvetica;font-style:normal;width:200px;"><%=m.getTexto_mensagem() %></td>
- 				<td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
- 				<td><a href="UsuarioControlador?remetente=<%=m.getRemetente()%>&destinatario=<%=m.getDestinatario()%>&acao=exmsgm&idmensagem=<%=m.getIdmensagem() %>" style="font-family:Helvetica;font-style:normal;color:red;text-decoration:none;" id="excluir">X</a>
+				<%if(!m.getRemetente().equals(request.getSession().getAttribute("usuAutenticado"))){ %>
+ 					<td><a id="fonte" style="font-family:Helvetica;font-style:normal;text-decoration:none;color:#0da1b5;"><%=m.getRemetente()%></a>
+ 					<td>&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+ 					<td style="font-family:Helvetica;font-style:normal;width:200px;"><%=m.getTexto_mensagem() %></td>
+ 					<td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+ 					<td><a></a>
+ 				<%}else{ %>
+ 					<td><a id="fonte" style="font-family:Helvetica;font-style:normal;text-decoration:none;color:#6ebf17;">Você</a>
+ 					<td>&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+ 					<td style="font-family:Helvetica;font-style:normal;width:200px;"><%=m.getTexto_mensagem() %></td>
+ 					<td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+ 					<td><a href="UsuarioControlador?remetente=<%=m.getRemetente()%>&destinatario=<%=m.getDestinatario()%>&acao=exmsgm&idmensagem=<%=m.getIdmensagem() %>" style="font-family:Helvetica;font-style:normal;color:red;text-decoration:none;" id="excluir">X</a>
+ 				<%} %>
  				</tr>
  				<tr></tr>
  				<tr></tr>
@@ -125,41 +124,19 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
  				<tr></tr>
  				<tr></tr>
  				<tr></tr>
- 				<script>
- 				
- 					if(document.getElementById('fonte').innerHTML!=localStorage.getItem("nomeusuario")){
- 						localStorage.setItem("destinatario",document.getElementById('fonte').innerHTML);
- 						document.getElementById('titulo').innerHTML=document.getElementById('fonte').innerHTML;
- 						document.getElementById('excluir').innerHTML='';
- 						document.getElementById('fonte').style["color"]="#0da1b5";
- 						document.getElementById('excluir').id="excluir1";
- 						document.getElementById('fonte').id="fonte1";
- 					}
- 					else{
- 						//localStorage.setItem("destinatario",document.getElementById('destino').innerHTML);
- 						//document.getElementById('titulo').innerHTML=document.getElementById('destino').innerHTML;
- 						document.getElementById('fonte').innerHTML='Você';
- 						document.getElementById('fonte').style["color"]="#6ebf17";
- 						document.getElementById('excluir').id="excluir1";
- 						document.getElementById('destino').id="destino1";
- 						document.getElementById('fonte').id="fonte1";
- 					}
-
- 				</script>
- 				
 			<%
 				}
 			%>
+
 			</table>
 			<br>
 			
 			    <form autocomplete="off" action="enviar_mensagem.jsp" method="post">
-            	<input type="hidden" id="remetente" name="remetente">
-            	<script> document.getElementById('remetente').value=localStorage.getItem("nomeusuario")</script>
-            	<input type="hidden" id="destinatario" name="destinatario">
-            	<script> document.getElementById('destinatario').value=localStorage.getItem("destinatario")</script>
+            	<input type="hidden" id="remetente" name="remetente" value=<%=request.getSession().getAttribute("usuAutenticado")%>>
+            	<input type="hidden" id="destinatario" name="destinatario" value=<%=request.getSession().getAttribute("destinatarioMsgm")%>>
                 <input class = "textarea" type="text" id="texto_mensagem" placeholder="Mensagem" name="texto_mensagem" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:-80px;color:black;" required>
                 <br><input type="submit" value="ENVIAR" style="font-family:Helvetica;background:#deddd9;text-align:center;margin-left:-70px;border-radius:6px;border-width:0px;width:90px;height:35px;cursor:pointer;">
+                </form>
                 <br><br><br>
         </div>
     </div>
