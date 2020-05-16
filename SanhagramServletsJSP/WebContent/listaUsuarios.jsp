@@ -16,25 +16,25 @@
 //List<Usuario> lista = usuDAO.buscarTodos(usu);
 List<Usuario> listaResultado = (List<Usuario>)request.getAttribute("lista");
 %>
-<table border="1">
- <tr bgcolor="#eaeaea">
- 	<th>Nome</th>
- 	<th>Email</th>
- 	<th>Senha</th>
- 	<th>Data de Nascimento</th>
- 	<th>Excluir</th>
- 	<th>Alterar</th>
+<table border="1" style="font-family:Helvetica;font-size:18px;margin-left:270px;margin-top:60px;padding:0px;">
+ <tr bgcolor="#eaeaea" style="height:35px;padding:5px;">
+ 	<th style="padding:10px;">Nome</th>
+ 	<th style="padding:10px;">Email</th>
+ 	<th style="padding:10px;">Senha</th>
+ 	<th style="padding:10px;">Data de Nascimento</th>
+ 	<th style="padding:10px;">Excluir</th>
+ 	<th style="padding:10px;">Alterar</th>
  </tr>
 <%
 for(Usuario u:listaResultado){
 %>
-<tr>
- 	<th><%=u.getNome() %></th>
- 	<th><%=u.getEmail() %></th>
- 	<th><%=u.getSenha() %></th>
- 	<th><%=u.getDatanasc() %></th>
- 	<th><a href="UsuarioControlador?acao=ex&nomeusu=<%=u.getNome() %>">Excluir</a>
- 	<th><a href="UsuarioControlador?acao=alt&nomeusu=<%=u.getNome()%>">Alterar</a>
+<tr style="height:25px;padding:5px;">
+ 	<th style="padding:10px;"><%=u.getNome() %></th>
+ 	<th style="padding:10px;"><%=u.getEmail() %></th>
+ 	<th style="padding:10px;"><%=u.getSenha() %></th>
+ 	<th style="padding:10px;"><%=u.getDatanasc() %></th>
+ 	<th style="padding:10px;"><a href="UsuarioControlador?acao=ex&nomeusu=<%=u.getNome() %>" style="color:red;text-decoration:none;">Excluir</a>
+ 	<th style="padding:10px;"><a href="UsuarioControlador?acao=alt&nomeusu=<%=u.getNome()%>" style="color:blue;text-decoration:none;">Alterar</a>
  </tr>
 <%
 }

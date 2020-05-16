@@ -9,13 +9,11 @@
 	<title>Página - Login</title>
 </head>
 
-<body background="./img/img.jpg">
-
-    <div class="top1"></div>
+<body>
 
     <div class="middle">
 
-        <div class="top">
+        <div class="top" >
             <img class="displayed" src="./img/logoteste.jpeg" alt="Otario">
         </div>
 
@@ -24,24 +22,13 @@
             <form autocomplete="off" action="autenticador" method="post">
 
                 <div class="mid2">
-                    <input class = "textarea" placeholder = "Nome de usuario" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nome de usuario'" type="text" id="Login" name="nome"> 
-                    <input class = "textarea" placeholder = "Senha"  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Senha'" type="password" id="Password" name="senha">
-                </div>
-
-                <div class="mid3">
-
-                </div>
-
-                <div class="bottom1">
-                    <input class="bt-login" type="submit" value="LOGIN ">
+                    <br><input class = "textarea" placeholder = "Nome de usuario" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nome de usuario'" type="text" id="Login" name="nome"> 
+                    <br><br><input class = "textarea" placeholder = "Senha"  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Senha'" type="password" id="Password" name="senha">
+                	<input class="bt-login" type="submit" value="LOGIN ">
                 </div>
 
             </form>
 
-        </div>
-
-        <div class="bottom2">
-     
         </div>
 
     </div>
