@@ -639,13 +639,7 @@ div.mid3{
     margin-top: 11%;
     opacity: 1;
     
-}
-
-
-    
-
-   
-   
+}  
 
 input.bt-face {
     position: relative;
@@ -818,14 +812,15 @@ div.pesquisa {
         text-decoration:none;
         text-align: center;
         font-family:Arial, Helvetica, sans-serif;
-        color:#c5b6b6;
+        color:black;
         margin-left:5%;
         margin-top:2%;
         
     }
     
     a:link, a:visited {
-        text-decoration: none
+        text-decoration: none;
+        color: black;
         }
     a:hover { 
     	text-decoration: none;

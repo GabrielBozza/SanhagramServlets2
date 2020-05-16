@@ -70,7 +70,7 @@ public class autenticador extends HttpServlet {
 			if (usuAutenticado.getNome().equals("admin")) {
 				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado.getNome());
 				request.setAttribute("lista", lista);
-				request.getRequestDispatcher("homeAdmin.jsp").forward(request, response);
+				request.getRequestDispatcher("home.jsp").forward(request, response);
 			} else {
 				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado.getNome());
 				request.setAttribute("lista", lista);

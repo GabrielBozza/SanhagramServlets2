@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>Somente o admin tem permissão para efetuar essa operação!</h1>
-<a href="home.jsp">Voltar para a página inicial</a>
+<a href="UsuarioControlador?acao=pagInicial">Voltar para a página inicial</a>
 </body>
 </html>

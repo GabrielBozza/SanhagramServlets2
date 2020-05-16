@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>Pode não!!! Volte para as SUAS PRÓPRIAS MENSAGENS!!!</h1>
-<a href="home.jsp">Voltar para a página inicial</a>
+<a href="UsuarioControlador?acao=pagInicial">Voltar para a página inicial</a>
 </body>
 </html>

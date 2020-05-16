@@ -69,9 +69,12 @@ public class UsuarioControlador extends HttpServlet {
 				RequestDispatcher saida = request.getRequestDispatcher("AcessoProibido.jsp");
 				saida.forward(request, response);
 			} else {
+				List<String> listaAmigos = mensagemDAO.buscarRecentes(usuAutenticado);
+				request.setAttribute("listaAmigos", listaAmigos);
 				List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);// DAO FAZ A OPERACAO E
 																							// RETORNA O RESULTADO
 				request.setAttribute("lista", lista);
+				request.setAttribute("conversaAtual", destinatario);
 				RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");
 				saida.forward(request, response);
 			}
@@ -96,7 +99,8 @@ public class UsuarioControlador extends HttpServlet {
 			// RECENTES ACIMA
 
 			String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
-			//String destinatario = request.getParameter("destinatario");// PASSA O PARAMETRO DESTINATARIO TAMBEM
+			// String destinatario = request.getParameter("destinatario");// PASSA O
+			// PARAMETRO DESTINATARIO TAMBEM
 			if (usuAutenticado == null) {
 				RequestDispatcher saida = request.getRequestDispatcher("login.jsp");
 				saida.forward(request, response);
@@ -109,12 +113,16 @@ public class UsuarioControlador extends HttpServlet {
 
 		} else if (acao != null && acao.equals("exmsgm")) {// ACAO=EXCLUIR MENSAGEM
 
+			String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
 			String id = request.getParameter("idmensagem");// PASSA O PARAMETRO DO ID DA MENSAGEM A SER EXCLUIDA
 			mensagemDAO.deletar(Integer.parseInt(id));// DAO FAZ A OPERACAO E RETORNA O RESULTADO
 			String remetente = request.getParameter("remetente");
 			String destinatario = request.getParameter("destinatario");
+			List<String> listaAmigos = mensagemDAO.buscarRecentes(usuAutenticado);
+			request.setAttribute("listaAmigos", listaAmigos);
 			List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);
 			request.setAttribute("lista", lista);
+			request.setAttribute("conversaAtual", destinatario);
 			RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");// PARA VOLTAR A CONVERSA ONDE
 																							// ESTAVA AO DELETAR A MSGM
 			saida.forward(request, response);
