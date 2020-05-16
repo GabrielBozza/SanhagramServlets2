@@ -1,6 +1,8 @@
 package Controlador;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.Usuario;
+import jdbc.MensagemDAO;
 import jdbc.UsuarioDAO2;
 
 /**
@@ -62,10 +65,15 @@ public class autenticador extends HttpServlet {
 			HttpSession sessao = request.getSession();
 			sessao.setAttribute("usuAutenticado", usuAutenticado.getNome());// PASSA COMO ATRIBUTO UM OBJETO USUARIO COM
 																			// O NOME E SENHA FORNECIDOS E JA CHECADOS
+			MensagemDAO mensagemDAO = new MensagemDAO();
 			// sessao.setMaxInactiveInterval(3000);
 			if (usuAutenticado.getNome().equals("admin")) {
+				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado.getNome());
+				request.setAttribute("lista", lista);
 				request.getRequestDispatcher("homeAdmin.jsp").forward(request, response);
 			} else {
+				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado.getNome());
+				request.setAttribute("lista", lista);
 				request.getRequestDispatcher("home.jsp").forward(request, response);
 			}
 		} else {

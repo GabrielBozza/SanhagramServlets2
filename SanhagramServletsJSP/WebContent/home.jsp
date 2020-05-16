@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="bean.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -13,7 +14,9 @@
 </head>
 
 <body>
-
+<%
+	List<String> listaResultado = (List<String>)request.getAttribute("lista");
+%>
     <div class="div1">
 
         <div class="top1">
@@ -49,6 +52,35 @@
                         </div>
 
                         <div class="textocorpo" id="nomeusuario"><%=request.getSession().getAttribute("usuAutenticado")%></div>
+                        <br>
+                        <div class="tabelaconversas">
+						<table border="0">
+ 							<tr bgcolor="#ffffff">
+ 							<th>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+ 							</tr>
+						<%
+							for(String s:listaResultado){
+						%>
+							<tr bgcolor='#deddd9' height='45px'>
+ 							
+ 							<th><a id="verconversa" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;" href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"><%=s%></a>
+ 							</script>
+ 							</tr>
+ 							<tr></tr>
+ 							<tr></tr>
+ 							<tr></tr>
+ 							<tr></tr>
+ 							<tr></tr>
+ 							<tr></tr>
+ 							<tr></tr>
+ 							<tr></tr>
+ 							<tr></tr>
+						<%
+							}
+						%>
+						</table>
+					
+					</div>
 
                     </div>
 

@@ -12,9 +12,7 @@
 </head>
 <body>
 <%
-
-//List<Usuario> lista = usuDAO.buscarTodos(usu);
-List<String> listaResultado = (List<String>)request.getAttribute("lista");
+	List<String> listaResultado = (List<String>)request.getAttribute("lista");
 %>
     <div class="div1">
 

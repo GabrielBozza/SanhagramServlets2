@@ -63,7 +63,8 @@ public class UsuarioControlador extends HttpServlet {
 			String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
 			String remetente = request.getParameter("remetente");
 			String destinatario = request.getParameter("destinatario");
-			request.getSession().setAttribute("destinatarioMsgm",destinatario);//VAI PASSAR ADIANTE A INFO DE QUAL EH A CONVERSA MOSTRADA
+			request.getSession().setAttribute("destinatarioMsgm", destinatario);// VAI PASSAR ADIANTE A INFO DE QUAL EH
+																				// A CONVERSA MOSTRADA
 			if (!usuAutenticado.equals(remetente)) {
 				RequestDispatcher saida = request.getRequestDispatcher("AcessoProibido.jsp");
 				saida.forward(request, response);
@@ -88,6 +89,21 @@ public class UsuarioControlador extends HttpServlet {
 																				// RESULTADO
 				request.setAttribute("lista", lista);
 				RequestDispatcher saida = request.getRequestDispatcher("listaAmigosRecentes.jsp");
+				saida.forward(request, response);
+			}
+
+		} else if (acao != null && acao.equals("pagInicial")) {// ACAO=LISTAR PESSOAS COM AS QUAIS CONVERSEI COM AS MAIS
+			// RECENTES ACIMA
+
+			String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
+			//String destinatario = request.getParameter("destinatario");// PASSA O PARAMETRO DESTINATARIO TAMBEM
+			if (usuAutenticado == null) {
+				RequestDispatcher saida = request.getRequestDispatcher("login.jsp");
+				saida.forward(request, response);
+			} else {
+				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado);
+				request.setAttribute("lista", lista);
+				RequestDispatcher saida = request.getRequestDispatcher("home.jsp");
 				saida.forward(request, response);
 			}
 

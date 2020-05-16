@@ -8,7 +8,7 @@
 </head>
 <body>
 <br>
-<a href="home.jsp" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;margin-left:60px;">Início</a>
+<a  href="UsuarioControlador?acao=pagInicial" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;margin-left:60px;">Início</a>
 <a id="MensagensRecentes" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;margin-left:250px;" href="UsuarioControlador?acao=lisamigos&destinatario=<%=request.getSession().getAttribute("usuAutenticado")%>">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Mensagens recentes</a>
 <a href="autenticador" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;margin-left:250px;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Sair</a><br><br>
 
