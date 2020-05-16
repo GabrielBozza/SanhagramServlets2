@@ -223,6 +223,30 @@ public class UsuarioControlador extends HttpServlet {
 
 			}
 		}
+		else if(acao.equals("cadastrar")){
+			String nome = request.getParameter("nome");
+			String email = request.getParameter("email");
+			String senha = request.getParameter("senha");
+			String data = request.getParameter("data");
+
+			try {
+				
+				Usuario usuario = new Usuario();
+				usuario.setNome(nome);
+				usuario.setEmail(email);
+				usuario.setSenha(senha);
+				usuario.setDatanasc(data);
+
+				UsuarioDAO2 usuarioDAO = new UsuarioDAO2();
+				usuarioDAO.cadastro(usuario);
+				response.sendRedirect("UsuarioControlador?acao=lis");
+			}
+
+			catch (Exception e) {
+				System.out.println(e);
+
+			}
+		}
 	}
 
 }

@@ -16,7 +16,7 @@
             <img class="displayed" src="./img/logoteste.jpeg" alt="Otario">
         </div>
         
-            <form action="salvarCadastro.jsp" method="post">
+            <form action="UsuarioControlador?acao=cadastrar" method="post">
             <div class="mid2">
                 <input class="textarea" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" type="text"
                     id="Email" name="email">
