@@ -18,7 +18,6 @@ List<Usuario> listaResultado = (List<Usuario>)request.getAttribute("lista");
 %>
 <table border="1">
  <tr bgcolor="#eaeaea">
- 	<th>ID</th>
  	<th>Nome</th>
  	<th>Email</th>
  	<th>Senha</th>
@@ -30,13 +29,12 @@ List<Usuario> listaResultado = (List<Usuario>)request.getAttribute("lista");
 for(Usuario u:listaResultado){
 %>
 <tr>
- 	<th><%=u.getId() %></th>
  	<th><%=u.getNome() %></th>
  	<th><%=u.getEmail() %></th>
  	<th><%=u.getSenha() %></th>
  	<th><%=u.getDatanasc() %></th>
- 	<th><a href="UsuarioControlador?acao=ex&id=<%=u.getId() %>">Excluir</a>
- 	<th><a href="UsuarioControlador?acao=alt&id=<%=u.getId()%>">Alterar</a>
+ 	<th><a href="UsuarioControlador?acao=ex&nomeusu=<%=u.getNome() %>">Excluir</a>
+ 	<th><a href="UsuarioControlador?acao=alt&nomeusu=<%=u.getNome()%>">Alterar</a>
  </tr>
 <%
 }

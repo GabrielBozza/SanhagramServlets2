@@ -38,7 +38,7 @@ public class UsuarioDAO2 {
 	
 	public void alterar(Usuario usuario) {
 		
-		String sql = "UPDATE USUARIO SET NOME = ?, EMAIL = ?, SENHA = ?, DATANASC = ?  WHERE IDUSUARIO = ?";
+		String sql = "UPDATE USUARIO SET NOME = ?, EMAIL = ?, SENHA = ?, DATANASC = ?  WHERE NOME = ?";
 		
 		try {
 			PreparedStatement preparador = conexao.prepareStatement(sql);
@@ -46,7 +46,7 @@ public class UsuarioDAO2 {
 			preparador.setString(2, usuario.getEmail());//? 2
 			preparador.setString(3, usuario.getSenha());//? 3
 			preparador.setString(4, usuario.getDatanasc());//? 4
-			preparador.setInt(5, usuario.getId());//? 5
+			preparador.setString(5, usuario.getNome());//? 5
 			
 			preparador.execute();
 			preparador.close();
@@ -61,11 +61,11 @@ public class UsuarioDAO2 {
 	
 	public void deletar(Usuario usuario) {
 		
-		String sql = "DELETE FROM USUARIO WHERE IDUSUARIO = ?";
+		String sql = "DELETE FROM USUARIO WHERE NOME = ?";
 		
 		try {
 			PreparedStatement preparador = conexao.prepareStatement(sql);
-			preparador.setInt(1, usuario.getId());//? 1
+			preparador.setString(1, usuario.getNome());//? 1
 			
 			preparador.execute();
 			preparador.close();
@@ -90,7 +90,7 @@ public class UsuarioDAO2 {
 			while(resultados.next()){
 				Usuario prox_usuario = new Usuario();
 				
-				prox_usuario.setId(resultados.getInt("idusuario"));
+				//prox_usuario.setId(resultados.getInt("idusuario"));
 				prox_usuario.setNome(resultados.getString("nome"));
 				prox_usuario.setEmail(resultados.getString("email"));
 				prox_usuario.setSenha(resultados.getString("senha"));
@@ -107,20 +107,20 @@ public class UsuarioDAO2 {
 		
 	}
 	
-	public Usuario buscarporID(Integer id) {//BUSCA UM USUARIO DADO SEU ID
+	public Usuario buscarporNome(String nome) {//BUSCA UM USUARIO DADO SEU ID
 		
 		Usuario usuRetorno = null;
-		String sql = "SELECT * FROM USUARIO WHERE IDUSUARIO = ?";
+		String sql = "SELECT * FROM USUARIO WHERE NOME = ?";
 		
 		try {
 			PreparedStatement preparador = conexao.prepareStatement(sql);
-			preparador.setInt(1, id);
+			preparador.setString(1, nome);
 			
 			ResultSet resultado = preparador.executeQuery();
 		
 			if (resultado.next()) {
 				usuRetorno = new Usuario();
-				usuRetorno.setId(resultado.getInt("idusuario"));
+				//usuRetorno.setId(resultado.getInt("idusuario"));
 				usuRetorno.setNome(resultado.getString("nome"));
 				usuRetorno.setEmail(resultado.getString("email"));
 				usuRetorno.setSenha(resultado.getString("senha"));
@@ -137,7 +137,7 @@ public class UsuarioDAO2 {
 	
 	public Usuario autenticacao(Usuario usuario) {//VERIFICA SE O USUARIO E SENHA ESTAO NO BD
 		
-		Usuario usuRetorno = null;
+		Usuario usuRetorno = null;//SETA COMO PADRAO O USURETORNO NULO CASO NAO ENCONTRE O USUARIO COM A SENHA DADA
 		String sql = "SELECT * FROM USUARIO WHERE NOME = ? AND SENHA = ?";
 		
 		try {
@@ -149,7 +149,7 @@ public class UsuarioDAO2 {
 			
 			if (resultado.next()) {
 				usuRetorno = new Usuario();
-				usuRetorno.setId(resultado.getInt("idusuario"));
+				//usuRetorno.setId(resultado.getInt("idusuario"));
 				usuRetorno.setNome(resultado.getString("nome"));
 				usuRetorno.setEmail(resultado.getString("email"));
 				usuRetorno.setSenha(resultado.getString("senha"));

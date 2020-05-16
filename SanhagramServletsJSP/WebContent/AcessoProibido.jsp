@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Erro - Login</title>
+<title>Acesso Proibido</title>
 </head>
 <body>
-<h1>Erro - de Login!</h1>
-<a href="login.jsp">Tentar novamente</a>
+<h1>Pode não!!! Volte para as SUAS PRÓPRIAS MENSAGENS!!!</h1>
+<a href="home.jsp">Voltar para a página inicial</a>
 </body>
 </html>

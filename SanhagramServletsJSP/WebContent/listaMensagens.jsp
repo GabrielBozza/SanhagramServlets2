@@ -159,7 +159,7 @@ List<Mensagem> listaResultado = (List<Mensagem>)request.getAttribute("lista");
             	<input type="hidden" id="destinatario" name="destinatario">
             	<script> document.getElementById('destinatario').value=localStorage.getItem("destinatario")</script>
                 <input class = "textarea" type="text" id="texto_mensagem" placeholder="Mensagem" name="texto_mensagem" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:-80px;color:black;" required>
-                <br><input type="submit" value="ENVIAR" style="font-family:Helvetica;background:#deddd9;text-align:center;margin-left:-70px;border-radius:6px;border-width:0px;width:90px;height:35px;">
+                <br><input type="submit" value="ENVIAR" style="font-family:Helvetica;background:#deddd9;text-align:center;margin-left:-70px;border-radius:6px;border-width:0px;width:90px;height:35px;cursor:pointer;">
                 <br><br><br>
         </div>
     </div>

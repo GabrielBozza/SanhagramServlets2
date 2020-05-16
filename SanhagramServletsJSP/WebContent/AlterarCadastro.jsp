@@ -23,15 +23,12 @@ function formatar(mascara, documento){
 <jsp:include page="cabecalho.jsp"></jsp:include>
 	<%
 		Usuario usu = (Usuario)request.getAttribute("usuario");
-		System.out.println(usu.getId());
 	%>
 <form action="UsuarioControlador" method="post">
 		<input type="hidden" name="acao" value="salvar">
 		
-		<label>ID:</label>
-		<input size="5" type="text" name="id" value="<%=usu.getId()%>">
 		<label>Nome:</label> <br>
-		<input type="text" name="nome" value=<%=usu.getNome()%>>
+		<input type="text" name="nome" value=<%=usu.getNome()%> readonly><br>
 		<label>Email:</label> <br>
 		<input type="text" name="email" value="<%=usu.getEmail()%>"><br>
 		<label>Senha:</label> <br>

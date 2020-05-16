@@ -51,12 +51,16 @@ public class autenticador extends HttpServlet {
 		UsuarioDAO2 usuDAO = new UsuarioDAO2();//CRIA UM OBJETO USUARIODAO PARA PODER OBTER INFOS DO BD COM RELACAO AO OBJETO USUARIO
 		Usuario usuAutenticado = usuDAO.autenticacao(usu);//CHAMA A FUNCAO AUTENTICACAO DE USUARIODAO-->RETORNA NULL SE NAO ENCONTRAR O PAR USUARIO,SENHA CORRETO
 		
-		if(usuAutenticado != null){
+		if(usuAutenticado != null){//ENCONTROU O PAR USUARIO,SENHA DADO E O LOGIN FOI BEM SUCEDIDO
 			HttpSession sessao = request.getSession();
-			sessao.setAttribute("usuAutenticado", usuAutenticado);
+			sessao.setAttribute("usuAutenticado", usuAutenticado.getNome());//PASSA COMO ATRIBUTO UM OBJETO USUARIO COM O NOME E SENHA FORNECIDOS E JA CHECADOS 
 			//sessao.setMaxInactiveInterval(3000);
-			
+			if(usuAutenticado.getNome().equals("admin")){
+				request.getRequestDispatcher("homeAdmin.jsp").forward(request, response);
+			}
+			else{
 				request.getRequestDispatcher("home.jsp").forward(request, response);
+			}
 		}else {
 			response.sendRedirect("erroLogin.jsp");//PAGINA QUE INDICA QUE USUARIO E/OU SENHA ESTAO INCORRETOS
 		}

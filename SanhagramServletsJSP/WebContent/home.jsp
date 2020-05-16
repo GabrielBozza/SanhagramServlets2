@@ -49,7 +49,9 @@
                         </div>
 
                         <div class="textocorpo" id="nomeusuario"><% String a = request.getParameter("nome");
-                        System.out.println(a);%><%=a%></div>
+                        System.out.println(request.getSession().getAttribute("usuAutenticado"));
+                        System.out.println(a);
+                        %><%=a%></div>
                         
                         <script>   
                         	if(document.getElementById('nomeusuario').innerHTML!='null'){
@@ -100,7 +102,7 @@
             	<script> document.getElementById('remetente').value=document.getElementById('nomeusuario').innerHTML</script>
             	<input class = "textarea" placeholder = "Destinatario" type="text" id="destinatario" name="destinatario" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:-80px;color:black;" required> 
                 <br><input class = "textarea" type="text" id="texto_mensagem" placeholder="Mensagem" name="texto_mensagem" style="font-family:Helvetica;background:#deddd9;width:50%;text-align:center;margin-left:-80px;color:black;" required>
-                <br><input type="submit" value="ENVIAR" style="font-family:Helvetica;background:#deddd9;text-align:center;margin-left:-70px;border-radius:6px;border-width:0px;width:90px;height:35px;">
+                <br><input type="submit" value="ENVIAR" style="font-family:Helvetica;background:#deddd9;text-align:center;margin-left:-70px;border-radius:6px;border-width:0px;width:90px;height:35px;cursor:pointer;">
             </form></div>
 
         <div class="bot2" id="escrever">
