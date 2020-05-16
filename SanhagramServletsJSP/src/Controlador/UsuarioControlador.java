@@ -44,129 +44,135 @@ public class UsuarioControlador extends HttpServlet {
 		UsuarioDAO2 usuDAO = new UsuarioDAO2();// NOVO OBJETO USUARIODAO
 		MensagemDAO mensagemDAO = new MensagemDAO();// NOVO OBJETO MENSAGEMDAO
 
-		if (acao != null && acao.equals("lis")) {// ACAO=LISTAR TODOS OS USUARIOS CADASTRADOS
+		if (request.getSession().getAttribute("usuAutenticado") == null) {
+			RequestDispatcher saida = request.getRequestDispatcher("login.jsp");
+			saida.forward(request, response);
+		} else {
+			if (acao != null && acao.equals("lis")) {// ACAO=LISTAR TODOS OS USUARIOS CADASTRADOS
 
-			String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
-			if (usuAutenticado.equals("admin")) {
-				List<Usuario> lista = usuDAO.buscarTodos(usu);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
-				request.setAttribute("lista", lista);
-				RequestDispatcher saida = request.getRequestDispatcher("listaUsuarios.jsp");
-				saida.forward(request, response);
-			} else {
-				RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
-				saida.forward(request, response);
-			}
+				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
+				if (usuAutenticado.equals("admin")) {
+					List<Usuario> lista = usuDAO.buscarTodos(usu);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
+					request.setAttribute("lista", lista);
+					RequestDispatcher saida = request.getRequestDispatcher("listaUsuarios.jsp");
+					saida.forward(request, response);
+				} else {
+					RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
+					saida.forward(request, response);
+				}
 
-		} else if (acao != null && acao.equals("lismsgm")) {// ACAO=LISTAR AS MENSAGENS ENTRE UM PARAMETRO REMETENTE E
-															// UM PARAMETRO DESTINATARIO, PASSADOS JUNTO A ACAO
+			} else if (acao != null && acao.equals("lismsgm")) {// ACAO=LISTAR AS MENSAGENS ENTRE UM PARAMETRO REMETENTE
+																// E
+																// UM PARAMETRO DESTINATARIO, PASSADOS JUNTO A ACAO
 
-			String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
-			String remetente = request.getParameter("remetente");
-			String destinatario = request.getParameter("destinatario");
-			request.getSession().setAttribute("destinatarioMsgm", destinatario);// VAI PASSAR ADIANTE A INFO DE QUAL EH
-																				// A CONVERSA MOSTRADA
-			if (!usuAutenticado.equals(remetente)) {
-				RequestDispatcher saida = request.getRequestDispatcher("AcessoProibido.jsp");
-				saida.forward(request, response);
-			} else {
-				List<String> listaAmigos = mensagemDAO.buscarRecentes(usuAutenticado);
-				request.setAttribute("listaAmigos", listaAmigos);
-				List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);// DAO FAZ A OPERACAO E
-																							// RETORNA O RESULTADO
-				request.setAttribute("lista", lista);
-				request.setAttribute("conversaAtual", destinatario);
-				RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");
-				saida.forward(request, response);
-			}
+				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
+				String remetente = request.getParameter("remetente");
+				String destinatario = request.getParameter("destinatario");
+				request.getSession().setAttribute("destinatarioMsgm", destinatario);// VAI PASSAR ADIANTE A INFO DE QUAL
+																					// EH
+																					// A CONVERSA MOSTRADA
+				if (!usuAutenticado.equals(remetente)) {
+					RequestDispatcher saida = request.getRequestDispatcher("AcessoProibido.jsp");
+					saida.forward(request, response);
+				} else {
+					List<String> listaAmigos = mensagemDAO.buscarRecentes(usuAutenticado);
+					request.setAttribute("listaAmigos", listaAmigos);
+					List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);// DAO FAZ A OPERACAO E
+																								// RETORNA O RESULTADO
+					request.setAttribute("lista", lista);
+					request.setAttribute("conversaAtual", destinatario);
+					RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");
+					saida.forward(request, response);
+				}
 
-		} else if (acao != null && acao.equals("lisamigos")) {// ACAO=LISTAR PESSOAS COM AS QUAIS CONVERSEI COM AS MAIS
-																// RECENTES ACIMA
+			} else if (acao != null && acao.equals("lisamigos")) {// ACAO=LISTAR PESSOAS COM AS QUAIS CONVERSEI COM AS
+																	// MAIS
+																	// RECENTES ACIMA
 
-			String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
-			String destinatario = request.getParameter("destinatario");// PASSA O PARAMETRO DESTINATARIO TAMBEM
-			if (!usuAutenticado.equals(destinatario)) {
-				RequestDispatcher saida = request.getRequestDispatcher("AcessoProibido.jsp");
-				saida.forward(request, response);
-			} else {
-				List<String> lista = mensagemDAO.buscarRecentes(destinatario);// DAO FAZ A OPERACAO E RETORNA O
-																				// RESULTADO
-				request.setAttribute("lista", lista);
-				RequestDispatcher saida = request.getRequestDispatcher("listaAmigosRecentes.jsp");
-				saida.forward(request, response);
-			}
+				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
+				String destinatario = request.getParameter("destinatario");// PASSA O PARAMETRO DESTINATARIO TAMBEM
+				if (!usuAutenticado.equals(destinatario)) {
+					RequestDispatcher saida = request.getRequestDispatcher("AcessoProibido.jsp");
+					saida.forward(request, response);
+				} else {
+					List<String> lista = mensagemDAO.buscarRecentes(destinatario);// DAO FAZ A OPERACAO E RETORNA O
+																					// RESULTADO
+					request.setAttribute("lista", lista);
+					RequestDispatcher saida = request.getRequestDispatcher("listaAmigosRecentes.jsp");
+					saida.forward(request, response);
+				}
 
-		} else if (acao != null && acao.equals("pagInicial")) {// ACAO=LISTAR PESSOAS COM AS QUAIS CONVERSEI COM AS MAIS
-			// RECENTES ACIMA
+			} else if (acao != null && acao.equals("pagInicial")) {// ACAO=LISTAR PESSOAS COM AS QUAIS CONVERSEI COM AS
+																	// MAIS
+				// RECENTES ACIMA
 
-			String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
-			// String destinatario = request.getParameter("destinatario");// PASSA O
-			// PARAMETRO DESTINATARIO TAMBEM
-			if (usuAutenticado == null) {
-				RequestDispatcher saida = request.getRequestDispatcher("login.jsp");
-				saida.forward(request, response);
-			} else {
+				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
+				// String destinatario = request.getParameter("destinatario");// PASSA O
+				// PARAMETRO DESTINATARIO TAMBEM
 				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado);
 				request.setAttribute("lista", lista);
 				RequestDispatcher saida = request.getRequestDispatcher("home.jsp");
 				saida.forward(request, response);
-			}
 
-		} else if (acao != null && acao.equals("exmsgm")) {// ACAO=EXCLUIR MENSAGEM
+			} else if (acao != null && acao.equals("exmsgm")) {// ACAO=EXCLUIR MENSAGEM
 
-			String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
-			String id = request.getParameter("idmensagem");// PASSA O PARAMETRO DO ID DA MENSAGEM A SER EXCLUIDA
-			mensagemDAO.deletar(Integer.parseInt(id));// DAO FAZ A OPERACAO E RETORNA O RESULTADO
-			String remetente = request.getParameter("remetente");
-			String destinatario = request.getParameter("destinatario");
-			List<String> listaAmigos = mensagemDAO.buscarRecentes(usuAutenticado);
-			request.setAttribute("listaAmigos", listaAmigos);
-			List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);
-			request.setAttribute("lista", lista);
-			request.setAttribute("conversaAtual", destinatario);
-			RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");// PARA VOLTAR A CONVERSA ONDE
-																							// ESTAVA AO DELETAR A MSGM
-			saida.forward(request, response);
-			// response.sendRedirect("home.jsp");
+				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
+				String id = request.getParameter("idmensagem");// PASSA O PARAMETRO DO ID DA MENSAGEM A SER EXCLUIDA
+				mensagemDAO.deletar(Integer.parseInt(id));// DAO FAZ A OPERACAO E RETORNA O RESULTADO
+				String remetente = request.getParameter("remetente");
+				String destinatario = request.getParameter("destinatario");
+				List<String> listaAmigos = mensagemDAO.buscarRecentes(usuAutenticado);
+				request.setAttribute("listaAmigos", listaAmigos);
+				List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);
+				request.setAttribute("lista", lista);
+				request.setAttribute("conversaAtual", destinatario);
+				RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");// PARA VOLTAR A CONVERSA
+																								// ONDE
+																								// ESTAVA AO DELETAR A
+																								// MSGM
+				saida.forward(request, response);
+				// response.sendRedirect("home.jsp");
 
-		} else if (acao != null && acao.equals("ex")) {// ACAO=EXCLUIR USUARIO
+			} else if (acao != null && acao.equals("ex")) {// ACAO=EXCLUIR USUARIO
 
-			String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
-			if (usuAutenticado.equals("admin")) {
-				String nome = request.getParameter("nomeusu");
-				usu.setNome(nome);
-				usuDAO.deletar(usu);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
-				response.sendRedirect("UsuarioControlador?acao=lis");
+				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
+				if (usuAutenticado.equals("admin")) {
+					String nome = request.getParameter("nomeusu");
+					usu.setNome(nome);
+					usuDAO.deletar(usu);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
+					response.sendRedirect("UsuarioControlador?acao=lis");
+				} else {
+					RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
+					saida.forward(request, response);
+				}
+
+			} else if (acao != null && acao.equals("alt")) {// ACAO=ALTERAR DADOS DE UM USUARIO
+				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
+				if (usuAutenticado.equals("admin")) {
+					String nome = request.getParameter("nomeusu");
+					Usuario usuario = usuDAO.buscarporNome(nome);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
+					request.setAttribute("usuario", usuario);
+					request.getRequestDispatcher("AlterarCadastro.jsp").forward(request, response);
+				}
+				// AlterarCad.jsp
+				else {
+					RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
+					saida.forward(request, response);
+				}
+
+			} else if (acao != null && acao.equals("cad")) {// ACAO=CADASTRAR USUARIO
+				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
+				if (usuAutenticado.equals("admin")) {
+					RequestDispatcher saida = request.getRequestDispatcher("cadastro.jsp");
+					saida.forward(request, response);
+				} else {
+					RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
+					saida.forward(request, response);
+				}
 			} else {
-				RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
+				RequestDispatcher saida = request.getRequestDispatcher("erroLogin.jsp");
 				saida.forward(request, response);
 			}
-
-		} else if (acao != null && acao.equals("alt")) {// ACAO=ALTERAR DADOS DE UM USUARIO
-			String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
-			if (usuAutenticado.equals("admin")) {
-				String nome = request.getParameter("nomeusu");
-				Usuario usuario = usuDAO.buscarporNome(nome);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
-				request.setAttribute("usuario", usuario);
-				request.getRequestDispatcher("AlterarCadastro.jsp").forward(request, response);
-			}
-			// AlterarCad.jsp
-			else {
-				RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
-				saida.forward(request, response);
-			}
-
-		} else if (acao != null && acao.equals("cad")) {// ACAO=CADASTRAR USUARIO
-			String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
-			if (usuAutenticado.equals("admin")) {
-				RequestDispatcher saida = request.getRequestDispatcher("cadastro.jsp");
-				saida.forward(request, response);
-			} else {
-				RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
-				saida.forward(request, response);
-			}
-		} else {
-			RequestDispatcher saida = request.getRequestDispatcher("erroLogin.jsp");
-			saida.forward(request, response);
 		}
 	}
 
@@ -199,14 +205,14 @@ public class UsuarioControlador extends HttpServlet {
 			// Salvando no banco de dados
 			usuDao.alterar(usuario);
 			response.sendRedirect("UsuarioControlador?acao=lis");
-		} else if(acao.equals("enviar")){
-			
+		} else if (acao.equals("enviar")) {
+
 			String remetente = request.getParameter("remetente");
 			String destinatario = request.getParameter("destinatario");
 			String texto_mensagem = request.getParameter("texto_mensagem");
 
 			try {
-				
+
 				Mensagem mensagem = new Mensagem();
 				mensagem.setRemetente(remetente);
 				mensagem.setDestinatario(destinatario);
@@ -214,7 +220,8 @@ public class UsuarioControlador extends HttpServlet {
 
 				MensagemDAO mensagemDAO = new MensagemDAO();
 				mensagemDAO.enviar(mensagem);
-				String prox_pag = "UsuarioControlador?acao=lismsgm&remetente="+remetente+"&destinatario="+destinatario;
+				String prox_pag = "UsuarioControlador?acao=lismsgm&remetente=" + remetente + "&destinatario="
+						+ destinatario;
 				response.sendRedirect(prox_pag);
 			}
 
@@ -222,15 +229,14 @@ public class UsuarioControlador extends HttpServlet {
 				System.out.println(e);
 
 			}
-		}
-		else if(acao.equals("cadastrar")){
+		} else if (acao.equals("cadastrar")) {
 			String nome = request.getParameter("nome");
 			String email = request.getParameter("email");
 			String senha = request.getParameter("senha");
 			String data = request.getParameter("data");
 
 			try {
-				
+
 				Usuario usuario = new Usuario();
 				usuario.setNome(nome);
 				usuario.setEmail(email);
