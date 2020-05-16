@@ -178,7 +178,7 @@
 			</table>
 			<br>
 
-			<form autocomplete="off" action="enviar_mensagem.jsp" method="post">
+			<form autocomplete="off" action="UsuarioControlador?acao=enviar" method="post">
 				<input type="hidden" id="remetente" name="remetente"
 					value=<%=request.getSession().getAttribute("usuAutenticado")%>>
 				<input type="hidden" id="destinatario" name="destinatario"

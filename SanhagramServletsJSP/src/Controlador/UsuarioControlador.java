@@ -178,27 +178,51 @@ public class UsuarioControlador extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {// FORM DE ALTERAR CADASTRO CHAMA O METODO POST DE USUARIOCONTROLADOR
 		// Capturando parametros da tela
+		String acao = request.getParameter("acao");
+		if (acao.equals("alterar")) {
+			// String sid = request.getParameter("id");
+			String snome = request.getParameter("nome");
+			String semail = request.getParameter("email");
+			String ssenha = request.getParameter("senha");
+			String sdata = request.getParameter("data");
 
-		// String sid = request.getParameter("id");
-		String snome = request.getParameter("nome");
-		String semail = request.getParameter("email");
-		String ssenha = request.getParameter("senha");
-		String sdata = request.getParameter("data");
+			// criando objeto usuario e atribuindo valores da tela
+			Usuario usuario = new Usuario();
+			usuario.setNome(snome);
+			usuario.setEmail(semail);
+			usuario.setSenha(ssenha);
+			usuario.setDatanasc(sdata);
+			// usuario.setId(Integer.parseInt(sid));
 
-		// criando objeto usuario e atribuindo valores da tela
-		Usuario usuario = new Usuario();
-		usuario.setNome(snome);
-		usuario.setEmail(semail);
-		usuario.setSenha(ssenha);
-		usuario.setDatanasc(sdata);
-		// usuario.setId(Integer.parseInt(sid));
+			// criando um usuarioDAO
+			UsuarioDAO2 usuDao = new UsuarioDAO2();
+			// Salvando no banco de dados
+			usuDao.alterar(usuario);
+			response.sendRedirect("UsuarioControlador?acao=lis");
+		} else if(acao.equals("enviar")){
+			
+			String remetente = request.getParameter("remetente");
+			String destinatario = request.getParameter("destinatario");
+			String texto_mensagem = request.getParameter("texto_mensagem");
 
-		// criando um usuarioDAO
-		UsuarioDAO2 usuDao = new UsuarioDAO2();
-		// Salvando no banco de dados
-		usuDao.alterar(usuario);
+			try {
+				
+				Mensagem mensagem = new Mensagem();
+				mensagem.setRemetente(remetente);
+				mensagem.setDestinatario(destinatario);
+				mensagem.setTexto_mensagem(texto_mensagem);
 
-		response.sendRedirect("UsuarioControlador?acao=lis");
+				MensagemDAO mensagemDAO = new MensagemDAO();
+				mensagemDAO.enviar(mensagem);
+				String prox_pag = "UsuarioControlador?acao=lismsgm&remetente="+remetente+"&destinatario="+destinatario;
+				response.sendRedirect(prox_pag);
+			}
+
+			catch (Exception e) {
+				System.out.println(e);
+
+			}
+		}
 	}
 
 }

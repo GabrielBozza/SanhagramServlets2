@@ -24,7 +24,7 @@ function formatar(mascara, documento){
 	<%
 		Usuario usu = (Usuario)request.getAttribute("usuario");
 	%>
-<form action="UsuarioControlador" method="post">
+<form action="UsuarioControlador?acao=alterar" method="post">
 		<input type="hidden" name="acao" value="salvar">
 		
 		<label>Nome:</label> <br>

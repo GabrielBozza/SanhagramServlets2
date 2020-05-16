@@ -110,7 +110,7 @@
 
 		<div class="mid2" id="chat">
 			<br> <br>
-			<form autocomplete="off" action="enviar_mensagem.jsp" method="post">
+			<form autocomplete="off" action="UsuarioControlador?acao=enviar" method="post">
 				<input type="hidden" id="remetente" name="remetente"
 					value=<%=request.getSession().getAttribute("usuAutenticado")%>>
 				<input class="textarea" placeholder="Destinatário" type="text"
