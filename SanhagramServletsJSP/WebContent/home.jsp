@@ -18,6 +18,9 @@
 	<%
 		List<String> listaResultado = (List<String>) request.getAttribute("lista");
 	%>
+	<script>
+			localStorage.setItem("modoApagarMensagens","naoApagar");
+	</script>
 	<div class="div1">
 
 		<div class="top1">
@@ -109,7 +112,7 @@
 			}
 		%>
 
-		<div class="mid2" id="chat" style="padding-top:150px;background-image: linear-gradient(to bottom right, #a8ff78,#78ffd6);overflow:hidden;">
+		<div class="mid2" id="chat" style="padding-top:150px;background:#8ee6de;overflow:hidden;">
 			<br> <br>
 			<form autocomplete="off" action="UsuarioControlador?acao=enviar" method="post">
 				<input type="hidden" id="remetente" name="remetente"

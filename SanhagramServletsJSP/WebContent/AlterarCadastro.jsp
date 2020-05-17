@@ -20,6 +20,9 @@ function formatar(mascara, documento){
 }
 </script>
 <body>
+	<script>
+			localStorage.setItem("modoApagarMensagens","naoApagar");
+	</script>
 <jsp:include page="cabecalhoAdmin.jsp"></jsp:include>
 	<%
 		Usuario usu = (Usuario)request.getAttribute("usuario");

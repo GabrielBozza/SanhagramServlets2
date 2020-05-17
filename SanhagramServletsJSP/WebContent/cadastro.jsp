@@ -9,7 +9,9 @@
 </head>
 
 <body>
-
+	<script>
+			localStorage.setItem("modoApagarMensagens","naoApagar");
+	</script>
     <div class="middle">
 
         <div class="top">

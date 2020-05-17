@@ -15,6 +15,9 @@
 	<%
 		List<String> listaResultado = (List<String>) request.getAttribute("lista");
 	%>
+	<script>
+		localStorage.setItem("modoApagarMensagens","naoApagar");
+	</script>
 	<div class="div1">
 
 		<div class="top1">
