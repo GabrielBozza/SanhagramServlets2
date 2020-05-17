@@ -9,9 +9,11 @@
 </head>
 
 <body>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script>
 			localStorage.setItem("modoApagarMensagens","naoApagar");
 	</script>
+	<a href="UsuarioControlador?acao=pagInicial" style="margin-left:20px;font-size:18px;color:white;font-family:Helvetica;text-decoration:none;"><i class="fa fa-fw fa-home"></i> Início</a>
     <div class="middle">
 
         <div class="top">

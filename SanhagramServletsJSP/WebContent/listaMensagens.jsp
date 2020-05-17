@@ -20,6 +20,7 @@
 		List<String> listaAmigos = (List<String>) request.getAttribute("listaAmigos");
 		List<Mensagem> listaResultado = (List<Mensagem>) request.getAttribute("lista");
 	%>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<div class="div1">
 
 		<div class="top1">
@@ -92,7 +93,21 @@
 
 	<div class="div2" ">
 
-		<div class="top2" id="header">
+
+		<%
+			if (request.getSession().getAttribute("usuAutenticado").equals("admin")) {
+		%>
+		<div id="EspacoVazio" style="margin-top:0px;margin-bottom:8px;paddin:5px;float:left;height:15px;width:100%;"></div>
+		<jsp:include page="cabecalhoAdmin.jsp"></jsp:include>
+		<%
+			} else {
+		%>
+		<div id="EspacoVazio" style="margin-top:0px;margin-bottom:8px;paddin:5px;float:left;height:15px;width:100%;"></div>
+		<jsp:include page="cabecalho.jsp"></jsp:include>
+		<%
+			}
+		%>
+		<div class="top2" id="header" style="margin-top:0px;">
 
 			<div class="imgconversatop2">
 				<img class="conversatop2" src=".\img\avatar1.jpg" alt="Otario">
@@ -101,18 +116,6 @@
 			<div class="nomeconversatop2" id="titulo"><%=request.getSession().getAttribute("destinatarioMsgm")%></div>
 
 		</div>
-		<%
-			if (request.getSession().getAttribute("usuAutenticado").equals("admin")) {
-		%>
-		<jsp:include page="cabecalhoAdmin.jsp"></jsp:include>
-		<%
-			} else {
-		%>
-		<jsp:include page="cabecalho.jsp"></jsp:include>
-		<%
-			}
-		%>
-
 		<div class="mid2" id="chat" style="height:100%;background:#8ee6de;overflow-y:scroll;overflow-x:hidden;">
 
 			<br>
@@ -139,7 +142,7 @@
 								<a style="font-weight:700;padding-left:2px;padding-top:2px;float:left;font-size:10px;font-family: Helvetica;color: #4f4f4f;"><%=m.getData_envio().substring(11,16)%></a><br>
 								<a style="width:100%;font-family: Helvetica;margin-left: 0px; color: white;"><%=m.getTexto_mensagem()%></a>
 								<a class="marcador" href="UsuarioControlador?remetente=<%=m.getRemetente()%>&destinatario=<%=m.getDestinatario()%>&acao=exmsgm&idmensagem=<%=m.getIdmensagem()%>"
-							style="visibility:hidden;font-family: Helvetica; font-style: normal; color: red; text-decoration: none;">X</a>
+							style="visibility:hidden;font-family: Helvetica; font-style: normal; color: red; text-decoration: none;"><i class="fa fa-fw fa-trash"></i></a>
 							</div>
 							<div id="BolhaFantasma" style="margin-top:20px;margin-left:20px;float:left;text-align:center;width:850px;height:60px;border:0px;border-radius:15px;padding:5px;"></div> 
 					<%

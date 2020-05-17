@@ -88,7 +88,21 @@
 
 	<div class="div2" style="overflow:hidden;">
 
-		<div class="top2" id="header">
+
+		<%
+			if (request.getSession().getAttribute("usuAutenticado").equals("admin")) {
+		%>
+		<div id="EspacoVazio" style="margin-top:0px;margin-bottom:8px;paddin:5px;float:left;height:15px;width:100%;"></div>
+		<jsp:include page="cabecalhoAdmin.jsp"></jsp:include>
+		<%
+			} else {
+		%>
+		<div id="EspacoVazio" style="margin-top:0px;margin-bottom:8px;paddin:5px;float:left;height:15px;width:100%;"></div>
+		<jsp:include page="cabecalho.jsp"></jsp:include>
+		<%
+			}
+		%>
+		<div class="top2" id="header" style="margin-top:0px;">
 
 			<div class="imgconversatop2">
 				<img class="conversatop2" src=".\img\img4.png" alt="Otario">
@@ -97,18 +111,6 @@
 			<div class="nomeconversatop2" id="topuser"><%=request.getSession().getAttribute("usuAutenticado")%></div>
 
 		</div>
-		<%
-			if (request.getSession().getAttribute("usuAutenticado").equals("admin")) {
-		%>
-		<jsp:include page="cabecalhoAdmin.jsp"></jsp:include>
-		<%
-			} else {
-		%>
-		<jsp:include page="cabecalho.jsp"></jsp:include>
-		<%
-			}
-		%>
-
 		<div class="mid2" id="chat" style="padding-top:150px;background:#8ee6de;">
 			<br> <br>
 			<form autocomplete="off" action="UsuarioControlador?acao=enviar" method="post">
