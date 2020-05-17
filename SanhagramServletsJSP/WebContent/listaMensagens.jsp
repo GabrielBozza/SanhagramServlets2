@@ -63,7 +63,7 @@
 					%>
 
 					<a
-						href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>">
+						href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>" onclick="voltarModoNormal()">
 						<%if(s.equals(request.getAttribute("conversaAtual"))){ %>
 						<div class="conversa" style="background-image: linear-gradient(to bottom right, #ABF1BC, #87CDF6);border:2px solid #2bffb5;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
 						<%}else{ %>
@@ -75,7 +75,7 @@
 							<div class="textocorpo" id="nomeusuario">
 								<a id="verconversa"
 									style="font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;"
-									href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"><%=s%></a>
+									href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>" onclick="voltarModoNormal()"><%=s%></a>
 							</div>
 						</div>
 					</a>
@@ -115,6 +115,7 @@
 		%>
 
 		<div class="mid2" id="chat" style="background:#8ee6de;overflow-y:scroll;overflow-x:hidden;">
+
 			<br>
 
 				<%
@@ -138,9 +139,8 @@
 								<a style="padding-right:2px;padding-top:2px;font-size:13px;font-family: Helvetica;font-weight: bold;text-align:right; float:right; color: #ffffff;">Você</a>
 								<a style="padding-left:2px;padding-top:2px;float:left;font-size:10px;font-family: Helvetica;color: #303030;"><%=m.getData_envio().substring(11,16)%></a><br>
 								<a style="width:100%;font-family: Helvetica;margin-left: 0px; color: #303030;"><%=m.getTexto_mensagem()%></a>
-								<a class="MarcadorExcluir" href="UsuarioControlador?remetente=<%=m.getRemetente()%>&destinatario=<%=m.getDestinatario()%>&acao=exmsgm&idmensagem=<%=m.getIdmensagem()%>"
-							style="visibility:visible;font-family: Helvetica; font-style: normal; color: red; text-decoration: none;"
-							id="excluir">X</a>
+								<a class="marcador" href="UsuarioControlador?remetente=<%=m.getRemetente()%>&destinatario=<%=m.getDestinatario()%>&acao=exmsgm&idmensagem=<%=m.getIdmensagem()%>"
+							style="visibility:hidden;font-family: Helvetica; font-style: normal; color: red; text-decoration: none;">X</a>
 							</div>
 							<div id="BolhaFantasma" style="margin-top:20px;margin-left:20px;float:left;text-align:center;width:850px;height:60px;border:0px;border-radius:15px;padding:5px;"></div> 
 					<%
@@ -149,14 +149,39 @@
 				<%
 					}
 				%>
-				
-				
-			<script>
-				if(localStorage.getItem("modoApagarMensagens")=="Naoapagar"){
-					document.getElementsByClassName("MarcadorExcluir").style.visibility="hidden";
+		<script>
+		if(localStorage.getItem("modoApagarMensagens")=="apagar"){
+			var x = document.getElementsByClassName('marcador');
+			var i;
+			for (i=0;i<x.length;i++){
+				x[i].style.visibility="visible";
+			}
+		}
+		</script>
+		<script>
+		function voltarModoNormal(){
+			if(localStorage.getItem("modoApagarMensagens")=="apagar"){
+				localStorage.setItem("modoApagarMensagens","naoApagar");
+			}
+		}
+		
+		function modoApagar(){
+			var x = document.getElementsByClassName('marcador');
+			var i;
+			if(x[0].style.visibility=="visible"){
+				localStorage.setItem("modoApagarMensagens","naoApagar");
+				for (i=0;i<x.length;i++){
+					x[i].style.visibility="hidden";
 				}
-			</script>
-
+			}
+			else{
+				localStorage.setItem("modoApagarMensagens","apagar");
+				for (i=0;i<x.length;i++){
+					x[i].style.visibility="visible";
+				}
+			}
+		}
+		</script>
 			<form autocomplete="off" action="UsuarioControlador?acao=enviar" method="post">
 			
 				<input type="hidden" id="remetente" name="remetente"

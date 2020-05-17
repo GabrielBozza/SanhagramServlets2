@@ -8,6 +8,7 @@ var topoconversa = document.createElement("div");
 var chat = document.createElement("div");
 var fundoconversa = document.createElement("div");
 
+
 function selecionastarred() {
     var a = document.getElementsByClassName("far fa-star estrelinha1")
     var i;
@@ -123,4 +124,7 @@ function mostrarconversa(valor) {
     topoconversa.background ="red";
     c.appendChild(topoconversa);
 }
+
+
+
 
