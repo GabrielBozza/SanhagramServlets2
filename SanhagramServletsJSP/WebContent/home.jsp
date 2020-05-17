@@ -55,7 +55,7 @@
 						</div>
 						<div class="textocorpo" id="nomeusuario">
 							<a href="UsuarioControlador?acao=pagInicial"
-								style="font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;"><%=request.getSession().getAttribute("usuAutenticado")%></a>
+								style="font-weight:500;font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;"><%=request.getSession().getAttribute("usuAutenticado")%></a>
 						</div>
 					</div>
 
@@ -69,7 +69,7 @@
 								<img class="iconegrupo" src=".\img\avatar1.jpg" alt="Otario">
 							</div>
 							<div class="textocorpo" id="nomeusuario">
-								<a id="verconversa" style="width:100%;font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;" href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"><%=s%></a>
+								<a id="verconversa" style="font-weight:500;width:100%;font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;" href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"><%=s%></a>
 							</div>
 						</div>
 					</a>
@@ -116,12 +116,12 @@
 					value=<%=request.getSession().getAttribute("usuAutenticado")%>>
 				<input class="textarea" placeholder="Destinatário" type="text"
 					id="destinatario" name="destinatario"
-					style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2);font-family: Helvetica; background: #ffffff; width: 50%; text-align: center; margin-left: -80px; color: black;"
+					style="height:40px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);font-family: Helvetica; background: #ffffff; width: 50%; text-align: center; margin-left: -80px; color: black;"
 					required> <br> <input class="textarea" type="text"
 					id="texto_mensagem" placeholder="Mensagem" name="texto_mensagem"
-					style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2);font-family: Helvetica; background: #ffffff; width: 50%; text-align: center; margin-left: -80px; color: black;"
+					style="height:40px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);font-family: Helvetica; background: #ffffff; width: 50%; text-align: center; margin-left: -80px; color: black;"
 					required> <br> <input type="submit" value="ENVIAR"
-					style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2);background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);font-weight:bold;font-family: Helvetica;text-align: center; margin-left: -70px; border-radius: 13px; border-width: 0px; width: 90px; height: 35px; cursor: pointer;color:white;">
+					style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2);background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);font-weight:bold;font-family: Helvetica;text-align: center; margin-left: -70px; border-radius: 13px; border-width: 0px; width: 90px; height: 50px; cursor: pointer;color:white;">
 			</form>
 		</div>
 
