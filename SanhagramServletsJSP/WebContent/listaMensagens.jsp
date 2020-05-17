@@ -181,6 +181,7 @@
 				}
 			}
 		}
+		document.getElementById("chat").scroll(0, document.documentElement.scrollHeight);//VAI PARA A ULTIMA MENSAGEM DA CONVERSA AO CARREGAR A PAGINA
 		</script>
 			<form autocomplete="off" action="UsuarioControlador?acao=enviar" method="post">
 			
