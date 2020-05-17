@@ -36,22 +36,11 @@
 					id="conversaslado" name="conversaslado"
 					onkeyup="selecionatext(this)">
 
-				<div class="bot12">
-					<i id="estrelinha" class="far fa-star" onclick="selecionastarred()"></i>
-
-					<div class="starred">
-						Favoritos
-
-						<div class="minimiza" onclick="minimizatela(this)">-</div>
-
-					</div>
-				</div>
-
 				<div class="barralateral" id="conversas">
 
-					<div class="conversa" style="background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
+					<div class="conversa" style="height:60px;background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
 						<div class="imgconversa">
-							<img class="iconegrupo" src=".\img\img4.png" alt="Otario">
+							<img class="iconegrupo" style="border-radius:40px;" src=".\img\img4.png" alt="Otario">
 						</div>
 						<div class="textocorpo" id="nomeusuario">
 							<a href="UsuarioControlador?acao=pagInicial"
@@ -65,12 +54,12 @@
 
 					<a href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>" onclick="voltarModoNormal()">
 						<%if(s.equals(request.getAttribute("conversaAtual"))){ %>
-						<div class="conversa" style="background-image: linear-gradient(to bottom right, #ABF1BC, #87CDF6);border:2px solid #2bffb5;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
+						<div class="conversa" style="height:60px;background-image: linear-gradient(to bottom right, #ABF1BC, #87CDF6);border:2px solid #2bffb5;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
 						<%}else{ %>
-						<div class="conversa" style="background: #d2f7f3;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
+						<div class="conversa" style="background: #d2f7f3;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);height:60px;">
 						<%}%>
 							<div class="imgconversa">
-								<img class="iconegrupo" src=".\img\avatar1.jpg" alt="Otario">
+								<img class="iconegrupo" style="border-radius:40px;" src=".\img\avatar1.jpg" alt="Otario">
 							</div>
 							<div class="textocorpo" id="nomeusuario">
 								<a id="verconversa"

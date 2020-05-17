@@ -56,16 +56,14 @@ function selecionatext(valor) {
             s[i] = a[i].innerText.toLowerCase();
         }
         if (s[i].startsWith(valor.value.toLowerCase())) {
-            a[i].parentElement.style.height = "8%";
+        	a[i].parentElement.style.height = "60px";
             a[i].parentElement.style.marginBottom = "2%";
             a[i].parentElement.style.visibility = "visible";
-            a[i].parentElement.setAttribute("p", "0");
         }
         else{
             a[i].parentElement.style.height = "0%";
             a[i].parentElement.style.marginBottom = "0%";
             a[i].parentElement.style.visibility = "hidden";
-            a[i].parentElement.setAttribute("p", "1");
         }
     }
 
