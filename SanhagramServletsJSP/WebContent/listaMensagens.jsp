@@ -48,7 +48,7 @@
 
 				<div class="barralateral" id="conversas">
 
-					<div class="conversa" style="background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);">
+					<div class="conversa" style="background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
 						<div class="imgconversa">
 							<img class="iconegrupo" src=".\img\img4.png" alt="Otario">
 						</div>
@@ -65,9 +65,9 @@
 					<a
 						href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>">
 						<%if(s.equals(request.getAttribute("conversaAtual"))){ %>
-						<div class="conversa" style="background-image: linear-gradient(to bottom right, #ABF1BC, #87CDF6);border:2px solid #2bffb5;">
+						<div class="conversa" style="background-image: linear-gradient(to bottom right, #ABF1BC, #87CDF6);border:2px solid #2bffb5;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
 						<%}else{ %>
-						<div class="conversa" style="background: #d2f7f3;">
+						<div class="conversa" style="background: #d2f7f3;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
 						<%}%>
 							<div class="imgconversa">
 								<img class="iconegrupo" src=".\img\avatar1.jpg" alt="Otario">
@@ -124,17 +124,20 @@
 						<%
 							if (!m.getRemetente().equals(request.getSession().getAttribute("usuAutenticado"))) {
 						%>
-							<br><div id="BolhaMensagem" style="margin-top:20px;margin-left:20px;float:left;text-align:center;width:250px;height:60px;border:0px;border-radius:15px;background-image: linear-gradient(to bottom right, #48A9FE, #0BEEF9);padding:5px;">
-								<a style="font-family: Helvetica;font-weight: bold;width:100%;text-align:left; margin-right: 170px; color: #ffe5b0;"><%=m.getRemetente()%></a><br>
-								<a style="font-family: Helvetica;margin-left: 0px; color: black;"><%=m.getTexto_mensagem()%></a>
+							<br><div id="BolhaMensagem" style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2);margin-top:20px;margin-left:20px;float:left;text-align:center;width:250px;height:60px;border:0px;border-radius:15px;background-image: linear-gradient(to bottom right, #48A9FE, #0BEEF9);padding:5px;">
+								<a style="padding-left:2px;padding-top:2px;float:left;font-size:13px;font-family: Helvetica;font-weight: bold;text-align:left; color: #ffe5b0;"><%=m.getRemetente()%></a>
+								<a style="padding-right:2px;padding-top:2px;float:right;font-size:10px;font-family: Helvetica;margin-left: 0px; color: #303030;"><%=m.getData_envio().substring(11,16)%></a><br>
+								<a style="font-family: Helvetica;margin-left: 0px; color: #303030;"><%=m.getTexto_mensagem()%></a>
+								
 							</div>
 							<div id="BolhaFantasma" style="margin-top:20px;margin-right:20px;float:right;text-align:center;width:850px;height:60px;border:0px;border-radius:15px;padding:5px;"></div>
 					<%
  						} else {
  					%>
-							<br><div id="BolhaMensagem" style="overflow:hidden;margin-top:20px;margin-right:20px;float:right;text-align:center;width:250px;height:60px;border:0px;border-radius:15px;background-image: linear-gradient(to bottom right, #02d46e, #41fac6);padding:5px;">
-								<a style="font-family: Helvetica;font-weight: bold;width:100%;text-align:right; margin-left: 190px; color: #ffffff;">Você</a><br>
-								<a style="width:100%;display:inline-block;font-family: Helvetica;margin-left: 0px; color: black;"><%=m.getTexto_mensagem()%></a>
+							<br><div id="BolhaMensagem" style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2);overflow:hidden;margin-top:20px;margin-right:20px;float:right;text-align:center;width:250px;height:60px;border:0px;border-radius:15px;background-image: linear-gradient(to bottom right, #02d46e, #41fac6);padding:5px;">
+								<a style="padding-right:2px;padding-top:2px;font-size:13px;font-family: Helvetica;font-weight: bold;text-align:right; float:right; color: #ffffff;">Você</a>
+								<a style="padding-left:2px;padding-top:2px;float:left;font-size:10px;font-family: Helvetica;color: #303030;"><%=m.getData_envio().substring(11,16)%></a><br>
+								<a style="width:100%;font-family: Helvetica;margin-left: 0px; color: #303030;"><%=m.getTexto_mensagem()%></a>
 								<a class="MarcadorExcluir" href="UsuarioControlador?remetente=<%=m.getRemetente()%>&destinatario=<%=m.getDestinatario()%>&acao=exmsgm&idmensagem=<%=m.getIdmensagem()%>"
 							style="visibility:visible;font-family: Helvetica; font-style: normal; color: red; text-decoration: none;"
 							id="excluir">X</a>
@@ -163,9 +166,9 @@
 					<br><br>
 				<br><input class="textarea" type="text" id="texto_mensagem"
 					placeholder="Mensagem" name="texto_mensagem"
-					style="font-family: Helvetica; background: #ffffff; width: 85%; text-align: center; margin-left: -30px; color: black;margin-top:40px;margin-bottom:90px;"
+					style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2);font-family: Helvetica; background: #ffffff; width: 85%; text-align: center; margin-left: -30px; color: black;margin-top:40px;margin-bottom:90px;"
 					required> <input type="submit" value="ENVIAR"
-					style="margin-bottom:90px;background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);font-weight:bold;font-family: Helvetica;text-align: center; margin-left: 15px; border-radius: 13px; border-width: 0px; width: 90px; height: 35px; cursor: pointer;color:white;">
+					style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2);margin-bottom:90px;background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);font-weight:bold;font-family: Helvetica;text-align: center; margin-left: 15px; border-radius: 13px; border-width: 0px; width: 90px; height: 35px; cursor: pointer;color:white;">
 			</form>
 			<br> <br>
 		</div>

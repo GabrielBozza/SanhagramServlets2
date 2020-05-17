@@ -77,7 +77,7 @@ public class MensagemDAO {
 				prox_mensagem.setRemetente(resultados.getString("remetente"));
 				prox_mensagem.setDestinatario(resultados.getString("destinatario"));
 				prox_mensagem.setTexto_mensagem(resultados.getString("texto_mensagem"));
-				prox_mensagem.setData_envio(resultados.getDate("data_envio"));
+				prox_mensagem.setData_envio(resultados.getString("data_envio"));
 				
 				lista.add(prox_mensagem);				
 			}

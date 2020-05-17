@@ -8,11 +8,11 @@
 </head>
 <body>
 <br>
-<a href="UsuarioControlador?acao=pagInicial" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;">&emsp;&emsp;Início</a>
-<a id="MensagensRecentes" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;" href="UsuarioControlador?acao=lisamigos&destinatario=<%=request.getSession().getAttribute("usuAutenticado")%>">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Cadastro Grupos</a>
-<a href="UsuarioControlador?acao=lis" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Lista de Usuários</a>
-<a href="UsuarioControlador?acao=cad" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Cadastro</a>
-<a href="autenticador" style="font-size:18px;color:black;font-family:Helvetica;text-decoration:none;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Sair</a><br><br>
+<a href="UsuarioControlador?acao=pagInicial" style="margin-left:40px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;">Início</a>
+<a id="MensagensRecentes" style="margin-left:170px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;" href="UsuarioControlador?acao=lisamigos&destinatario=<%=request.getSession().getAttribute("usuAutenticado")%>">Cadastro Grupos</a>
+<a href="UsuarioControlador?acao=lis" style="margin-left:170px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;">Lista de Usuários</a>
+<a href="UsuarioControlador?acao=cad" style="margin-left:170px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;">Cadastro</a>
+<a href="autenticador" style="margin-left:170px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;">Sair</a><br><br>
 
 </body>
 </html>

@@ -1,14 +1,12 @@
 package bean;
 
-import java.util.Date;
-
 public class Mensagem {
 
 	private Integer idmensagens;
 	private String remetente;
 	private String destinatario;
 	private String texto_mensagem;
-	private Date data_envio;
+	private String data_envio;
 
 	public Integer getIdmensagem() {
 		return idmensagens;
@@ -42,11 +40,11 @@ public class Mensagem {
 		this.texto_mensagem = texto_mensagem;
 	}
 	
-	public Date getData_envio() {
+	public String getData_envio() {
 		return data_envio;
 	}
 
-	public void setData_envio(Date data_envio) {
+	public void setData_envio(String data_envio) {
 		this.data_envio = data_envio;
 	}
 
