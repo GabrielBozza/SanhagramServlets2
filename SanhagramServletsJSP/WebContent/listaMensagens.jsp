@@ -48,7 +48,7 @@
 
 				<div class="barralateral" id="conversas">
 
-					<div class="conversa" style="background: #87f5e9;">
+					<div class="conversa" style="background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);">
 						<div class="imgconversa">
 							<img class="iconegrupo" src=".\img\img4.png" alt="Otario">
 						</div>
@@ -65,12 +65,12 @@
 					<a
 						href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>">
 						<%if(s.equals(request.getAttribute("conversaAtual"))){ %>
-						<div class="conversa" style="background: #1af0d8;">
+						<div class="conversa" style="background-image: linear-gradient(to bottom right, #ABF1BC, #87CDF6);border:2px solid #2bffb5;">
 						<%}else{ %>
 						<div class="conversa" style="background: #d2f7f3;">
 						<%}%>
 							<div class="imgconversa">
-								<img class="iconegrupo" src=".\img\img5.png" alt="Otario">
+								<img class="iconegrupo" src=".\img\avatar1.jpg" alt="Otario">
 							</div>
 							<div class="textocorpo" id="nomeusuario">
 								<a id="verconversa"
@@ -91,12 +91,12 @@
 
 	</div>
 
-	<div class="div2">
+	<div class="div2" ">
 
 		<div class="top2" id="header">
 
 			<div class="imgconversatop2">
-				<img class="conversatop2" src=".\img\img5.png" alt="Otario">
+				<img class="conversatop2" src=".\img\avatar1.jpg" alt="Otario">
 			</div>
 
 			<div class="nomeconversatop2" id="titulo"><%=request.getSession().getAttribute("destinatarioMsgm")%></div>
@@ -114,82 +114,53 @@
 			}
 		%>
 
-		<div class="mid2" id="chat">
+		<div class="mid2" id="chat" style="background-image: linear-gradient(to bottom right, #a8ff78,#78ffd6);overflow-y:scroll;overflow-x:hidden;">
 			<br>
-			<table border="0">
-				<tr bgcolor="#f8fbfd">
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
+
 				<%
 					for (Mensagem m : listaResultado) {
 				%>
-				<tr>
-					<td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
-					<td style="color: #f8fbfd"><b id="destino"><%=m.getDestinatario()%></b>
+
 						<%
 							if (!m.getRemetente().equals(request.getSession().getAttribute("usuAutenticado"))) {
 						%>
-					<td><a id="fonte"
-						style="font-family: Helvetica; font-style: normal; text-decoration: none; color: #0da1b5;"><%=m.getRemetente()%></a>
-					<td>&emsp;&emsp;&emsp;&emsp;&emsp;</td>
-					<td
-						style="font-family: Helvetica; font-style: normal; width: 200px;"><%=m.getTexto_mensagem()%></td>
-					<td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
-					<td><a></a> 
+							<br><div id="BolhaMensagem" style="margin-top:20px;margin-left:20px;float:left;text-align:center;width:250px;height:60px;border:0px;border-radius:15px;background-image: linear-gradient(to bottom right, #48A9FE, #0BEEF9);padding:5px;">
+								<a style="font-family: Helvetica;font-weight: bold;width:100%;text-align:left; margin-right: 170px; color: #f7ca60;"><%=m.getRemetente()%></a><br>
+								<a style="font-family: Helvetica;margin-left: 0px; color: black;"><%=m.getTexto_mensagem()%></a>
+							</div>
+							<div id="BolhaFantasma" style="margin-top:20px;margin-right:20px;float:right;text-align:center;width:850px;height:60px;border:0px;border-radius:15px;padding:5px;"></div>
 					<%
  						} else {
  					%>
-					<td><a id="fonte"
-						style="font-family: Helvetica; font-style: normal; text-decoration: none; color: #6ebf17;">Você</a>
-					<td>&emsp;&emsp;&emsp;&emsp;&emsp;</td>
-					<td
-						style="font-family: Helvetica; font-style: normal; width: 200px;"><%=m.getTexto_mensagem()%></td>
-					<td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
-					<td><a
-						href="UsuarioControlador?remetente=<%=m.getRemetente()%>&destinatario=<%=m.getDestinatario()%>&acao=exmsgm&idmensagem=<%=m.getIdmensagem()%>"
-						style="font-family: Helvetica; font-style: normal; color: red; text-decoration: none;"
-						id="excluir">X</a> 
+							<br><div id="BolhaMensagem" style="margin-top:20px;margin-right:20px;float:right;text-align:center;width:250px;height:60px;border:0px;border-radius:15px;background-image: linear-gradient(to bottom right, #02d46e, #41fac6);padding:5px;">
+								<a style="font-family: Helvetica;font-weight: bold;width:100%;text-align:right; margin-left: 190px; color: #f7ca60;">Você</a><br>
+								<a style="font-family: Helvetica;margin-left: 0px; color: black;"><%=m.getTexto_mensagem()%></a>
+								<a href="UsuarioControlador?remetente=<%=m.getRemetente()%>&destinatario=<%=m.getDestinatario()%>&acao=exmsgm&idmensagem=<%=m.getIdmensagem()%>"
+							style="font-family: Helvetica; font-style: normal; color: red; text-decoration: none;"
+							id="excluir">X</a>
+							</div>
+							<div id="BolhaFantasma" style="margin-top:20px;margin-left:20px;float:left;text-align:center;width:850px;height:60px;border:0px;border-radius:15px;padding:5px;"></div> 
 					<%
  						}
  					%>
-				</tr>
-				<tr></tr>
-				<tr></tr>
-				<tr></tr>
-				<tr></tr>
-				<tr></tr>
-				<tr></tr>
-				<tr></tr>
-				<tr></tr>
-				<tr></tr>
-				<tr></tr>
-				<tr></tr>
-				<tr></tr>
 				<%
 					}
 				%>
 
-			</table>
-			<br>
-
 			<form autocomplete="off" action="UsuarioControlador?acao=enviar" method="post">
+			
 				<input type="hidden" id="remetente" name="remetente"
 					value=<%=request.getSession().getAttribute("usuAutenticado")%>>
 				<input type="hidden" id="destinatario" name="destinatario"
 					value=<%=request.getSession().getAttribute("destinatarioMsgm")%>>
-				<input class="textarea" type="text" id="texto_mensagem"
+					<br><br>
+				<br><input class="textarea" type="text" id="texto_mensagem"
 					placeholder="Mensagem" name="texto_mensagem"
-					style="font-family: Helvetica; background: #deddd9; width: 50%; text-align: center; margin-left: -80px; color: black;"
-					required> <br> <input type="submit" value="ENVIAR"
-					style="font-family: Helvetica; background: #deddd9; text-align: center; margin-left: -70px; border-radius: 6px; border-width: 0px; width: 90px; height: 35px; cursor: pointer;">
+					style="font-family: Helvetica; background: #ffffff; width: 85%; text-align: center; margin-left: -30px; color: black;margin-top:40px;margin-bottom:90px;"
+					required> <input type="submit" value="ENVIAR"
+					style="margin-bottom:90px;background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);font-weight:bold;font-family: Helvetica;text-align: center; margin-left: 15px; border-radius: 13px; border-width: 0px; width: 90px; height: 35px; cursor: pointer;color:white;">
 			</form>
-			<br> <br> <br>
+			<br> <br>
 		</div>
 	</div>
 </body>

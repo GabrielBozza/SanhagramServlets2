@@ -47,26 +47,22 @@ function selecionastarred() {
 
 function selecionatext(valor) {
     var a = document.getElementsByClassName("textocorpo");
-    var b = document.getElementsByClassName("textocorpo1")
     var i;
     var selconv = a.length;
 
     for (i = 0; i < selconv; i++) {
         if (a[i].innerText != "") {
-            s1[i] = b[i].innerText.toLowerCase();
             s[i] = a[i].innerText.toLowerCase();
         }
-        if ((s[i].startsWith(valor.value.toLowerCase()) || (s1[i].startsWith(valor.value.toLowerCase()))) && (a[i].parentElement.getAttribute("h") == "0")) {
+        if (s[i].startsWith(valor.value.toLowerCase())) {
             a[i].parentElement.style.height = "8%";
             a[i].parentElement.style.marginBottom = "2%";
-            a[i].parentElement.style.opacity = "1";
             a[i].parentElement.style.visibility = "visible";
             a[i].parentElement.setAttribute("p", "0");
         }
-        else if (!s[i].startsWith(valor.value.toLowerCase()) && (a[i].parentElement.getAttribute("h") == "0")) {
+        else{
             a[i].parentElement.style.height = "0%";
             a[i].parentElement.style.marginBottom = "0%";
-            a[i].parentElement.style.opacity = "0";
             a[i].parentElement.style.visibility = "hidden";
             a[i].parentElement.setAttribute("p", "1");
         }

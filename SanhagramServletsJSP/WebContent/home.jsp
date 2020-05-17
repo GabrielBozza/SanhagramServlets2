@@ -46,7 +46,7 @@
 
 				<div class="barralateral" id="conversas">
 
-					<div class="conversa" style="background: #87f5e9;">
+					<div class="conversa" h="0" p="0" style="background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);">
 						<div class="imgconversa">
 							<img class="iconegrupo" src=".\img\img4.png" alt="Otario">
 						</div>
@@ -62,14 +62,15 @@
 
 					<a
 						href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>">
-						<div class="conversa" style="background: #d2f7f3;">
+						<div class="conversa"  h="0" p="0" style="background: #d2f7f3;">
 							<div class="imgconversa">
-								<img class="iconegrupo" src=".\img\img5.png" alt="Otario">
+								<img class="iconegrupo" src=".\img\avatar1.jpg" alt="Otario">
 							</div>
 							<div class="textocorpo" id="nomeusuario">
 								<a id="verconversa"
 									style="font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;"
 									href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"><%=s%></a>
+							
 							</div>
 						</div>
 					</a>
@@ -85,7 +86,7 @@
 
 	</div>
 
-	<div class="div2">
+	<div class="div2" style="overflow:hidden;">
 
 		<div class="top2" id="header">
 
@@ -108,23 +109,22 @@
 			}
 		%>
 
-		<div class="mid2" id="chat">
+		<div class="mid2" id="chat" style="padding-top:150px;background-image: linear-gradient(to bottom right, #a8ff78,#78ffd6);overflow:hidden;">
 			<br> <br>
 			<form autocomplete="off" action="UsuarioControlador?acao=enviar" method="post">
 				<input type="hidden" id="remetente" name="remetente"
 					value=<%=request.getSession().getAttribute("usuAutenticado")%>>
 				<input class="textarea" placeholder="Destinatário" type="text"
 					id="destinatario" name="destinatario"
-					style="font-family: Helvetica; background: #deddd9; width: 50%; text-align: center; margin-left: -80px; color: black;"
+					style="font-family: Helvetica; background: #ffffff; width: 50%; text-align: center; margin-left: -80px; color: black;"
 					required> <br> <input class="textarea" type="text"
 					id="texto_mensagem" placeholder="Mensagem" name="texto_mensagem"
-					style="font-family: Helvetica; background: #deddd9; width: 50%; text-align: center; margin-left: -80px; color: black;"
+					style="font-family: Helvetica; background: #ffffff; width: 50%; text-align: center; margin-left: -80px; color: black;"
 					required> <br> <input type="submit" value="ENVIAR"
-					style="font-family: Helvetica; background: #deddd9; text-align: center; margin-left: -70px; border-radius: 6px; border-width: 0px; width: 90px; height: 35px; cursor: pointer;">
+					style="background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);font-weight:bold;font-family: Helvetica;text-align: center; margin-left: -70px; border-radius: 13px; border-width: 0px; width: 90px; height: 35px; cursor: pointer;color:white;">
 			</form>
 		</div>
 
-		<div class="bot2" id="escrever"></div>
 	</div>
 </body>
 
