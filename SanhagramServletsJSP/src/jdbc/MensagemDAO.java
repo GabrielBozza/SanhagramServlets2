@@ -38,6 +38,30 @@ public class MensagemDAO {
 		
 	}
 	
+	public void enviarParaGrupo(Mensagem mensagem) {//ENVIAR MENSAGEM CASO O DESTINATARIO EXISTA
+		
+		String sql ="INSERT INTO sanhagram.MENSAGENS (remetente, destinatario, texto_mensagem,flag_grupo)\r\n" + 
+		"SELECT ?,?,?,'1'\r\n" + 
+		"WHERE EXISTS (SELECT NOME FROM sanhagram.USUARIO WHERE NOME = ?);";
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql);
+			preparador.setString(1, mensagem.getRemetente());//? 1
+			preparador.setString(2, mensagem.getDestinatario());//? 2
+			preparador.setString(3, mensagem.getTexto_mensagem());//? 3
+			preparador.setString(4, mensagem.getDestinatario());//? 4
+			
+			preparador.execute();
+			preparador.close();
+			
+			System.out.println("Mensagem enviada com sucesso!");
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+		}
+		
+	}
+	
 	public void deletar(Integer idmensagem) {//EXCLUI MENSAGEM DADO SEU ID
 		
 		String sql = "DELETE FROM MENSAGENS WHERE IDMENSAGENS = ?";

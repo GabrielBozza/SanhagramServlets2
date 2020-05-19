@@ -142,13 +142,14 @@
 			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
 			</tr>
 		</table>
-		
-			<form autocomplete="off" action="UsuarioControlador?acao=cadastrarGrupo" method="post">			
+			<form autocomplete="off" action="UsuarioControlador?acao=cadastrarGrupo" method="post">
+				<input type="hidden" id="listaNovoGrupo" name="listaNovoGrupo" value="">			
 				<br><input class="textarea" type="text" id="texto_mensagem"
 					placeholder="Nome do grupo" name="nome_grupo"
 					style="margin-left:50px;border:0px;border-radius:13px;position:relative; width: 78%;height:50px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);font-size:16px;font-family: Helvetica; background: #ffffff;text-align: center;color: black;"
 					required> <input type="submit" value="CRIAR"
-					style="position:relative;width: 90px; height: 50px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);font-weight:bold;font-family: Helvetica;text-align: center;border-radius: 13px; border-width: 0px;cursor: pointer;color:white;">
+					style="position:relative;width: 90px; height: 50px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);font-weight:bold;font-family: Helvetica;text-align: center;border-radius: 13px; border-width: 0px;cursor: pointer;color:white;"
+					>
 			</form>
 	</div>
 </div>
@@ -161,6 +162,7 @@
 			   	for (var j = 0, col; col = row.cells[j]; j++) {
 			   		if(col.innerHTML==''){
 			   			col.innerHTML=novoUsuario;
+			   			document.getElementById("listaNovoGrupo").value=document.getElementById("listaNovoGrupo").value+novoUsuario+"|";
 			   			i=8;//tabela vazia tem 9 linhas (0<=i<9)
 			   			break;
 			   		}

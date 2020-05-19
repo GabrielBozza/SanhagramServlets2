@@ -254,6 +254,8 @@ public class UsuarioControlador extends HttpServlet {
 			}
 		}else if (acao.equals("cadastrarGrupo")) {
 			String nome_grupo = request.getParameter("nome_grupo");
+			String integrantes_grupo = request.getParameter("listaNovoGrupo").substring(0, request.getParameter("listaNovoGrupo").length()-1);//COMPLICADO PASSAR ARRAY DE JS PARA JAVA-->STRING COM DELIMITADORES
+			String integrantes[] = integrantes_grupo.split("\\|");
 			
 			try {
 
@@ -262,13 +264,36 @@ public class UsuarioControlador extends HttpServlet {
 
 				UsuarioDAO2 usuarioDAO = new UsuarioDAO2();
 				usuarioDAO.cadastroGrupo(usuario);
-				response.sendRedirect("UsuarioControlador?acao=lis");
+				
 			}
 
 			catch (Exception e) {
 				System.out.println(e);
 
 			}
+			
+			try {
+
+				
+				for(String remetente : integrantes) {
+					 	Mensagem mensagem = new Mensagem();
+						mensagem.setRemetente(remetente);
+						mensagem.setDestinatario(nome_grupo);
+						mensagem.setTexto_mensagem(remetente+" entrou no grupo");
+
+						MensagemDAO mensagemDAO = new MensagemDAO();
+						mensagemDAO.enviarParaGrupo(mensagem);
+						
+				}
+
+			}
+
+			catch (Exception e) {
+				System.out.println(e);
+
+			}
+			
+			response.sendRedirect("UsuarioControlador?acao=lis");
 		}
 	}
 
