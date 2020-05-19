@@ -95,7 +95,7 @@
 
 	</div>
 
-	<div class="div2"">
+	<div class="div2">
 
 
 		<%
@@ -137,7 +137,7 @@
 
 		</div>
 		<div class="mid2" id="chat"
-			style="height: 100%; background: #8ee6de; overflow-y: scroll; overflow-x: hidden;">
+			style="height: 100%; background: #8ee6de; overflow-y: scroll;">
 
 			<br>
 
@@ -151,7 +151,7 @@
 			<br>
 			<div style="width: 100%; float: right;">
 				<div id="BolhaMensagem"
-					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); margin-top: 20px; margin-left: 20px; float: left; text-align: center; border: 0px; border-radius: 15px; background-image: linear-gradient(to bottom right, #48A9FE, #0BEEF9); padding: 8px;">
+					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);overflow:hidden; margin-top: 20px; margin-left: 20px; float: left; text-align: center; border: 0px; border-radius: 15px; background-image: linear-gradient(to bottom right, #48A9FE, #0BEEF9); padding: 8px;">
 					<a
 						style="padding-left: 2px; padding-top: 2px; float: left; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: left; color: #ffe5b0;"><%=m.getRemetente()%></a>
 					<a
@@ -164,14 +164,14 @@
 			%>
 			<br>
 			<div style="width: 100%; float: left;">
-				<div style="float: right; margin-top: 35px; margin-right: 3px;">
+				<div style="float: right; margin-top: 35px; margin-right: 1%;">
 					<a class="marcador"
 						href="UsuarioControlador?remetente=<%=m.getRemetente()%>&destinatario=<%=m.getDestinatario()%>&acao=exmsgm&idmensagem=<%=m.getIdmensagem()%>"
 						style="font-size: 20px; visibility: hidden; font-family: Helvetica; font-style: normal; color: red; text-decoration: none;"><i
 						class="fa fa-fw fa-trash"></i></a>
 				</div>
 				<div id="BolhaMensagem"
-					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-right: 0px; float: right; text-align: center; border: 0px; border-radius: 15px; background-image: linear-gradient(to bottom right, #02d46e, #41fac6); padding: 8px;">
+					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-right: 2px; float: right; text-align: center; border: 0px; border-radius: 15px; background-image: linear-gradient(to bottom right, #02d46e, #41fac6); padding: 8px;">
 					<a
 						style="padding-left: 12px; padding-right: 2px; padding-top: 2px; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: right; float: right; color: #96020b;">Você</a>
 					<a
@@ -188,7 +188,7 @@
 				}
 			%>
 			<button onclick="location.reload();"
-				style="border: none; outline: none; position: fixed; bottom: 570px; right: 630px; width: 40px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border-width: 0px; cursor: pointer; color: white;">
+				style="border: none; outline: none; position: fixed; bottom: 78.5%; right: 42%; width: 40px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border-width: 0px; cursor: pointer; color: white;">
 				<i class="fa fa-fw fa-refresh"></i>
 			</button>
 			<% if(request.getSession().getAttribute("usuAutenticado").equals("admin")){%>
@@ -245,9 +245,9 @@
 				<br> <br>
 				<input class="textarea" type="text" id="texto_mensagem"
 					placeholder="Mensagem" name="texto_mensagem"
-					style="position: fixed; width: 70%; bottom: -50px; right: 150px; height: 35px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); font-family: Helvetica; background: #ffffff; text-align: center; color: black;"
+					style="position: fixed; width: 70%; bottom: -50px; right: 9.5%; height: 35px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); font-family: Helvetica; background: #ffffff; text-align: center; color: black;"
 					required> <input type="submit" value="ENVIAR"
-					style="position: fixed; bottom: 12px; right: 50px; width: 90px; height: 50px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 13px; border-width: 0px; cursor: pointer; color: white;">
+					style="position: fixed; bottom: 1.5%; right: 3%; width: 6%; height: 50px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 13px; border-width: 0px; cursor: pointer; color: white;">
 			</form>
 			<br> <br>
 		</div>

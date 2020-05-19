@@ -210,17 +210,29 @@ public class MensagemDAO {
 	
 	public List<String> buscarRecentes(String destinatario) {//BUSCA E RETORNA OS AMIGOS QUE CONVERSARAM COM O USUARIO ORDENADOS DO MAIS RECENTE PARA O MAIS ANTIGO
 		
-		String sql = "SELECT DISTINCT amigo FROM (SELECT REMETENTE AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS\r\n" + 
-				"WHERE DESTINATARIO=?\r\n" + 
-				"UNION ALL\r\n" + 
-				"SELECT DESTINATARIO AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS\r\n" + 
-				"WHERE REMETENTE=? AND DESTINATARIO!='ADefinirUsuario' ORDER BY DATA_ENVIO DESC) AS amigo";
+		//String sql = "SELECT DISTINCT amigo FROM (SELECT REMETENTE AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS\r\n" + 
+		//		"WHERE DESTINATARIO=?\r\n" + 
+		//		"UNION ALL\r\n" + 
+		//		"SELECT DESTINATARIO AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS\r\n" + 
+		//		"WHERE REMETENTE=? AND DESTINATARIO!='ADefinirUsuario' ORDER BY DATA_ENVIO DESC) AS amigo";-->NAO ATUALIZA QUANDO OUTRA PESSOA MANDA ALGO PARA O GRUPO
+		
+		
+		String sql = "SELECT DISTINCT amigo FROM (SELECT REMETENTE AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS \r\n" + 
+				"				WHERE DESTINATARIO=?\r\n" + 
+				"				UNION ALL\r\n" + 
+				"				SELECT DESTINATARIO AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS\r\n" + 
+				"				WHERE REMETENTE=? AND DESTINATARIO!='ADefinirUsuario' \r\n" + 
+				"                UNION ALL\r\n" + 
+				"                SELECT DESTINATARIO AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS WHERE FLAG_GRUPO='1' AND DESTINATARIO IN (SELECT DESTINATARIO FROM sanhagram.MENSAGENS\r\n" + 
+				"                WHERE REMETENTE=? AND FLAG_GRUPO='1')\r\n" + 
+				"                ORDER BY DATA_ENVIO DESC) AS amigo";
 		List<String> lista = new ArrayList<String>();
 		
 		try {
 			PreparedStatement preparador = conexao.prepareStatement(sql);
 			preparador.setString(1, destinatario);//? 1
 			preparador.setString(2, destinatario);//? 1
+			preparador.setString(3, destinatario);//? 1
 			ResultSet resultados = preparador.executeQuery();
 			
 			while(resultados.next()){
