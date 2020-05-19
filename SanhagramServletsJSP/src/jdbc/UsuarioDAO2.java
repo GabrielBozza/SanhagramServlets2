@@ -14,7 +14,7 @@ public class UsuarioDAO2 {
 	
 	private Connection conexao = Conexao_BD.getConnection();
 	
-	public void cadastro(Usuario usuario) {
+	public String cadastro(Usuario usuario) {
 		
 		String sql = "INSERT INTO USUARIO (nome, email, senha, datanasc) values (?,?,?,?)";
 		
@@ -29,9 +29,11 @@ public class UsuarioDAO2 {
 			preparador.close();
 			
 			System.out.println("Cadastrado com sucesso!");
+			return "cadastradoComSucesso";
 		}
 		catch (SQLException e ){
 			System.out.println("Erro - " + e.getMessage());
+			return "Erro";
 		}
 		
 	}

@@ -327,8 +327,14 @@ public class UsuarioControlador extends HttpServlet {
 				usuario.setDatanasc(data);
 
 				UsuarioDAO2 usuarioDAO = new UsuarioDAO2();
-				usuarioDAO.cadastro(usuario);
-				response.sendRedirect("UsuarioControlador?acao=lis&grupo=usuario");
+				String resultadocadastro=usuarioDAO.cadastro(usuario);
+				if(resultadocadastro.equals("cadastradoComSucesso")) {
+					response.sendRedirect("UsuarioControlador?acao=lis&grupo=usuario");
+				}
+				else {
+					RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
+					saida.forward(request, response);
+				}
 			}
 
 			catch (Exception e) {

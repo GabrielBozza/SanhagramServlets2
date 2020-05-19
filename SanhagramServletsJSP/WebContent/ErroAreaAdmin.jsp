@@ -12,5 +12,8 @@
 	</script>
 <h1>Somente o admin tem permissão para efetuar essa operação!</h1>
 <a href="UsuarioControlador?acao=pagInicial">Voltar para a página inicial</a>
+<script>
+alert("Algum erro ocorreu: Cadastro já existente, login incorreto ou outros erros!!!")
+</script>
 </body>
 </html>
