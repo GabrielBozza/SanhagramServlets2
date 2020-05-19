@@ -186,7 +186,7 @@
 				<input type="hidden" id="remetente" name="remetente"
 					value=<%=request.getSession().getAttribute("usuAutenticado")%>>
 				<input type="hidden" id="destinatario" name="destinatario"
-					value=<%=request.getSession().getAttribute("destinatarioMsgm")%>>
+					value=<%=request.getAttribute("conversaAtual")%>>
 					<br><br>
 				<br><input class="textarea" type="text" id="texto_mensagem"
 					placeholder="Mensagem" name="texto_mensagem"

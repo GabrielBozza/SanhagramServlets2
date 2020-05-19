@@ -41,7 +41,7 @@ public class MensagemDAO {
 	public void enviarParaGrupo(Mensagem mensagem) {//ENVIAR MENSAGEM CASO O DESTINATARIO EXISTA
 		
 		String sql ="INSERT INTO sanhagram.MENSAGENS (remetente, destinatario, texto_mensagem,flag_grupo)\r\n" + 
-		"SELECT ?,?,?,'1'\r\n" + 
+		"SELECT ?,?,?,1\r\n" + 
 		"WHERE EXISTS (SELECT NOME FROM sanhagram.USUARIO WHERE NOME = ?);";
 		
 		try {
@@ -102,6 +102,7 @@ public class MensagemDAO {
 				prox_mensagem.setDestinatario(resultados.getString("destinatario"));
 				prox_mensagem.setTexto_mensagem(resultados.getString("texto_mensagem"));
 				prox_mensagem.setData_envio(resultados.getString("data_envio"));
+				prox_mensagem.setFlag_grupo(resultados.getInt("flag_grupo"));
 				
 				lista.add(prox_mensagem);				
 			}
@@ -113,6 +114,38 @@ public class MensagemDAO {
 		return lista;
 		
 	}
+	
+	public List<Mensagem> buscarMensagensGrupo(String remetente, String destinatario) {//BUSCA E RETORNA TODAS AS MENSAGENS ENTRE DUAS PESSOAS E ORDENA POR DATA_ENVIO
+		
+		String sql = "SELECT * FROM MENSAGENS WHERE DESTINATARIO=? ORDER BY DATA_ENVIO";
+		List<Mensagem> lista = new ArrayList<Mensagem>();
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql);
+			preparador.setString(1, destinatario);//? 1
+			ResultSet resultados = preparador.executeQuery();
+			
+			while(resultados.next()){
+				Mensagem prox_mensagem = new Mensagem();
+				
+				prox_mensagem.setIdmensagem(resultados.getInt("idmensagens"));
+				prox_mensagem.setRemetente(resultados.getString("remetente"));
+				prox_mensagem.setDestinatario(resultados.getString("destinatario"));
+				prox_mensagem.setTexto_mensagem(resultados.getString("texto_mensagem"));
+				prox_mensagem.setData_envio(resultados.getString("data_envio"));
+				prox_mensagem.setFlag_grupo(resultados.getInt("flag_grupo"));
+				
+				lista.add(prox_mensagem);				
+			}
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+		}
+		
+		return lista;
+		
+	}
+	
 	
 	public List<String> buscarRecentes(String destinatario) {//BUSCA E RETORNA OS AMIGOS QUE CONVERSARAM COM O USUARIO ORDENADOS DO MAIS RECENTE PARA O MAIS ANTIGO
 		

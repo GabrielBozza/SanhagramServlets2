@@ -182,4 +182,32 @@ public class UsuarioDAO2 {
 		}
 		return usuRetorno;
 	}
+	
+	public String tipoUsuario(String destinatario) {//VERIFICA SE O USUARIO E SENHA ESTAO NO BD
+		String tipo = "";
+		String sql = "SELECT FLAG_GRUPO FROM USUARIO WHERE NOME = ?";//GRUPOS NAO PODEM FAZER LOGIN
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql);
+			preparador.setString(1, destinatario);
+			
+			ResultSet resultado = preparador.executeQuery();
+			
+			if(resultado.next()) {
+				if (resultado.getInt("flag_grupo")==1) {
+					//System.out.println("1");
+					tipo = "grupo";
+				}
+				else {
+					tipo= "usuario";
+					//System.out.println("0");
+				}
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Erro de SQL:" + e.getMessage());
+		}
+		return tipo;
+	}
+	
 }

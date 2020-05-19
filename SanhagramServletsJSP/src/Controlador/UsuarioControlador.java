@@ -77,12 +77,23 @@ public class UsuarioControlador extends HttpServlet {
 				} else {
 					List<String> listaAmigos = mensagemDAO.buscarRecentes(usuAutenticado);
 					request.setAttribute("listaAmigos", listaAmigos);
-					List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);// DAO FAZ A OPERACAO E
-																								// RETORNA O RESULTADO
-					request.setAttribute("lista", lista);
-					request.setAttribute("conversaAtual", destinatario);
-					RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");
-					saida.forward(request, response);
+					
+					if(usuDAO.tipoUsuario(destinatario)=="grupo") {
+						List<Mensagem> lista = mensagemDAO.buscarMensagensGrupo(remetente, destinatario);
+						request.setAttribute("lista", lista);
+						request.setAttribute("conversaAtual", destinatario);
+						RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");
+						saida.forward(request, response);
+					}
+					else {
+						List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);// DAO FAZ A OPERACAO E
+						// RETORNA O RESULTADO
+						request.setAttribute("lista", lista);
+						request.setAttribute("conversaAtual", destinatario);
+						RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");
+						saida.forward(request, response);
+					}
+
 				}
 
 			} else if (acao != null && acao.equals("lisamigos")) {// ACAO=LISTAR PESSOAS COM AS QUAIS CONVERSEI COM AS
@@ -210,6 +221,7 @@ public class UsuarioControlador extends HttpServlet {
 			String remetente = request.getParameter("remetente");
 			String destinatario = request.getParameter("destinatario");
 			String texto_mensagem = request.getParameter("texto_mensagem");
+			
 
 			try {
 
@@ -219,10 +231,21 @@ public class UsuarioControlador extends HttpServlet {
 				mensagem.setTexto_mensagem(texto_mensagem);
 
 				MensagemDAO mensagemDAO = new MensagemDAO();
-				mensagemDAO.enviar(mensagem);
+				UsuarioDAO2 usuDAO = new UsuarioDAO2();
+				
+				if(usuDAO.tipoUsuario(destinatario)=="grupo") {
+				mensagemDAO.enviarParaGrupo(mensagem);
 				String prox_pag = "UsuarioControlador?acao=lismsgm&remetente=" + remetente + "&destinatario="
 						+ destinatario;
 				response.sendRedirect(prox_pag);
+				}
+				else {
+					mensagemDAO.enviar(mensagem);
+					String prox_pag = "UsuarioControlador?acao=lismsgm&remetente=" + remetente + "&destinatario="
+							+ destinatario;
+					response.sendRedirect(prox_pag);
+					
+				}
 			}
 
 			catch (Exception e) {
