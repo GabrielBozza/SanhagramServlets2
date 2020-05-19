@@ -21,9 +21,9 @@
 
 <div style="width:100%;">
 	<div style="float:left;width:40%;">
-		<table border="1" id="tabelaUsuarios"
-		style="font-family: Helvetica; font-size: 18px;  margin-top: 60px; padding: 0px;">
-			<tr bgcolor="#eaeaea" style="height: 35px; padding: 5px;">
+		<table border="0" id="tabelaUsuarios" border-radius="13px"
+		style="font-family: Helvetica; font-size: 18px;  margin-top: 50px; padding: 0px;margin-left:60px;border-radius:13px;background:#8ee6de;">
+			<tr style="height: 35px; padding: 5px;">
 			<th style="padding: 10px;">Nome</th>
 			<th style="padding: 10px;">Email</th>
 			<th style="padding: 10px;">Adicionar</th>
@@ -32,11 +32,11 @@
 			for (Usuario u : listaResultado) {
 		%>
 			<tr style="height: 25px; padding: 5px;">
-			<th style="padding: 10px;"><%=u.getNome()%></th>
-			<th style="padding: 10px;"><%=u.getEmail()%></th>
-			<th style="padding: 10px;"><a href="#ADDGRUPO"
+			<td style="padding: 10px;"><%=u.getNome()%></td>
+			<td style="padding: 10px;"><%=u.getEmail()%></td>
+			<td style="padding: 10px;text-align:center;"><a href="#ADDGRUPO"
 		 onclick="addGrupo('<%=u.getNome()%>')"
-			style="color: green; text-decoration: none;">+</a>
+			style="color: #0594fa; text-decoration: none;">+</a></td>
 			</tr>
 		<%
 			}
@@ -45,10 +45,10 @@
 	</div>
 	
 	
-	<div style="float:right;width:60%;height:550px;border-radius:13px;background:#8ee6de;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
+	<div style="float:right;width:60%;height:510px;border-radius:13px;background:#8ee6de;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);margin-top:50px;">
 	<div style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2);background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);color:white;font-weight:600;font-family: Helvetica; font-size: 22px;text-align:center;margin-top: 10px;margin-bottom: 10px;padding:15px;width:95%;margin-left:7px;border-radius:13px;">Novo Grupo</div>
 		<table id="tabelaNovoGrupo" border="0"
-		style="color:black;font-family: Helvetica; font-size: 18px;  margin-top: 0px; margin-left:50px;padding: 0px;table-layout:fixed;width:560px;background:white;border-radius:13px;">
+		style="color:black;font-family: Helvetica; font-size: 18px;  margin-top: 0px; margin-left:62px;padding: 0px;table-layout:fixed;width:560px;background:white;border-radius:13px;">
 			<tr style=" padding: 5px;height:35px; ">
 			<td style="width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
 			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
@@ -117,8 +117,8 @@
 				<input type="hidden" id="listaNovoGrupo" name="listaNovoGrupo" value="">			
 				<br><input class="textarea" type="text" id="texto_mensagem"
 					placeholder="Nome do grupo" name="nome_grupo"
-					style="margin-left:50px;border:0px;border-radius:13px;position:relative; width: 78%;height:50px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);font-size:16px;font-family: Helvetica; background: #ffffff;text-align: center;color: black;"
-					required> <input type="submit" value="CRIAR"
+					style="margin-left:62px;border:0px;border-radius:13px;position:relative; width: 76%;height:50px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);font-size:16px;font-family: Helvetica; background: #ffffff;text-align: center;color: black;"
+					required> <input type="submit" value="CRIAR" onclick="alert('Grupo criado com Sucesso!')"
 					style="position:relative;width: 90px; height: 50px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);font-weight:bold;font-family: Helvetica;text-align: center;border-radius: 13px; border-width: 0px;cursor: pointer;color:white;"
 					>
 			</form>

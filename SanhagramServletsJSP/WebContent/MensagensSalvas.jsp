@@ -57,32 +57,21 @@
 
 					<a
 						href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"
-						onclick="voltarModoNormal()"> 
-						<%
- 							if (s.equals(request.getAttribute("conversaAtual"))) {
- 						%>
+						onclick="voltarModoNormal()">
 						<div class="conversa"
-							style="height: 60px; background-image: linear-gradient(to bottom right, #ABF1BC, #87CDF6); border: 2px solid #2bffb5; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
-							<%
-								} else {
-							%>
-							<div class="conversa"
-								style="background: #d2f7f3; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); height: 60px;">
-								<%
-									}
-								%>
-								<div class="imgconversa">
-									<img class="iconegrupo" style="border-radius: 40px;"
-										src=".\img\avatar1.jpg" alt="Otario">
-								</div>
-
-								<div class="textocorpo" id="nomeusuario">
-									<a id="verconversa"
-										style="font-weight: 500; font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;"
-										href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"
-										onclick="voltarModoNormal()"><%=s%></a>
-								</div>
-							</div></a>
+							style="background: #d2f7f3; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); height: 60px;">
+							<div class="imgconversa">
+								<img class="iconegrupo" style="border-radius: 40px;"
+									src=".\img\avatar1.jpg" alt="Otario">
+							</div>
+							<div class="textocorpo" id="nomeusuario">
+								<a id="verconversa"
+									style="font-weight: 500; font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;"
+									href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"
+									onclick="voltarModoNormal()"><%=s%></a>
+							</div>
+						</div>
+					</a>
 					<%
 						}
 					%>
@@ -115,25 +104,11 @@
 		%>
 		<div class="top2" id="header" style="margin-top: 0px;">
 
-
-
-			<%
-				if (listaResultado.get(0).getFlag_grupo() == 1) {
-			%>
-			<div class="imgconversatop2">
-				<img class="conversatop2" src=".\img\group_icon.png" alt="Otario">
-			</div>
-			<%
-				} else {
-			%>
 			<div class="imgconversatop2">
 				<img class="conversatop2" src=".\img\avatar1.jpg" alt="Otario">
 			</div>
-			<%
-				}
-			%>
 
-			<div class="nomeconversatop2" id="titulo"><%=request.getSession().getAttribute("destinatarioMsgm")%></div>
+			<div class="nomeconversatop2" id="titulo"><%=request.getSession().getAttribute("usuAutenticado")%></div>
 
 		</div>
 		<div class="mid2" id="chat"
@@ -145,53 +120,40 @@
 				for (Mensagem m : listaResultado) {
 			%>
 
-			<%
-				if (!m.getRemetente().equals(request.getSession().getAttribute("usuAutenticado"))) {
-			%>
 			<br>
-			<div style="width: 100%; float: right;">
-				<div id="BolhaMensagem"
-					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); margin-top: 20px; margin-left: 20px; float: left; text-align: center; border: 0px; border-radius: 15px; background-image: linear-gradient(to bottom right, #48A9FE, #0BEEF9); padding: 8px;">
-					<a
-						style="padding-left: 2px; padding-top: 2px; float: left; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: left; color: #ffe5b0;"><%=m.getRemetente()%></a>
-					<a
-						style="font-weight: 700; padding-left: 12px; padding-right: 2px; padding-top: 2px; float: right; font-size: 10px; font-family: Helvetica; margin-left: 0px; color: #4f4f4f;"><%=m.getData_envio().substring(11, 16)%></a><br>
-					<a style="font-family: Helvetica; margin-left: 0px; color: white;"><%=m.getTexto_mensagem()%></a>
-				</div>
-			</div>
-			<%
-				} else {
-			%>
-			<br>
-			<div style="width: 100%; float: left;">
+			<div style="width: 500px; margin-left: 370px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);background: #5b99fc;border-radius:13px;">
 				<div style="float: right; margin-top: 35px; margin-right: 3px;">
-					<a class="marcador"
+					<a href="#aaa"
+						style="visibility: visible; font-family: Helvetica; font-size: 22px; font-style: normal; color: white; text-decoration: none;"><i
+						class="fa fa-fw fa-paper-plane"></i></a> <a class="marcador"
 						href="UsuarioControlador?remetente=<%=m.getRemetente()%>&destinatario=<%=m.getDestinatario()%>&acao=exmsgm&idmensagem=<%=m.getIdmensagem()%>"
 						style="font-size: 20px; visibility: hidden; font-family: Helvetica; font-style: normal; color: red; text-decoration: none;"><i
 						class="fa fa-fw fa-trash"></i></a>
 				</div>
 				<div id="BolhaMensagem"
-					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-right: 0px; float: right; text-align: center; border: 0px; border-radius: 15px; background-image: linear-gradient(to bottom right, #02d46e, #41fac6); padding: 8px;">
+					style="width: 400px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-right: 5px; float: right; text-align: center; border: 0px; border-radius: 15px; background-image: linear-gradient(to bottom right, #02d46e, #41fac6); padding: 8px;">
 					<a
-						style="padding-left: 12px; padding-right: 2px; padding-top: 2px; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: right; float: right; color: #96020b;">Você</a>
+						style="padding-left: 12px; padding-right: 2px; padding-top: 2px; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: right; float: right; color: #cf480a;">Rascunho</a>
 					<a
 						style="font-weight: 700; padding-left: 2px; padding-top: 2px; float: left; font-size: 10px; font-family: Helvetica; color: #4f4f4f;"><%=m.getData_envio().substring(11, 16)%></a><br>
 					<a style="font-family: Helvetica; margin-left: 0px; color: white;"><%=m.getTexto_mensagem()%></a>
 				</div>
-
+				<form autocomplete="off" action="UsuarioControlador?acao=enviar"
+					method="post">
+					<input type="hidden" id="remetente" name="remetente"
+						value=<%=request.getSession().getAttribute("usuAutenticado")%>>
+					<input type="hidden" id="texto_mensagem" name="texto_mensagem"
+						value=<%=m.getTexto_mensagem()%>> 
+					<input class="textarea" type="text" id="destinatario" name="destinatario"
+						placeholder="Destinatário" 
+						style="margin-top:8px;margin-left:-38px;width:66%;height: 20px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); font-family: Helvetica; background: #ffffff; text-align: center; color: black;"
+						required> <input type="submit" value="ENVIAR"
+						style="width: 65px; height: 35px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 13px; border-width: 0px; cursor: pointer; color: white;">
+				</form>
 			</div>
-
 			<%
 				}
 			%>
-			<%
-				}
-			%>
-			<button onclick="location.reload();"
-				style="border: none; outline: none; position: fixed; bottom: 570px; right: 630px; width: 40px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border-width: 0px; cursor: pointer; color: white;">
-				<i class="fa fa-fw fa-refresh"></i>
-			</button>
-
 			<div id="EspacoEmBranco"
 				style="margin-top: 20px; paddin: 5px; float: left; height: 180px; width: 100%;"></div>
 			<script>
@@ -235,12 +197,12 @@
 				<input type="hidden" id="remetente" name="remetente"
 					value=<%=request.getSession().getAttribute("usuAutenticado")%>>
 				<input type="hidden" id="destinatario" name="destinatario"
-					value=<%=request.getAttribute("conversaAtual")%>> <br>
+					value="ADefinirUsuario"> <br>
 				<br> <br>
 				<input class="textarea" type="text" id="texto_mensagem"
 					placeholder="Mensagem" name="texto_mensagem"
 					style="position: fixed; width: 70%; bottom: -50px; right: 150px; height: 35px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); font-family: Helvetica; background: #ffffff; text-align: center; color: black;"
-					required> <input type="submit" value="ENVIAR"
+					required> <input type="submit" value="SALVAR"
 					style="position: fixed; bottom: 12px; right: 50px; width: 90px; height: 50px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 13px; border-width: 0px; cursor: pointer; color: white;">
 			</form>
 			<br> <br>
