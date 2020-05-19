@@ -81,6 +81,67 @@ public class MensagemDAO {
 		
 	}
 	
+	public void UsuarioRemovido(String usuario) {//EXCLUI MENSAGEM DADO SEU ID
+		
+		String sql = "UPDATE MENSAGENS SET REMETENTE=? WHERE REMETENTE = ?";
+		String sql2 = "UPDATE MENSAGENS SET DESTINATARIO=? WHERE DESTINATARIO = ?";
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql);
+			preparador.setString(1, usuario+"* (removido)");//? 1
+			preparador.setString(2, usuario);//? 2
+			
+			preparador.execute();
+			preparador.close();
+			
+			System.out.println("Mensagem excluída com sucesso!");
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+		}
+		
+		try {
+			PreparedStatement preparador2 = conexao.prepareStatement(sql2);
+			preparador2.setString(1, usuario+"* (removido)");//? 1
+			preparador2.setString(2, usuario);//? 2
+			
+			preparador2.execute();
+			preparador2.close();
+			System.out.println("Mensagem excluída com sucesso!");
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+		}
+		
+	}
+	
+	public String ChecaPertencimentoGrupo(String remetente,String nomegrupo) {//EXCLUI MENSAGEM DADO SEU ID
+		
+		String sql = "SELECT * FROM MENSAGENS WHERE REMETENTE = ? AND DESTINATARIO = ?";
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql);
+			preparador.setString(1, remetente);//? 1
+			preparador.setString(2, nomegrupo);//? 2
+			ResultSet resultados = preparador.executeQuery();
+			
+			if(resultados.next()) {
+				System.out.println("Pertence!");
+				return "pertence";
+			}
+			else {
+				System.out.println("Nao Pertence!");
+				return "naopertence";
+			}
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+		}
+		
+		return "erro";
+		
+	}
+	
 	public List<Mensagem> buscarMensagens(String remetente, String destinatario) {//BUSCA E RETORNA TODAS AS MENSAGENS ENTRE DUAS PESSOAS E ORDENA POR DATA_ENVIO
 		
 		String sql = "SELECT * FROM MENSAGENS WHERE ((REMETENTE=? AND DESTINATARIO=?) OR (REMETENTE=? AND DESTINATARIO=?)) ORDER BY DATA_ENVIO";

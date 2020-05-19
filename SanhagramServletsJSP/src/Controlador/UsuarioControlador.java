@@ -55,7 +55,7 @@ public class UsuarioControlador extends HttpServlet {
 					if(request.getParameter("grupo").equals("grupo")) {
 						List<Usuario> lista = usuDAO.buscarTodos(usu);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
 						request.setAttribute("lista", lista);
-						RequestDispatcher saida = request.getRequestDispatcher("listaAmigosRecentes.jsp");
+						RequestDispatcher saida = request.getRequestDispatcher("CadastroGrupo.jsp");
 						saida.forward(request, response);
 					}
 					else {
@@ -105,9 +105,7 @@ public class UsuarioControlador extends HttpServlet {
 
 				}
 
-			} else if (acao != null && acao.equals("lisamigos")) {// ACAO=LISTAR PESSOAS COM AS QUAIS CONVERSEI COM AS
-																	// MAIS
-																	// RECENTES ACIMA
+			} else if (acao != null && acao.equals("lisamigos")) {//NAO ESTA MAIS SENDO USADA
 
 				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
 				String destinatario = request.getParameter("destinatario");// PASSA O PARAMETRO DESTINATARIO TAMBEM
@@ -118,7 +116,7 @@ public class UsuarioControlador extends HttpServlet {
 					List<String> lista = mensagemDAO.buscarRecentes(destinatario);// DAO FAZ A OPERACAO E RETORNA O
 																					// RESULTADO
 					request.setAttribute("lista", lista);
-					RequestDispatcher saida = request.getRequestDispatcher("listaAmigosRecentes.jsp");
+					RequestDispatcher saida = request.getRequestDispatcher("home.jsp");
 					saida.forward(request, response);
 				}
 
@@ -177,7 +175,8 @@ public class UsuarioControlador extends HttpServlet {
 					String nome = request.getParameter("nomeusu");
 					usu.setNome(nome);
 					usuDAO.deletar(usu);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
-					response.sendRedirect("UsuarioControlador?acao=lis");
+					mensagemDAO.UsuarioRemovido(nome);
+					response.sendRedirect("UsuarioControlador?acao=lis&grupo=usuario");
 				} else {
 					RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
 					saida.forward(request, response);
@@ -247,23 +246,22 @@ public class UsuarioControlador extends HttpServlet {
 			String remetente = request.getParameter("remetente");
 			String destinatario = request.getParameter("destinatario");
 			String texto_mensagem = request.getParameter("texto_mensagem");
+			MensagemDAO mensagemDAO = new MensagemDAO();
+			UsuarioDAO2 usuDAO = new UsuarioDAO2();
+			Mensagem mensagem = new Mensagem();
 			
+			if((usuDAO.tipoUsuario(destinatario)=="grupo" && mensagemDAO.ChecaPertencimentoGrupo(remetente, destinatario)=="pertence") || (usuDAO.tipoUsuario(destinatario)!="grupo" && usuDAO.ChecaExistenciaUsuario(destinatario)=="existe")) {
 
 			try {
-
-				Mensagem mensagem = new Mensagem();
 				mensagem.setRemetente(remetente);
 				mensagem.setDestinatario(destinatario);
 				mensagem.setTexto_mensagem(texto_mensagem);
 
-				MensagemDAO mensagemDAO = new MensagemDAO();
-				UsuarioDAO2 usuDAO = new UsuarioDAO2();
-				
 				if(usuDAO.tipoUsuario(destinatario)=="grupo") {
-				mensagemDAO.enviarParaGrupo(mensagem);
-				String prox_pag = "UsuarioControlador?acao=lismsgm&remetente=" + remetente + "&destinatario="
+					mensagemDAO.enviarParaGrupo(mensagem);
+					String prox_pag = "UsuarioControlador?acao=lismsgm&remetente=" + remetente + "&destinatario="
 						+ destinatario;
-				response.sendRedirect(prox_pag);
+					response.sendRedirect(prox_pag);
 				}
 				else {
 					mensagemDAO.enviar(mensagem);
@@ -277,6 +275,12 @@ public class UsuarioControlador extends HttpServlet {
 			catch (Exception e) {
 				System.out.println(e);
 
+			}
+			
+			}
+			else {//USUARIO NAO EXISTE OU NAO ESTA CADASTRADO NO GRUPO
+				RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
+				saida.forward(request, response);
 			}
 		} else if (acao.equals("cadastrar")) {
 			String nome = request.getParameter("nome");
@@ -294,7 +298,7 @@ public class UsuarioControlador extends HttpServlet {
 
 				UsuarioDAO2 usuarioDAO = new UsuarioDAO2();
 				usuarioDAO.cadastro(usuario);
-				response.sendRedirect("UsuarioControlador?acao=lis");
+				response.sendRedirect("UsuarioControlador?acao=lis&grupo=usuario");
 			}
 
 			catch (Exception e) {
@@ -342,7 +346,7 @@ public class UsuarioControlador extends HttpServlet {
 
 			}
 			
-			response.sendRedirect("UsuarioControlador?acao=lis");
+			response.sendRedirect("UsuarioControlador?acao=lis&grupo=grupo");
 		}
 	}
 

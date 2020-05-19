@@ -36,6 +36,32 @@ public class UsuarioDAO2 {
 		
 	}
 	
+	public String ChecaExistenciaUsuario(String nome) {//EXCLUI MENSAGEM DADO SEU ID
+		
+		String sql = "SELECT * FROM USUARIO WHERE NOME = ?";
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql);
+			preparador.setString(1, nome);//? 1
+			ResultSet resultados = preparador.executeQuery();
+			
+			if(resultados.next()) {
+				System.out.println("Existe!");
+				return "existe";
+			}
+			else {
+				System.out.println("Nao Existe!");
+				return "naoexiste";
+			}
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+		}
+		
+		return "erro";
+		
+	}
+	
 	public void cadastroGrupo(Usuario usuario) {
 		
 		String sql = "INSERT INTO USUARIO (nome, flag_grupo) values (?,'1')";
