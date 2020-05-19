@@ -214,7 +214,7 @@ public class MensagemDAO {
 				"WHERE DESTINATARIO=?\r\n" + 
 				"UNION ALL\r\n" + 
 				"SELECT DESTINATARIO AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS\r\n" + 
-				"WHERE REMETENTE=? ORDER BY DATA_ENVIO DESC) AS amigo";
+				"WHERE REMETENTE=? AND DESTINATARIO!='ADefinirUsuario' ORDER BY DATA_ENVIO DESC) AS amigo";
 		List<String> lista = new ArrayList<String>();
 		
 		try {
