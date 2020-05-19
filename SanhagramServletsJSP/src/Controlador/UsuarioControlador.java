@@ -52,10 +52,19 @@ public class UsuarioControlador extends HttpServlet {
 
 				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
 				if (usuAutenticado.equals("admin")) {
-					List<Usuario> lista = usuDAO.buscarTodos(usu);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
-					request.setAttribute("lista", lista);
-					RequestDispatcher saida = request.getRequestDispatcher("listaUsuarios.jsp");
-					saida.forward(request, response);
+					if(request.getParameter("grupo").equals("grupo")) {
+						List<Usuario> lista = usuDAO.buscarTodos(usu);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
+						request.setAttribute("lista", lista);
+						RequestDispatcher saida = request.getRequestDispatcher("listaAmigosRecentes.jsp");
+						saida.forward(request, response);
+					}
+					else {
+						List<Usuario> lista = usuDAO.buscarTodos(usu);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
+						request.setAttribute("lista", lista);
+						RequestDispatcher saida = request.getRequestDispatcher("listaUsuarios.jsp");
+						saida.forward(request, response);
+						
+					}
 				} else {
 					RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
 					saida.forward(request, response);
@@ -134,14 +143,31 @@ public class UsuarioControlador extends HttpServlet {
 				String destinatario = request.getParameter("destinatario");
 				List<String> listaAmigos = mensagemDAO.buscarRecentes(usuAutenticado);
 				request.setAttribute("listaAmigos", listaAmigos);
-				List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);
-				request.setAttribute("lista", lista);
-				request.setAttribute("conversaAtual", destinatario);
-				RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");// PARA VOLTAR A CONVERSA
+				
+				if(usuDAO.tipoUsuario(destinatario)=="grupo") {
+					List<Mensagem> lista = mensagemDAO.buscarMensagensGrupo(remetente, destinatario);
+					request.setAttribute("lista", lista);
+					request.setAttribute("conversaAtual", destinatario);
+					RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");
+					saida.forward(request, response);
+				}
+				else {
+					List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);// DAO FAZ A OPERACAO E
+					// RETORNA O RESULTADO
+					request.setAttribute("lista", lista);
+					request.setAttribute("conversaAtual", destinatario);
+					RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");
+					saida.forward(request, response);
+				}
+				
+				//List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);
+				//request.setAttribute("lista", lista);
+				//request.setAttribute("conversaAtual", destinatario);
+				//RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");// PARA VOLTAR A CONVERSA
 																								// ONDE
 																								// ESTAVA AO DELETAR A
 																								// MSGM
-				saida.forward(request, response);
+				//saida.forward(request, response);
 				// response.sendRedirect("home.jsp");
 
 			} else if (acao != null && acao.equals("ex")) {// ACAO=EXCLUIR USUARIO

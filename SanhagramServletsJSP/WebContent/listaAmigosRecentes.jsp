@@ -1,127 +1,156 @@
 <%@page import="java.util.List"%>
+<%@page import="bean.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href=".\styles\style3.css">
-<link href=".\styles\fontawesome-free-5.12.1-web\css\all.css"
-	rel="stylesheet">
-<script src=".\js\scriptelaprincip.js"></script>
 <meta charset="ISO-8859-1">
-<title>Lista Amigos Recentes</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<%
-		List<String> listaResultado = (List<String>) request.getAttribute("lista");
-	%>
-	<script>
-		localStorage.setItem("modoApagarMensagens","naoApagar");
-	</script>
-	<div class="div1">
+	<jsp:include page="cabecalhoAdmin.jsp"></jsp:include>
 
-		<div class="top1">
-			<p class="ttop1">Conversas</p>
-		</div>
+<%
+	//List<Usuario> lista = usuDAO.buscarTodos(usu);
+	List<Usuario> listaResultado = (List<Usuario>) request.getAttribute("lista");
+%>
+<script>
+	localStorage.setItem("modoApagarMensagens", "naoApagar");
+</script>
 
-		<div class="bot1">
-
-			<div class="bot11" id="style-2">
-				<input class="textarea" placeholder="Procurar..."
-					onfocus="this.placeholder = ''"
-					onblur="this.placeholder = 'Procurar...'" type="text"
-					id="conversaslado" name="conversaslado"
-					onkeyup="selecionatext(this)">
-				<div class="bot12">
-					<i id="estrelinha" class="far fa-star" onclick="selecionastarred()"></i>
-
-					<div class="starred">
-						Favoritos
-
-						<div class="minimiza" onclick="minimizatela(this)">-</div>
-
-					</div>
-				</div>
-
-				<div class="barralateral" id="conversas">
-
-					<div class="conversa" style="background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);">
-						<div class="imgconversa">
-							<img class="iconegrupo" src=".\img\img4.png" alt="Otario">
-						</div>
-						<div class="textocorpo" id="nomeusuario">
-							<a href="UsuarioControlador?acao=pagInicial"
-								style="font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;"><%=request.getSession().getAttribute("usuAutenticado")%></a>
-						</div>
-					</div>
-					<%
-						for (String s : listaResultado) {
-					%>
-
-					<a
-						href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>">
-						<div class="conversa" style="background: #d2f7f3;">
-							<div class="imgconversa">
-								<img class="iconegrupo" src=".\img\avatar1.jpg" alt="Otario">
-							</div>
-							<div class="textocorpo" id="nomeusuario">
-								<a id="verconversa"
-									style="font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;"
-									href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"><%=s%></a>
-							</div>
-						</div>
-					</a>
-					<%
-						}
-					%>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
-
-	<div class="div2">
-
-		<div class="top2" id="header">
-			<div class="imgconversatop2">
-				<img class="conversatop2" src=".\img\img4.png" alt="Otario">
-			</div>
-
-			<div class="nomeconversatop2" id="topuser"><%=request.getSession().getAttribute("usuAutenticado")%></div>
-
-		</div>
+<div style="width:100%;">
+	<div style="float:left;width:40%;">
+		<table border="1" id="tabelaUsuarios"
+		style="font-family: Helvetica; font-size: 18px;  margin-top: 60px; padding: 0px;">
+			<tr bgcolor="#eaeaea" style="height: 35px; padding: 5px;">
+			<th style="padding: 10px;">Nome</th>
+			<th style="padding: 10px;">Email</th>
+			<th style="padding: 10px;">Adicionar</th>
+			</tr>
 		<%
-			if (request.getSession().getAttribute("usuAutenticado").equals("admin")) {
+			for (Usuario u : listaResultado) {
 		%>
-		<jsp:include page="cabecalhoAdmin.jsp"></jsp:include>
-		<%
-			} else {
-		%>
-		<jsp:include page="cabecalho.jsp"></jsp:include>
+			<tr style="height: 25px; padding: 5px;">
+			<th style="padding: 10px;"><%=u.getNome()%></th>
+			<th style="padding: 10px;"><%=u.getEmail()%></th>
+			<th style="padding: 10px;"><a href="#ADDGRUPO"
+		 onclick="addGrupo('<%=u.getNome()%>')"
+			style="color: green; text-decoration: none;">+</a>
+			</tr>
 		<%
 			}
 		%>
-		<div></div>
-
-		<div class="mid2" id="chat">
-			<br> <br>
-			<form autocomplete="off" action="UsuarioControlador?acao=enviar" method="post">
-				<input type="hidden" id="remetente" name="remetente"
-					value=<%=request.getSession().getAttribute("usuAutenticado")%>>
-				<input class="textarea" placeholder="Destinatario" type="text"
-					id="destinatario" name="destinatario"
-					style="font-family: Helvetica; background: #deddd9; width: 50%; text-align: center; margin-left: -80px; color: black;"
-					required> <br> <input class="textarea" type="text"
-					id="texto_mensagem" placeholder="Mensagem" name="texto_mensagem"
-					style="font-family: Helvetica; background: #deddd9; width: 50%; text-align: center; margin-left: -80px; color: black;"
-					required> <br> <input type="submit" value="ENVIAR"
-					style="font-family: Helvetica; background: #deddd9; text-align: center; margin-left: -70px; border-radius: 6px; border-width: 0px; width: 90px; height: 35px; cursor: pointer;">
-			</form>
-		</div>
+		</table>
 	</div>
-</body>
+	
+	
+	<div style="float:right;width:60%;height:550px;border-radius:13px;background:#8ee6de;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
+	<div style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2);background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);color:white;font-weight:600;font-family: Helvetica; font-size: 22px;text-align:center;margin-top: 10px;margin-bottom: 10px;padding:15px;width:95%;margin-left:7px;border-radius:13px;">Novo Grupo</div>
+		<table id="tabelaNovoGrupo" border="0"
+		style="color:black;font-family: Helvetica; font-size: 18px;  margin-top: 0px; margin-left:50px;padding: 0px;table-layout:fixed;width:560px;background:white;border-radius:13px;">
+			<tr style=" padding: 5px;height:35px; ">
+			<td style="width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			</tr>
+			<tr style=" padding: 5px;height:35px; ">
+			<td style="width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			</tr>
+			<tr style=" padding: 5px;height:35px; ">
+			<td style="width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			</tr>
+			<tr style=" padding: 5px;height:35px; ">
+			<td style="width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			</tr>
+			<tr style=" padding: 5px;height:35px; ">
+			<td style="width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			</tr>
+			<tr style=" padding: 5px;height:35px; ">
+			<td style="width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			</tr>
+			<tr style=" padding: 5px;height:35px; ">
+			<td style="width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			</tr>
+			<tr style=" padding: 5px;height:35px; ">
+			<td style="width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			</tr>
+			<tr style=" padding: 5px;height:35px; ">
+			<td style="width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
+			</tr>
+		</table>
+			<form autocomplete="off" action="UsuarioControlador?acao=cadastrarGrupo" method="post">
+				<input type="hidden" id="listaNovoGrupo" name="listaNovoGrupo" value="">			
+				<br><input class="textarea" type="text" id="texto_mensagem"
+					placeholder="Nome do grupo" name="nome_grupo"
+					style="margin-left:50px;border:0px;border-radius:13px;position:relative; width: 78%;height:50px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);font-size:16px;font-family: Helvetica; background: #ffffff;text-align: center;color: black;"
+					required> <input type="submit" value="CRIAR"
+					style="position:relative;width: 90px; height: 50px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);font-weight:bold;font-family: Helvetica;text-align: center;border-radius: 13px; border-width: 0px;cursor: pointer;color:white;"
+					>
+			</form>
+	</div>
+</div>
+	<script>
+	function addGrupo(novoUsuario) {
+		var tablegrupo = document.getElementById("tabelaNovoGrupo");
+		var tableusuarios = document.getElementById("tabelaUsuarios");
+		
+			for (var i = 0, row; row = tablegrupo.rows[i]; i++) {
+			   	for (var j = 0, col; col = row.cells[j]; j++) {
+			   		if(col.innerHTML==''){
+			   			col.innerHTML=novoUsuario;
+			   			document.getElementById("listaNovoGrupo").value=document.getElementById("listaNovoGrupo").value+novoUsuario+"|";
+			   			i=8;//tabela vazia tem 9 linhas (0<=i<9)
+			   			break;
+			   		}
+			   	}	  
+			}
+			
+			
+			for (var i = 0, row; row = tableusuarios.rows[i]; i++) {
+			   	for (var j = 0, col; col = row.cells[j]; j++) {
+			   		if(col.innerHTML==novoUsuario){
+			   			row.cells[j+2].style.visibility="hidden";
+			   		}
+			   	}	  
+			}
+	}
 
+	</script>
+<br><br>
+</body>
 </html>
