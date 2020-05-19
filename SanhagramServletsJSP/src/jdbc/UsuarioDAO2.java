@@ -36,6 +36,25 @@ public class UsuarioDAO2 {
 		
 	}
 	
+	public void cadastroGrupo(Usuario usuario) {
+		
+		String sql = "INSERT INTO USUARIO (nome, flag_grupo) values (?,'1')";
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql);
+			preparador.setString(1, usuario.getNome());//? 1
+			
+			preparador.execute();
+			preparador.close();
+			
+			System.out.println("Cadastrado com sucesso!");
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+		}
+		
+	}
+	
 	public void alterar(Usuario usuario) {
 		
 		String sql = "UPDATE USUARIO SET NOME = ?, EMAIL = ?, SENHA = ?, DATANASC = ?  WHERE NOME = ?";
@@ -80,7 +99,7 @@ public class UsuarioDAO2 {
 	
 	public List<Usuario> buscarTodos(Usuario usuario) {//LISTA TODOS OS USUARIOS CADASTRADOS
 		
-		String sql = "SELECT * FROM USUARIO";
+		String sql = "SELECT * FROM USUARIO WHERE FLAG_GRUPO='0'";
 		List<Usuario> lista = new ArrayList<Usuario>();
 		
 		try {

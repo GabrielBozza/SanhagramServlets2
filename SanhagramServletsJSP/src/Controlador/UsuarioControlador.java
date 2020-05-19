@@ -252,6 +252,23 @@ public class UsuarioControlador extends HttpServlet {
 				System.out.println(e);
 
 			}
+		}else if (acao.equals("cadastrarGrupo")) {
+			String nome_grupo = request.getParameter("nome_grupo");
+			
+			try {
+
+				Usuario usuario = new Usuario();
+				usuario.setNome(nome_grupo);
+
+				UsuarioDAO2 usuarioDAO = new UsuarioDAO2();
+				usuarioDAO.cadastroGrupo(usuario);
+				response.sendRedirect("UsuarioControlador?acao=lis");
+			}
+
+			catch (Exception e) {
+				System.out.println(e);
+
+			}
 		}
 	}
 
