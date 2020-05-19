@@ -138,7 +138,7 @@ public class UsuarioDAO2 {
 	public Usuario autenticacao(Usuario usuario) {//VERIFICA SE O USUARIO E SENHA ESTAO NO BD
 		
 		Usuario usuRetorno = null;//SETA COMO PADRAO O USURETORNO NULO CASO NAO ENCONTRE O USUARIO COM A SENHA DADA
-		String sql = "SELECT * FROM USUARIO WHERE NOME = ? AND SENHA = ?";
+		String sql = "SELECT * FROM USUARIO WHERE NOME = ? AND SENHA = ? AND FLAG_GRUPO='0'";//GRUPOS NAO PODEM FAZER LOGIN
 		
 		try {
 			PreparedStatement preparador = conexao.prepareStatement(sql);

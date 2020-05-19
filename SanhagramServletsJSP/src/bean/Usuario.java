@@ -4,6 +4,7 @@ package bean;
 public class Usuario {
 
 	private Integer idusuario;
+	private Integer flag_grupo;
 	private String nome;
 	private String email;
 	private String senha;
@@ -15,6 +16,14 @@ public class Usuario {
 
 	public void setId(Integer id) {
 		this.idusuario = id;
+	}
+	
+	public Integer getFlag_grupo() {
+		return flag_grupo;
+	}
+
+	public void setFlag_grupo(Integer flag_grupo) {
+		this.flag_grupo = flag_grupo;
 	}
 
 	public String getNome() {

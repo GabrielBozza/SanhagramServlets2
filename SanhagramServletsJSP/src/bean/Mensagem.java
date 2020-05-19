@@ -3,6 +3,7 @@ package bean;
 public class Mensagem {
 
 	private Integer idmensagens;
+	private Integer flag_grupo;
 	private String remetente;
 	private String destinatario;
 	private String texto_mensagem;
@@ -14,6 +15,14 @@ public class Mensagem {
 
 	public void setIdmensagem(Integer idmensagens) {
 		this.idmensagens = idmensagens;
+	}
+	
+	public Integer getFlag_grupo() {
+		return flag_grupo;
+	}
+
+	public void setFlag_grupo(Integer flag_grupo) {
+		this.flag_grupo = flag_grupo;
 	}
 	
 	public String getRemetente() {
