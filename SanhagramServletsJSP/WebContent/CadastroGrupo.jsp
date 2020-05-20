@@ -9,6 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+  <script>
+    document.body.style.zoom = (window.screen.width/1536);
+  </script>
 	<jsp:include page="cabecalhoAdmin.jsp"></jsp:include>
 
 <%

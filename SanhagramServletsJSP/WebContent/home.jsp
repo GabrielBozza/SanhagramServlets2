@@ -15,6 +15,9 @@
 </head>
 
 <body>
+  <script>
+    document.body.style.zoom = (window.screen.width/1536);
+  </script>
 	<%
 		List<String> listaResultado = (List<String>) request.getAttribute("lista");
 	%>

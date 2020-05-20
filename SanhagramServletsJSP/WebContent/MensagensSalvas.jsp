@@ -13,6 +13,9 @@
 <title>Lista mensagens</title>
 </head>
 <body>
+  <script>
+    document.body.style.zoom = (window.screen.width/1536);
+  </script>
 	<%
 		//List<Usuario> lista = usuDAO.buscarTodos(usu);
 		//Set refresh, autoload time as 5 seconds

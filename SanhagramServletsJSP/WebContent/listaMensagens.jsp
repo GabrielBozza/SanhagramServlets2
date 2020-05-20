@@ -13,6 +13,9 @@
 <title>Lista mensagens</title>
 </head>
 <body>
+  <script>
+    document.body.style.zoom = (window.screen.width/1536);
+  </script>
 	<%
 		//List<Usuario> lista = usuDAO.buscarTodos(usu);
 		//Set refresh, autoload time as 5 seconds
@@ -188,14 +191,15 @@
 				}
 			%>
 			<button onclick="location.reload();"
-				style="border: none; outline: none; position: fixed; bottom: 78.5%; right: 42%; width: 40px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border-width: 0px; cursor: pointer; color: white;">
+				style="border: none; outline: none; position: fixed; bottom: 78.5%; right: 43%; width: 40px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border-width: 0px; cursor: pointer; color: white;">
 				<i class="fa fa-fw fa-refresh"></i>
 			</button>
-			<% if(request.getSession().getAttribute("usuAutenticado").equals("admin")){%>
 			<button onclick="modoApagar();"
-				style="border: none; outline: none; position: fixed; bottom: 570px; right: 550px; width: 40px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border-width: 0px; cursor: pointer; color: white;">
+				style="border: none; outline: none; position: fixed; bottom: 78.5%; right: 39%; width: 40px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border-width: 0px; cursor: pointer; color: white;">
 				<i class="fa fa-fw fa-trash"></i>
 			</button>
+			<% if(request.getSession().getAttribute("usuAutenticado").equals("admin")){%>
+			<a></a>
 			<% }%>
 
 			<div id="EspacoEmBranco"
@@ -218,7 +222,6 @@
 								.setItem("modoApagarMensagens", "naoApagar");
 					}
 				}
-
 				function modoApagar() {
 					var x = document.getElementsByClassName('marcador');
 					var i;

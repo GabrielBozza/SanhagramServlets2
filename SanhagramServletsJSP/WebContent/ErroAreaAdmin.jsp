@@ -7,6 +7,9 @@
 <title>Acesso negado</title>
 </head>
 <body>
+  <script>
+    document.body.style.zoom = (window.screen.width/1536);
+  </script>
 	<script>
 			localStorage.setItem("modoApagarMensagens","naoApagar");
 	</script>

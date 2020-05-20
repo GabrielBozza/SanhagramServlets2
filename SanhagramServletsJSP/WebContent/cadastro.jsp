@@ -9,6 +9,9 @@
 </head>
 
 <body>
+  <script>
+    document.body.style.zoom = (window.screen.width/1536);
+  </script>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script>
 			localStorage.setItem("modoApagarMensagens","naoApagar");
