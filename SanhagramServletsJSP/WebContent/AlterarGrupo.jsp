@@ -116,7 +116,8 @@
 			style="height: 100%; background: #8ee6de; overflow-y: scroll;">
 
 			<table border="0"
-				style="font-family: Helvetica; font-size: 19px; margin-left: 500px; margin-top: 30px; padding: 5px; border-radius: 13px; background: #ffffff; text-align: left; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+				style="width:300px;font-family: Helvetica; font-size: 19px; margin-left: 500px; margin-top: 30px; padding: 5px; border-radius: 13px; background: #ffffff; text-align: center; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+				<caption style="margin-bottom:10px;font-weight:bold;font-family: Helvetica; font-size: 21px;">Grupo <%=request.getAttribute("nomeGrupoAtual")%></caption>
 				<tr style="height: 35px; padding: 5px; text-align: center;">
 					<th style="padding: 10px;">Nome</th>
 					<th style="padding: 10px;"></th>
@@ -125,8 +126,8 @@
 					for (String u : usuariosDoGrupo) {
 				%>
 				<tr style="height: 25px; padding: 5px;">
-					<td style="padding: 10px;"><%=u%></td>
-					<td style="padding: 10px;"><a
+					<td style="padding: 10px;text-align:left;"><%=u%></td>
+					<td style="padding: 10px;"><a onclick="feedbackRemoveuUsuario('<%=u%>','<%=request.getAttribute("nomeGrupoAtual")%>')"
 						href="UsuarioControlador?acao=SairGrupo&nomeGrupo=<%=request.getAttribute("nomeGrupoAtual")%>&nomeUsuario=<%=u%>"
 						style="color: red; text-decoration: none;">Remover</a>
 				</tr>
@@ -136,7 +137,7 @@
 			</table>
 
 			<table border="0"
-				style="font-family: Helvetica; font-size: 19px; margin-left: 500px; margin-top: 30px; padding: 5px; border-radius: 13px; background: #ffffff; text-align: left; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+				style="width:300px;font-family: Helvetica; font-size: 19px; margin-left: 500px; margin-top: 30px; padding: 5px; border-radius: 13px; background: #ffffff; text-align: center; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
 				<tr style="height: 35px; padding: 5px; text-align: center;">
 					<th style="padding: 10px;">Nome</th>
 					<th style="padding: 10px;"></th>
@@ -145,14 +146,23 @@
 					for (String u : todosUsuarios) {
 				%>
 				<tr style="height: 25px; padding: 5px;">
-					<td style="padding: 10px;"><%=u%></td>
-					<td style="padding: 10px;"><a href="UsuarioControlador?acao=AdicionarAoGrupo&nomeGrupo=<%=request.getAttribute("nomeGrupoAtual")%>&nomeUsuario=<%=u%>"
+					<td style="padding: 10px; text-align:left;"><%=u%></td>
+					<td style="padding: 10px;"><a onclick="feedbackAddUsuario('<%=u%>','<%=request.getAttribute("nomeGrupoAtual")%>')" href="UsuarioControlador?acao=AdicionarAoGrupo&nomeGrupo=<%=request.getAttribute("nomeGrupoAtual")%>&nomeUsuario=<%=u%>"
 						style="color: blue; text-decoration: none;">Adicionar</a>
 				</tr>
 				<%
 					}
 				%>
 			</table>
+			
+			<script>
+				function feedbackAddUsuario(a,b){
+					alert(a + " adicionado ao grupo "+b);
+				}
+				function feedbackRemoveuUsuario(a,b){
+					alert(a + " removido do grupo "+b);
+				}
+			</script>
 
 			<br> <br>
 		</div>
