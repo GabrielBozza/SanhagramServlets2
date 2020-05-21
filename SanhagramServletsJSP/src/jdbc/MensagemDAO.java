@@ -85,6 +85,20 @@ public class MensagemDAO {
 		
 		String sql = "UPDATE MENSAGENS SET REMETENTE=? WHERE REMETENTE = ?";
 		String sql2 = "UPDATE MENSAGENS SET DESTINATARIO=? WHERE DESTINATARIO = ?";
+		String sql3 = "DELETE FROM MENSAGENS WHERE REMETENTE=? AND FLAG_GRUPO='1' AND TEXTO_MENSAGEM=''";//RETIRA AS REFERENCIAS DO USUARIO REMOVIDO AOS GRUPOS QUE PARTICIPAVA
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql3);
+			preparador.setString(1, usuario);//? 1
+		
+			preparador.execute();
+			preparador.close();
+			
+			System.out.println("Removido do grupo com sucesso!");
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+		}
 		
 		try {
 			PreparedStatement preparador = conexao.prepareStatement(sql);
@@ -94,7 +108,7 @@ public class MensagemDAO {
 			preparador.execute();
 			preparador.close();
 			
-			System.out.println("Mensagem excluída com sucesso!");
+			System.out.println("Mensagem modificada com sucesso!");
 		}
 		catch (SQLException e ){
 			System.out.println("Erro - " + e.getMessage());
@@ -107,7 +121,7 @@ public class MensagemDAO {
 			
 			preparador2.execute();
 			preparador2.close();
-			System.out.println("Mensagem excluída com sucesso!");
+			System.out.println("Mensagem modificada com sucesso!");
 		}
 		catch (SQLException e ){
 			System.out.println("Erro - " + e.getMessage());
@@ -201,6 +215,28 @@ public class MensagemDAO {
 				prox_mensagem.setFlag_grupo(resultados.getInt("flag_grupo"));
 				
 				lista.add(prox_mensagem);				
+			}
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+		}
+		
+		return lista;
+		
+	}
+	
+	public List<String> buscarIntegrantesGrupo(String nomeGrupo) {//LISTA TODOS OS USUARIOS PERTENCENTES AO GRUPO
+		
+		String sql = "SELECT DISTINCT REMETENTE FROM MENSAGENS WHERE FLAG_GRUPO='1' AND DESTINATARIO=? AND TEXTO_MENSAGEM=''";//CHECA OS INTEGRANTES PERTENCENTES
+		List<String> lista = new ArrayList<String>();
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql);
+			preparador.setString(1, nomeGrupo);//? 1
+			ResultSet resultados = preparador.executeQuery();
+			
+			while(resultados.next()){
+				lista.add(resultados.getString("remetente"));				
 			}
 		}
 		catch (SQLException e ){

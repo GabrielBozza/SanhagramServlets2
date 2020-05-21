@@ -125,7 +125,7 @@ public class UsuarioDAO2 {
 		
 	}
 	
-	public List<Usuario> buscarTodos(Usuario usuario) {//LISTA TODOS OS USUARIOS CADASTRADOS
+	public List<Usuario> buscarTodos() {//LISTA TODOS OS USUARIOS CADASTRADOS
 		
 		String sql = "SELECT * FROM USUARIO WHERE FLAG_GRUPO='0' AND NOME!='ADefinirUsuario'";
 		List<Usuario> lista = new ArrayList<Usuario>();

@@ -54,7 +54,7 @@ public class UsuarioControlador extends HttpServlet {
 				if (usuAutenticado.equals("admin")) {
 					if (request.getParameter("grupo").equals("cadgrupo")) {
 						request.setAttribute("tipo", "cadgrupo");
-						List<Usuario> lista = usuDAO.buscarTodos(usu);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
+						List<Usuario> lista = usuDAO.buscarTodos();// DAO FAZ A OPERACAO E RETORNA O RESULTADO
 						request.setAttribute("lista", lista);
 						RequestDispatcher saida = request.getRequestDispatcher("CadastroGrupo.jsp");
 						saida.forward(request, response);
@@ -62,7 +62,7 @@ public class UsuarioControlador extends HttpServlet {
 						request.setAttribute("tipo", "lisusuarios");
 						List<String> listaAmigos = mensagemDAO.buscarRecentes(usuAutenticado);
 						request.setAttribute("listaAmigos", listaAmigos);
-						List<Usuario> lista = usuDAO.buscarTodos(usu);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
+						List<Usuario> lista = usuDAO.buscarTodos();// DAO FAZ A OPERACAO E RETORNA O RESULTADO
 						request.setAttribute("lista", lista);
 						RequestDispatcher saida = request.getRequestDispatcher("listaUsuarios.jsp");
 						saida.forward(request, response);
@@ -175,8 +175,15 @@ public class UsuarioControlador extends HttpServlet {
 
 				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
 				String nomeGrupo = request.getParameter("nomeGrupo");
-				mensagemDAO.SairGrupo(usuAutenticado, nomeGrupo);
-				response.sendRedirect("UsuarioControlador?acao=pagInicial");//SAI DO GRUPO E VAI PARA A PAG INICIAL
+				if(usuAutenticado.equals("admin")) {
+					String nomeUsuario = request.getParameter("nomeUsuario");
+					mensagemDAO.SairGrupo(nomeUsuario, nomeGrupo);//RETIRA USUARIO DO GRUPO
+					response.sendRedirect("UsuarioControlador?acao=alt&nomeusu="+nomeGrupo+"&flagGrupo='1'");//RECARREGA A PAG DE ALTERACAO DE GRUPO
+				}
+				else {//USUARIO QUE SAIU POR CONTA PROPRIA DO GRUPO
+					mensagemDAO.SairGrupo(usuAutenticado, nomeGrupo);
+					response.sendRedirect("UsuarioControlador?acao=pagInicial");//SAI DO GRUPO E VAI PARA A PAG INICIAL
+				}
 
 			} else if (acao != null && acao.equals("exmsgm")) {// ACAO=EXCLUIR MENSAGEM
 
@@ -225,10 +232,28 @@ public class UsuarioControlador extends HttpServlet {
 			} else if (acao != null && acao.equals("alt")) {// ACAO=ALTERAR DADOS DE UM USUARIO
 				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
 				if (usuAutenticado.equals("admin")) {
-					String nome = request.getParameter("nomeusu");
-					Usuario usuario = usuDAO.buscarporNome(nome);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
-					request.setAttribute("usuario", usuario);
-					request.getRequestDispatcher("AlterarCadastro.jsp").forward(request, response);
+					if(request.getParameter("flagGrupo").equals("0")) {
+						String nome = request.getParameter("nomeusu");
+						Usuario usuario = usuDAO.buscarporNome(nome);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
+						request.setAttribute("usuario", usuario);
+						request.getRequestDispatcher("AlterarCadastro.jsp").forward(request, response);
+					}
+					else {//LISTA USUARIOS PERTENCENTES AO GRUPO
+						List<String> listaAmigos = mensagemDAO.buscarRecentes(usuAutenticado);
+						request.setAttribute("listaAmigos", listaAmigos);//PARA BARRA LATERAL--CONVERSAS RECENTES
+						
+						List<Usuario> listaTodosUsuarios = usuDAO.buscarTodos();// LISTA COM TODOS OS USUARIOS NAO GRUPOS 
+						request.setAttribute("listaTodosUsuarios", listaTodosUsuarios);
+						
+						List<String> listaUsuariosGrupo = mensagemDAO.buscarIntegrantesGrupo(request.getParameter("nomeusu"));//LISTA SOH COM OS USUARIOS DO GRUPO ESPECIF
+						request.setAttribute("listaUsuariosGrupo", listaUsuariosGrupo);
+						
+						request.setAttribute("nomeGrupoAtual", request.getParameter("nomeusu"));
+						
+						RequestDispatcher saida = request.getRequestDispatcher("AlterarGrupo.jsp");
+						saida.forward(request, response);
+						
+					}
 				}
 				// AlterarCad.jsp
 				else {
