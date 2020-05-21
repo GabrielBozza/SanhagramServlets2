@@ -52,17 +52,29 @@ public class UsuarioControlador extends HttpServlet {
 
 				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
 				if (usuAutenticado.equals("admin")) {
-					if (request.getParameter("grupo").equals("grupo")) {
+					if (request.getParameter("grupo").equals("cadgrupo")) {
+						request.setAttribute("tipo", "cadgrupo");
 						List<Usuario> lista = usuDAO.buscarTodos(usu);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
 						request.setAttribute("lista", lista);
 						RequestDispatcher saida = request.getRequestDispatcher("CadastroGrupo.jsp");
 						saida.forward(request, response);
-					} else {
+					} else if (request.getParameter("grupo").equals("lisusuarios")) {
+						request.setAttribute("tipo", "lisusuarios");
+						List<String> listaAmigos = mensagemDAO.buscarRecentes(usuAutenticado);
+						request.setAttribute("listaAmigos", listaAmigos);
 						List<Usuario> lista = usuDAO.buscarTodos(usu);// DAO FAZ A OPERACAO E RETORNA O RESULTADO
 						request.setAttribute("lista", lista);
 						RequestDispatcher saida = request.getRequestDispatcher("listaUsuarios.jsp");
 						saida.forward(request, response);
 
+					} else {
+						request.setAttribute("tipo", "lisgrupos");
+						List<String> listaAmigos = mensagemDAO.buscarRecentes(usuAutenticado);
+						request.setAttribute("listaAmigos", listaAmigos);
+						List<Usuario> lista = usuDAO.buscarGrupos();// DAO FAZ A OPERACAO E RETORNA O RESULTADO
+						request.setAttribute("lista", lista);
+						RequestDispatcher saida = request.getRequestDispatcher("listaUsuarios.jsp");
+						saida.forward(request, response);
 					}
 				} else {
 					RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
@@ -116,11 +128,11 @@ public class UsuarioControlador extends HttpServlet {
 				} else {
 					List<String> listaAmigos = mensagemDAO.buscarRecentes(usuAutenticado);
 					request.setAttribute("listaAmigos", listaAmigos);
-						List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);
-						request.setAttribute("lista", lista);
-						request.setAttribute("conversaAtual", destinatario);
-						RequestDispatcher saida = request.getRequestDispatcher("MensagensSalvas.jsp");
-						saida.forward(request, response);
+					List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);
+					request.setAttribute("lista", lista);
+					request.setAttribute("conversaAtual", destinatario);
+					RequestDispatcher saida = request.getRequestDispatcher("MensagensSalvas.jsp");
+					saida.forward(request, response);
 				}
 
 			} else if (acao != null && acao.equals("lisamigos")) {// NAO ESTA MAIS SENDO USADA
@@ -159,6 +171,13 @@ public class UsuarioControlador extends HttpServlet {
 				RequestDispatcher saida = request.getRequestDispatcher("SalvarMensagem.jsp");
 				saida.forward(request, response);
 
+			} else if (acao != null && acao.equals("SairGrupo")) {
+
+				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
+				String nomeGrupo = request.getParameter("nomeGrupo");
+				mensagemDAO.SairGrupo(usuAutenticado, nomeGrupo);
+				response.sendRedirect("UsuarioControlador?acao=pagInicial");//SAI DO GRUPO E VAI PARA A PAG INICIAL
+
 			} else if (acao != null && acao.equals("exmsgm")) {// ACAO=EXCLUIR MENSAGEM
 
 				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
@@ -176,9 +195,9 @@ public class UsuarioControlador extends HttpServlet {
 					RequestDispatcher saida = request.getRequestDispatcher("listaMensagens.jsp");
 					saida.forward(request, response);
 				} else {
-					
+
 					if (destinatario.equals("ADefinirUsuario")) {
-						String prox_pag = "UsuarioControlador?acao=lismsgmSalvas&remetente="+remetente;
+						String prox_pag = "UsuarioControlador?acao=lismsgmSalvas&remetente=" + remetente;
 						response.sendRedirect(prox_pag);
 					} else {
 						List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);
@@ -290,7 +309,7 @@ public class UsuarioControlador extends HttpServlet {
 					} else {
 						if (destinatario.equals("ADefinirUsuario")) {
 							mensagemDAO.enviar(mensagem);
-							String prox_pag = "UsuarioControlador?acao=lismsgmSalvas&remetente="+remetente;
+							String prox_pag = "UsuarioControlador?acao=lismsgmSalvas&remetente=" + remetente;
 							response.sendRedirect(prox_pag);
 						} else {
 							mensagemDAO.enviar(mensagem);
@@ -327,11 +346,10 @@ public class UsuarioControlador extends HttpServlet {
 				usuario.setDatanasc(data);
 
 				UsuarioDAO2 usuarioDAO = new UsuarioDAO2();
-				String resultadocadastro=usuarioDAO.cadastro(usuario);
-				if(resultadocadastro.equals("cadastradoComSucesso")) {
+				String resultadocadastro = usuarioDAO.cadastro(usuario);
+				if (resultadocadastro.equals("cadastradoComSucesso")) {
 					response.sendRedirect("UsuarioControlador?acao=lis&grupo=usuario");
-				}
-				else {
+				} else {
 					RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
 					saida.forward(request, response);
 				}
@@ -346,9 +364,10 @@ public class UsuarioControlador extends HttpServlet {
 			String integrantes_grupo = request.getParameter("listaNovoGrupo").substring(0,
 					request.getParameter("listaNovoGrupo").length() - 1);// COMPLICADO PASSAR ARRAY DE JS PARA
 																			// JAVA-->STRING COM DELIMITADORES
-			String integrantes[] = integrantes_grupo.split("\\|");//separa os nomes dos usuarios (estao separados por '|')
+			String integrantes[] = integrantes_grupo.split("\\|");// separa os nomes dos usuarios (estao separados por
+																	// '|')
 
-			try {//CADASTRA O GRUPO EM SI COMO UM USUARIO APENAS COM NOME E FLAG_GRUPO=1
+			try {// CADASTRA O GRUPO EM SI COMO UM USUARIO APENAS COM NOME E FLAG_GRUPO=1
 
 				Usuario usuario = new Usuario();
 				usuario.setNome(nome_grupo);
@@ -363,19 +382,21 @@ public class UsuarioControlador extends HttpServlet {
 
 			}
 
-			try {//ENVIA MENSAGENS AO GRUPO INDICANDO A ENTRADA DE SEUS MEMBROS INDIVIDUALMENTE E UMA MENSAGEM PARA INDICAR QUE O USUARIO PERTENCE AO GRUPO
+			try {// ENVIA MENSAGENS AO GRUPO INDICANDO A ENTRADA DE SEUS MEMBROS INDIVIDUALMENTE
+					// E UMA MENSAGEM PARA INDICAR QUE O USUARIO PERTENCE AO GRUPO
 
 				for (String remetente : integrantes) {
 					Mensagem mensagem = new Mensagem();
 					Mensagem mensagem2 = new Mensagem();
-				
+
 					mensagem.setRemetente(remetente);
 					mensagem.setDestinatario(nome_grupo);
-					mensagem.setTexto_mensagem("");//MENSAGEM QUE MANTEM A REFERENCIA DO USUARIO AO GRUPO E NAO APARECE NO CHAT
+					mensagem.setTexto_mensagem("");// MENSAGEM QUE MANTEM A REFERENCIA DO USUARIO AO GRUPO E NAO APARECE
+													// NO CHAT
 
 					MensagemDAO mensagemDAO = new MensagemDAO();
 					mensagemDAO.enviarParaGrupo(mensagem);
-					
+
 					mensagem2.setRemetente(nome_grupo);
 					mensagem2.setDestinatario(nome_grupo);
 					mensagem2.setTexto_mensagem(remetente + " entrou no grupo");

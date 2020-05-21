@@ -213,21 +213,21 @@
 				}
 			%>
 			<button onclick="location.reload();"
-				style="border: none; outline: none; position: fixed; bottom: 78.5%; right: 43%; width: 40px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border-width: 0px; cursor: pointer; color: white;">
+				style="font-size:20px;border: none; outline: none; position: fixed; bottom: 76.5%; right: 43%; width: 40px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border-width: 0px; cursor: pointer; color: white;">
 				<i class="fa fa-fw fa-refresh"></i>
 			</button>
 			<button onclick="modoApagar();"
-				style="border: none; outline: none; position: fixed; bottom: 78.5%; right: 39%; width: 40px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border-width: 0px; cursor: pointer; color: white;">
+				style="font-size:20px;border: none; outline: none; position: fixed; bottom: 76.5%; right: 39%; width: 40px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border-width: 0px; cursor: pointer; color: white;">
 				<i class="fa fa-fw fa-trash"></i>
 			</button>
 			<%
 				if (listaResultado.get(0).getFlag_grupo() == 1) {
 			%>
-			<button onclick="modoApagar();"
-				style="border: none; outline: none; position: fixed; bottom: 86.2%; right: 1%; width: 140px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background: #f8fbfd; font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border: 1.7px solid red; cursor: pointer; color: red;">
-				<i style="font-size: 18px;" class="fa fa-fw fa-sign-out"></i> Sair
+			<a href="UsuarioControlador?acao=SairGrupo&nomeGrupo=<%=request.getSession().getAttribute("destinatarioMsgm")%>"
+				style="outline: none; position: fixed; bottom: 86.2%; right: 1%; width: 145px; height: 35px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background: #f8fbfd; font-weight: bold; font-family: Helvetica; border-radius: 40px; border: 1.7px solid red; cursor: pointer; color: red;">
+				<i style="font-size: 18px;margin-top:7px;" class="fa fa-fw fa-sign-out"></i> Sair
 				do Grupo
-			</button>
+			</a>
 			<%
 				}
 			%>

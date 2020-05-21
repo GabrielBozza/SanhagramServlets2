@@ -211,6 +211,45 @@ public class MensagemDAO {
 		
 	}
 	
+	public void SairGrupo(String nomeUsuario, String nomeGrupo) {//EXCLUI MENSAGEM DADO SEU ID
+		
+		String sql = "DELETE FROM MENSAGENS WHERE REMETENTE = ? AND DESTINATARIO = ? AND TEXTO_MENSAGEM=''";//APAGA SOH A MENSAGEM REFERENCIA AO GRUPO-->MENSAGEM VAZIA
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql);
+			preparador.setString(1, nomeUsuario);//? 1
+			preparador.setString(2, nomeGrupo);//? 2
+			
+			preparador.execute();
+			preparador.close();
+			
+			System.out.println("Usuario "+nomeUsuario+" removido do grupo "+nomeGrupo+" com sucesso!");
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+		}
+		
+		String sql2 = "INSERT INTO sanhagram.MENSAGENS (remetente, destinatario, texto_mensagem,flag_grupo)\r\n" + 
+				"SELECT ?,?,?,1\r\n" + 
+				"WHERE EXISTS (SELECT NOME FROM sanhagram.USUARIO WHERE NOME = ?);";
+		
+		try {
+			PreparedStatement preparador2 = conexao.prepareStatement(sql2);
+			preparador2.setString(1, nomeGrupo);//? 1
+			preparador2.setString(2, nomeGrupo);//? 2
+			preparador2.setString(3, nomeUsuario+" saiu do grupo");//? 1
+			preparador2.setString(4, nomeGrupo);//? 2
+			
+			preparador2.execute();
+			preparador2.close();
+			
+			System.out.println("Usuario "+nomeUsuario+" removido do grupo "+nomeGrupo+" com sucesso!");
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+		}
+		
+	}
 	
 	public List<String> buscarRecentes(String destinatario) {//BUSCA E RETORNA OS AMIGOS QUE CONVERSARAM COM O USUARIO ORDENADOS DO MAIS RECENTE PARA O MAIS ANTIGO
 		

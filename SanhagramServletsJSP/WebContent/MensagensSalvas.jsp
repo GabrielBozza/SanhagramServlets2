@@ -157,6 +157,10 @@
 			<%
 				}
 			%>
+			<button onclick="modoApagar();"
+				style="font-size:20px;border: none; outline: none; position: fixed; bottom: 76.5%; right: 76.7%; width: 40px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border-width: 0px; cursor: pointer; color: white;">
+				<i class="fa fa-fw fa-trash"></i>
+			</button>
 			<div id="EspacoEmBranco"
 				style="margin-top: 20px; paddin: 5px; float: left; height: 180px; width: 100%;"></div>
 			<script>

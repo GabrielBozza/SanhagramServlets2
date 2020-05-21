@@ -12,7 +12,15 @@
   <script>
     document.body.style.zoom = (window.screen.width/1536);
   </script>
-	<jsp:include page="cabecalhoAdmin.jsp"></jsp:include>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<br>
+<a href="UsuarioControlador?acao=pagInicial" style="margin-left:100px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"><i class="fa fa-fw fa-home"></i> Início</a>
+<a id="MensagensRecentes" style="margin-left:150px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;" href="UsuarioControlador?acao=lis&grupo=cadgrupo"><i class="fa fa-fw fa-pencil"></i> Criar Grupo</a>
+<a href="UsuarioControlador?acao=lis&grupo=lisusuarios" style="margin-left:150px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"><i class="fa fa-fw fa-user"></i> Usuários</a>
+<a href="UsuarioControlador?acao=lis&grupo=lisgrupos" style="margin-left:150px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"><i class="fa fa-fw fa-users"></i> Grupos</a>
+<a href="UsuarioControlador?acao=cad" style="margin-left:150px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"> <i class="fa fa-fw fa-save"></i> Cadastro</a>
+<a href="autenticador" style="margin-left:150px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"><i class="fa fa-fw fa-sign-out"></i> Sair</a><br><br>
+
 
 <%
 	//List<Usuario> lista = usuDAO.buscarTodos(usu);
@@ -24,8 +32,10 @@
 
 <div style="width:100%;">
 	<div style="float:left;width:40%;">
+	
+
 		<table border="0" id="tabelaUsuarios" border-radius="13px"
-		style="font-family: Helvetica; font-size: 18px;  margin-top: 50px; padding: 0px;margin-left:60px;border-radius:13px;background:#8ee6de;">
+		style="font-family: Helvetica; font-size: 18px;  margin-top: 50px; padding: 0px;margin-left:60px;border-radius:13px;background:#8ee6de;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
 			<tr style="height: 35px; padding: 5px;">
 			<th style="padding: 10px;">Nome</th>
 			<th style="padding: 10px;">Email</th>
@@ -45,6 +55,7 @@
 			}
 		%>
 		</table>
+		
 	</div>
 	
 	

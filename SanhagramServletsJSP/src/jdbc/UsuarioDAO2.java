@@ -154,6 +154,35 @@ public class UsuarioDAO2 {
 		
 	}
 	
+	public List<Usuario> buscarGrupos() {//LISTA TODOS OS USUARIOS CADASTRADOS
+		
+		String sql = "SELECT * FROM USUARIO WHERE FLAG_GRUPO='1'";
+		List<Usuario> lista = new ArrayList<Usuario>();
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql);
+			ResultSet resultados = preparador.executeQuery();
+			
+			while(resultados.next()){
+				Usuario prox_usuario = new Usuario();
+				
+				//prox_usuario.setId(resultados.getInt("idusuario"));
+				prox_usuario.setNome(resultados.getString("nome"));
+				//prox_usuario.setEmail(resultados.getString("email"));
+				//prox_usuario.setSenha(resultados.getString("senha"));
+				//prox_usuario.setDatanasc(resultados.getString("datanasc"));
+				
+				lista.add(prox_usuario);				
+			}
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+		}
+		
+		return lista;
+		
+	}
+	
 	public Usuario buscarporNome(String nome) {//BUSCA UM USUARIO DADO SEU ID
 		
 		Usuario usuRetorno = null;
