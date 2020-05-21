@@ -146,7 +146,7 @@
 				%>
 				<tr style="height: 25px; padding: 5px;">
 					<td style="padding: 10px;"><%=u%></td>
-					<td style="padding: 10px;"><a href="#ADD"
+					<td style="padding: 10px;"><a href="UsuarioControlador?acao=AdicionarAoGrupo&nomeGrupo=<%=request.getAttribute("nomeGrupoAtual")%>&nomeUsuario=<%=u%>"
 						style="color: blue; text-decoration: none;">Adicionar</a>
 				</tr>
 				<%

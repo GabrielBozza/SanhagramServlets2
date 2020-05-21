@@ -185,6 +185,49 @@ public class UsuarioControlador extends HttpServlet {
 					response.sendRedirect("UsuarioControlador?acao=pagInicial");//SAI DO GRUPO E VAI PARA A PAG INICIAL
 				}
 
+			}else if (acao != null && acao.equals("AdicionarAoGrupo")) {
+
+				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
+				String nomeGrupo = request.getParameter("nomeGrupo");
+				if(usuAutenticado.equals("admin")) {
+					String nomeUsuario = request.getParameter("nomeUsuario");
+					
+
+					try {// ENVIA MENSAGENS AO GRUPO INDICANDO A ENTRADA DE SEUS MEMBROS INDIVIDUALMENTE
+							// E UMA MENSAGEM PARA INDICAR QUE O USUARIO PERTENCE AO GRUPO
+
+							Mensagem mensagem1 = new Mensagem();
+							Mensagem mensagem2 = new Mensagem();
+
+							mensagem1.setRemetente(nomeUsuario);
+							mensagem1.setDestinatario(nomeGrupo);
+							mensagem1.setTexto_mensagem("");// MENSAGEM QUE MANTEM A REFERENCIA DO USUARIO AO GRUPO E NAO APARECE
+															// NO CHAT
+
+							MensagemDAO mensagemDAO1 = new MensagemDAO();
+							mensagemDAO1.enviarParaGrupo(mensagem1);
+
+							mensagem2.setRemetente(nomeGrupo);
+							mensagem2.setDestinatario(nomeGrupo);
+							mensagem2.setTexto_mensagem(nomeUsuario + " entrou no grupo");
+
+							MensagemDAO mensagemDAO2 = new MensagemDAO();
+							mensagemDAO2.enviarParaGrupo(mensagem2);
+
+					}
+
+					catch (Exception e) {
+						System.out.println(e);
+
+					}
+					
+					response.sendRedirect("UsuarioControlador?acao=alt&nomeusu="+nomeGrupo+"&flagGrupo='1'");//RECARREGA A PAG DE ALTERACAO DE GRUPO
+				}
+				else {//AREA DO ADMIN SOMENTE
+					RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
+					saida.forward(request, response);
+				}
+
 			} else if (acao != null && acao.equals("exmsgm")) {// ACAO=EXCLUIR MENSAGEM
 
 				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
