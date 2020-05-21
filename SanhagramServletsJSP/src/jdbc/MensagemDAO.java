@@ -115,9 +115,10 @@ public class MensagemDAO {
 		
 	}
 	
-	public String ChecaPertencimentoGrupo(String remetente,String nomegrupo) {//EXCLUI MENSAGEM DADO SEU ID
+	public String ChecaPertencimentoGrupo(String remetente,String nomegrupo) {//CHECA SE A MENSAGEM VAZIA - QUE INDICA QUE O USUARIO ESTA NO GRUPO AINDA EXISTE
 		
-		String sql = "SELECT * FROM MENSAGENS WHERE REMETENTE = ? AND DESTINATARIO = ?";
+		//String sql = "SELECT * FROM MENSAGENS WHERE REMETENTE = ? AND DESTINATARIO = ? ";
+		String sql = "SELECT * FROM MENSAGENS WHERE REMETENTE = ? AND DESTINATARIO = ? AND TEXTO_MENSAGEM='' ";//-->FUTURo --funciona
 		
 		try {
 			PreparedStatement preparador = conexao.prepareStatement(sql);
@@ -176,14 +177,17 @@ public class MensagemDAO {
 		
 	}
 	
-	public List<Mensagem> buscarMensagensGrupo(String remetente, String destinatario) {//BUSCA E RETORNA TODAS AS MENSAGENS ENTRE DUAS PESSOAS E ORDENA POR DATA_ENVIO
+	public List<Mensagem> buscarMensagensGrupo(String remetente, String destinatario) {//BUSCA E RETORNA TODAS AS MENSAGENS PARA O GRUPO A PARTIR DO MOMENTO QUE ELE FOI ADD E ORDENA POR DATA_ENVIO
 		
-		String sql = "SELECT * FROM MENSAGENS WHERE DESTINATARIO=? ORDER BY DATA_ENVIO";
+		//String sql = "SELECT * FROM MENSAGENS WHERE DESTINATARIO=? ORDER BY DATA_ENVIO";
+		String sql="SELECT * FROM sanhagram.MENSAGENS WHERE DESTINATARIO=? AND IDMENSAGENS>(SELECT IDMENSAGENS FROM sanhagram.MENSAGENS WHERE DESTINATARIO=? AND REMETENTE=? AND TEXTO_MENSAGEM='') ORDER BY DATA_ENVIO";
 		List<Mensagem> lista = new ArrayList<Mensagem>();
 		
 		try {
 			PreparedStatement preparador = conexao.prepareStatement(sql);
 			preparador.setString(1, destinatario);//? 1
+			preparador.setString(2, destinatario);//? 2--->FUTURAMENTE-FUNCIONA
+			preparador.setString(3, remetente);//? 2--->FUTURAMENTE-FUNCIONA
 			ResultSet resultados = preparador.executeQuery();
 			
 			while(resultados.next()){
@@ -221,10 +225,10 @@ public class MensagemDAO {
 				"				WHERE DESTINATARIO=?\r\n" + 
 				"				UNION ALL\r\n" + 
 				"				SELECT DESTINATARIO AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS\r\n" + 
-				"				WHERE REMETENTE=? AND DESTINATARIO!='ADefinirUsuario' \r\n" + 
+				"				WHERE REMETENTE=? AND DESTINATARIO!='ADefinirUsuario' AND FLAG_GRUPO='0'\r\n" + 
 				"                UNION ALL\r\n" + 
 				"                SELECT DESTINATARIO AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS WHERE FLAG_GRUPO='1' AND DESTINATARIO IN (SELECT DESTINATARIO FROM sanhagram.MENSAGENS\r\n" + 
-				"                WHERE REMETENTE=? AND FLAG_GRUPO='1')\r\n" + 
+				"                WHERE REMETENTE=? AND FLAG_GRUPO='1' AND TEXTO_MENSAGEM='')\r\n" + 
 				"                ORDER BY DATA_ENVIO DESC) AS amigo";
 		List<String> lista = new ArrayList<String>();
 		

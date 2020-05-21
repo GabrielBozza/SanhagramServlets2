@@ -346,9 +346,9 @@ public class UsuarioControlador extends HttpServlet {
 			String integrantes_grupo = request.getParameter("listaNovoGrupo").substring(0,
 					request.getParameter("listaNovoGrupo").length() - 1);// COMPLICADO PASSAR ARRAY DE JS PARA
 																			// JAVA-->STRING COM DELIMITADORES
-			String integrantes[] = integrantes_grupo.split("\\|");
+			String integrantes[] = integrantes_grupo.split("\\|");//separa os nomes dos usuarios (estao separados por '|')
 
-			try {
+			try {//CADASTRA O GRUPO EM SI COMO UM USUARIO APENAS COM NOME E FLAG_GRUPO=1
 
 				Usuario usuario = new Usuario();
 				usuario.setNome(nome_grupo);
@@ -363,16 +363,25 @@ public class UsuarioControlador extends HttpServlet {
 
 			}
 
-			try {
+			try {//ENVIA MENSAGENS AO GRUPO INDICANDO A ENTRADA DE SEUS MEMBROS INDIVIDUALMENTE E UMA MENSAGEM PARA INDICAR QUE O USUARIO PERTENCE AO GRUPO
 
 				for (String remetente : integrantes) {
 					Mensagem mensagem = new Mensagem();
+					Mensagem mensagem2 = new Mensagem();
+				
 					mensagem.setRemetente(remetente);
 					mensagem.setDestinatario(nome_grupo);
-					mensagem.setTexto_mensagem(remetente + " entrou no grupo");
+					mensagem.setTexto_mensagem("");//MENSAGEM QUE MANTEM A REFERENCIA DO USUARIO AO GRUPO E NAO APARECE NO CHAT
 
 					MensagemDAO mensagemDAO = new MensagemDAO();
 					mensagemDAO.enviarParaGrupo(mensagem);
+					
+					mensagem2.setRemetente(nome_grupo);
+					mensagem2.setDestinatario(nome_grupo);
+					mensagem2.setTexto_mensagem(remetente + " entrou no grupo");
+
+					MensagemDAO mensagemDAO2 = new MensagemDAO();
+					mensagemDAO2.enviarParaGrupo(mensagem2);
 
 				}
 

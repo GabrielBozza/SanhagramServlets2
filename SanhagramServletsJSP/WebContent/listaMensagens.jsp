@@ -13,9 +13,9 @@
 <title>Lista mensagens</title>
 </head>
 <body>
-  <script>
-    document.body.style.zoom = (window.screen.width/1536);
-  </script>
+	<script>
+		document.body.style.zoom = (window.screen.width / 1536);
+	</script>
 	<%
 		//List<Usuario> lista = usuDAO.buscarTodos(usu);
 		//Set refresh, autoload time as 5 seconds
@@ -60,10 +60,9 @@
 
 					<a
 						href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"
-						onclick="voltarModoNormal()"> 
-						<%
- 							if (s.equals(request.getAttribute("conversaAtual"))) {
- 						%>
+						onclick="voltarModoNormal()"> <%
+ 	if (s.equals(request.getAttribute("conversaAtual"))) {
+ %>
 						<div class="conversa"
 							style="height: 60px; background-image: linear-gradient(to bottom right, #ABF1BC, #87CDF6); border: 2px solid #2bffb5; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
 							<%
@@ -149,12 +148,31 @@
 			%>
 
 			<%
-				if (!m.getRemetente().equals(request.getSession().getAttribute("usuAutenticado"))) {
+				if (!m.getRemetente().equals(request.getSession().getAttribute("usuAutenticado")) && !m.getTexto_mensagem().equals("")) {
+			%>
+
+			<%
+				if (m.getRemetente().equals(request.getSession().getAttribute("destinatarioMsgm")) && listaResultado.get(0).getFlag_grupo() == 1) {
 			%>
 			<br>
 			<div style="width: 100%; float: right;">
 				<div id="BolhaMensagem"
-					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);overflow:hidden; margin-top: 20px; margin-left: 20px; float: left; text-align: center; border: 0px; border-radius: 15px; background-image: linear-gradient(to bottom right, #48A9FE, #0BEEF9); padding: 8px;">
+					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-left: 20px; float: left; text-align: center; border: 0px; border-radius: 15px; background-image: linear-gradient(to bottom right, #EECDA3, #EF629F); padding: 8px;">
+					<a
+						style="padding-left: 2px; padding-top: 2px; float: left; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: left; color: black;"><%=m.getRemetente()%></a>
+					<a
+						style="font-weight: 700; padding-left: 12px; padding-right: 2px; padding-top: 2px; float: right; font-size: 10px; font-family: Helvetica; margin-left: 0px; color: #4f4f4f;"><%=m.getData_envio().substring(11, 16)%></a><br>
+					<a style="font-family: Helvetica; margin-left: 0px; color: white;"><%=m.getTexto_mensagem()%></a>
+				</div>
+			</div>
+
+			<%
+				} else {
+			%>
+			<br>
+			<div style="width: 100%; float: right;">
+				<div id="BolhaMensagem"
+					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-left: 20px; float: left; text-align: center; border: 0px; border-radius: 15px; background-image: linear-gradient(to bottom right, #48A9FE, #0BEEF9); padding: 8px;">
 					<a
 						style="padding-left: 2px; padding-top: 2px; float: left; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: left; color: #ffe5b0;"><%=m.getRemetente()%></a>
 					<a
@@ -163,7 +181,11 @@
 				</div>
 			</div>
 			<%
-				} else {
+				}
+			%>
+
+			<%
+				} else if (!m.getTexto_mensagem().equals("")){
 			%>
 			<br>
 			<div style="width: 100%; float: left;">
@@ -198,12 +220,17 @@
 				style="border: none; outline: none; position: fixed; bottom: 78.5%; right: 39%; width: 40px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border-width: 0px; cursor: pointer; color: white;">
 				<i class="fa fa-fw fa-trash"></i>
 			</button>
-			<% if(listaResultado.get(0).getFlag_grupo() == 1){%>
+			<%
+				if (listaResultado.get(0).getFlag_grupo() == 1) {
+			%>
 			<button onclick="modoApagar();"
-				style="border: none; outline: none; position: fixed; bottom: 86.2%; right: 1%; width: 140px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);background: #f8fbfd; font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border: 1.7px solid red; cursor: pointer; color: red;">
-				<i style="font-size:18px;"class="fa fa-fw fa-sign-out"></i> Sair do Grupo
+				style="border: none; outline: none; position: fixed; bottom: 86.2%; right: 1%; width: 140px; height: 40px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background: #f8fbfd; font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 40px; border: 1.7px solid red; cursor: pointer; color: red;">
+				<i style="font-size: 18px;" class="fa fa-fw fa-sign-out"></i> Sair
+				do Grupo
 			</button>
-			<% }%>
+			<%
+				}
+			%>
 
 			<div id="EspacoEmBranco"
 				style="margin-top: 20px; paddin: 5px; float: left; height: 180px; width: 100%;"></div>
@@ -248,9 +275,8 @@
 					value=<%=request.getSession().getAttribute("usuAutenticado")%>>
 				<input type="hidden" id="destinatario" name="destinatario"
 					value=<%=request.getAttribute("conversaAtual")%>> <br>
-				<br> <br>
-				<input class="textarea" type="text" id="texto_mensagem"
-					placeholder="Mensagem" name="texto_mensagem"
+				<br> <br> <input class="textarea" type="text"
+					id="texto_mensagem" placeholder="Mensagem" name="texto_mensagem"
 					style="position: fixed; width: 70%; bottom: -50px; right: 9.5%; height: 35px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); font-family: Helvetica; background: #ffffff; text-align: center; color: black;"
 					required> <input type="submit" value="ENVIAR"
 					style="position: fixed; bottom: 1.5%; right: 3%; width: 6%; height: 50px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background-image: linear-gradient(to bottom right, #2AF598, #08B3E5); font-weight: bold; font-family: Helvetica; text-align: center; border-radius: 13px; border-width: 0px; cursor: pointer; color: white;">

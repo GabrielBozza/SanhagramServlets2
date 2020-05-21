@@ -136,7 +136,7 @@
 			   	for (var j = 0, col; col = row.cells[j]; j++) {
 			   		if(col.innerHTML==''){
 			   			col.innerHTML=novoUsuario;
-			   			document.getElementById("listaNovoGrupo").value=document.getElementById("listaNovoGrupo").value+novoUsuario+"|";
+			   			document.getElementById("listaNovoGrupo").value=document.getElementById("listaNovoGrupo").value+novoUsuario+"|";//GERA UMA LISTA COM OS NOMES SEPARADOS POR '|' E ATRIBUI AO ELEMENTO ESCONDIDO DO INPUT 'listaNovoGrupo'
 			   			i=8;//tabela vazia tem 9 linhas (0<=i<9)
 			   			break;
 			   		}
@@ -147,7 +147,7 @@
 			for (var i = 0, row; row = tableusuarios.rows[i]; i++) {
 			   	for (var j = 0, col; col = row.cells[j]; j++) {
 			   		if(col.innerHTML==novoUsuario){
-			   			row.cells[j+2].style.visibility="hidden";
+			   			row.cells[j+2].style.visibility="hidden";//ESCONDE O + DO USUARIO ADICIONADO
 			   		}
 			   	}	  
 			}
