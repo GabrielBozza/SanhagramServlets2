@@ -64,7 +64,7 @@ public class UsuarioDAO2 {
 		
 	}
 	
-	public void cadastroGrupo(Usuario usuario) {
+	public String cadastroGrupo(Usuario usuario) {
 		
 		String sql = "INSERT INTO USUARIO (nome, flag_grupo) values (?,'1')";
 		
@@ -76,9 +76,11 @@ public class UsuarioDAO2 {
 			preparador.close();
 			
 			System.out.println("Cadastrado com sucesso!");
+			return("cadastradoComSucesso");
 		}
 		catch (SQLException e ){
 			System.out.println("Erro - " + e.getMessage());
+			return("Erro");
 		}
 		
 	}
@@ -154,7 +156,7 @@ public class UsuarioDAO2 {
 		
 	}
 	
-	public List<Usuario> buscarGrupos() {//LISTA TODOS OS USUARIOS CADASTRADOS
+	public List<Usuario> buscarGrupos() {//LISTA TODOS OS GRUPOS CADASTRADOS
 		
 		String sql = "SELECT * FROM USUARIO WHERE FLAG_GRUPO='1'";
 		List<Usuario> lista = new ArrayList<Usuario>();
@@ -240,7 +242,7 @@ public class UsuarioDAO2 {
 		return usuRetorno;
 	}
 	
-	public String tipoUsuario(String destinatario) {//VERIFICA SE O USUARIO E SENHA ESTAO NO BD
+	public String tipoUsuario(String destinatario) {//VERIFICA SE EH UM USUARIO OU UM GRUPO
 		String tipo = "";
 		String sql = "SELECT FLAG_GRUPO FROM USUARIO WHERE NOME = ?";//GRUPOS NAO PODEM FAZER LOGIN
 		

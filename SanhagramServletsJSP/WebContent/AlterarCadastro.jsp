@@ -41,13 +41,13 @@ function formatar(mascara, documento){
 		<input type="hidden" name="acao" value="salvar">
 		
 		<label style="font-size:18px;font-family: Helvetica;margin-left:580px;">Nome:</label> <br>
-		<input type="text" name="nome" value=<%=usu.getNome()%> style="height:35px;font-size:18px;font-family: Helvetica; background: #deddd9; width: 20%; text-align: center; margin-left: 580px; color: black;border-radius: 6px; border-width: 0px;" readonly><br>
+		<input type="text" name="nome" value='<%=usu.getNome()%>' style="height:35px;font-size:18px;font-family: Helvetica; background: #deddd9; width: 20%; text-align: center; margin-left: 580px; color: black;border-radius: 6px; border-width: 0px;" readonly><br>
 		<br><label style="font-size:18px;font-family: Helvetica;margin-left:580px;">Email:</label> <br>
-		<input type="text" name="email" value="<%=usu.getEmail()%>" style="height:35px;font-size:18px;font-family: Helvetica; background: #deddd9; width: 20%; text-align: center; margin-left: 580px; color: black;border-radius: 6px; border-width: 0px;"><br>
+		<input type="text" name="email" value='<%=usu.getEmail()%>' style="height:35px;font-size:18px;font-family: Helvetica; background: #deddd9; width: 20%; text-align: center; margin-left: 580px; color: black;border-radius: 6px; border-width: 0px;"><br>
 		<br><label style="font-size:18px;font-family: Helvetica;margin-left:580px;">Senha:</label> <br>
-		<input type="password" name="senha" value="<%=usu.getSenha()%>" style="height:35px;font-size:18px;font-family: Helvetica; background: #deddd9; width: 20%; text-align: center; margin-left: 580px; color: black;border-radius: 6px; border-width: 0px;"> <br>
+		<input type="password" name="senha" value='<%=usu.getSenha()%>' style="height:35px;font-size:18px;font-family: Helvetica; background: #deddd9; width: 20%; text-align: center; margin-left: 580px; color: black;border-radius: 6px; border-width: 0px;"> <br>
 		<br><label style="font-size:18px;font-family: Helvetica;margin-left:580px;">Data de Nascimento</label><br>
-		<input type="text" name="data" OnKeyPress="formatar('##/##/####', this)" style="height:35px;font-size:18px;font-family: Helvetica; background: #deddd9; width: 20%; text-align: center; margin-left: 580px; color: black;border-radius: 6px; border-width: 0px;"><br>
+		<input type="text" name="data" OnKeyPress="formatar('##/##/####', this)" style="height:35px;font-size:18px;font-family: Helvetica; background: #deddd9; width: 20%; text-align: center; margin-left: 580px; color: black;border-radius: 6px; border-width: 0px;" required><br>
 		
 		<br><input type="submit" value="SALVAR" style="font-family: Helvetica; background: #deddd9; text-align: center; margin-left: 680px; border-radius: 6px; border-width: 0px; width: 90px; height: 35px; cursor: pointer;">
 	</form>

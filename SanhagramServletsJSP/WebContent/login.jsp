@@ -27,8 +27,8 @@
             <form autocomplete="off" action="autenticador" method="post">
 
                 <div class="mid2">
-                    <br><input class = "textarea" placeholder = "Nome de usuario" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nome de usuario'" type="text" id="Login" name="nome"> 
-                    <br><br><input class = "textarea" placeholder = "Senha"  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Senha'" type="password" id="Password" name="senha">
+                    <br><input class = "textarea" placeholder = "Nome de usuario" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nome de usuario'" type="text" id="Login" name="nome" required> 
+                    <br><br><input class = "textarea" placeholder = "Senha"  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Senha'" type="password" id="Password" name="senha" required>
                 	<input class="bt-login" type="submit" value="LOGIN ">
                 </div>
 

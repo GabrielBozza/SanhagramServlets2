@@ -146,7 +146,7 @@
 					<input type="hidden" id="remetente" name="remetente"
 						value=<%=request.getSession().getAttribute("usuAutenticado")%>>
 					<input type="hidden" id="texto_mensagem" name="texto_mensagem"
-						value=<%=m.getTexto_mensagem()%>> 
+						value='<%=m.getTexto_mensagem()%>'> 
 					<input class="textarea" type="text" id="destinatario" name="destinatario"
 						placeholder="Destinatário" 
 						style="margin-top:8px;margin-left:-38px;width:66%;height: 20px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); font-family: Helvetica; background: #ffffff; text-align: center; color: black;"

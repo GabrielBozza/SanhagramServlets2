@@ -223,7 +223,7 @@
 			<%
 				if (listaResultado.get(0).getFlag_grupo() == 1) {
 			%>
-			<a href="UsuarioControlador?acao=SairGrupo&nomeGrupo=<%=request.getSession().getAttribute("destinatarioMsgm")%>"
+			<a href="UsuarioControlador?acao=SairGrupo&nomeGrupo=<%=request.getSession().getAttribute("destinatarioMsgm")%>&nomeUsuario=<%=request.getSession().getAttribute("usuAutenticado")%>"
 				style="outline: none; position: fixed; bottom: 86.2%; right: 1%; width: 145px; height: 35px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background: #f8fbfd; font-weight: bold; font-family: Helvetica; border-radius: 40px; border: 1.7px solid red; cursor: pointer; color: red;">
 				<i style="font-size: 18px;margin-top:7px;" class="fa fa-fw fa-sign-out"></i> Sair
 				do Grupo
