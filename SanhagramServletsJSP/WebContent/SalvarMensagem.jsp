@@ -11,7 +11,7 @@
 	rel="stylesheet">
 <script src=".\js\scriptelaprincip.js"></script>
 <meta charset="ISO-8859-1">
-<title>Página Inicial</title>
+<title>Salvar Mensagem</title>
 </head>
 
 <body>

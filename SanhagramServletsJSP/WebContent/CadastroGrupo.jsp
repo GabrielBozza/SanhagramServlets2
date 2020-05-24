@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Criar Grupo</title>
 </head>
 <body>
   <script>
@@ -132,7 +132,7 @@
 				<br><input class="textarea" type="text" id="texto_mensagem"
 					placeholder="Nome do grupo" name="nome_grupo"
 					style="margin-left:62px;border:0px;border-radius:13px;position:relative; width: 76%;height:50px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);font-size:16px;font-family: Helvetica; background: #ffffff;text-align: center;color: black;"
-					required> <input type="submit" value="CRIAR" onclick="alert('Grupo criado com Sucesso!')"
+					required> <input type="submit" value="CRIAR"
 					style="position:relative;width: 90px; height: 50px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);font-weight:bold;font-family: Helvetica;text-align: center;border-radius: 13px; border-width: 0px;cursor: pointer;color:white;"
 					>
 			</form>

@@ -1,6 +1,7 @@
 package Controlador;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
+import org.json.JSONObject;
 
 import bean.Usuario;
 import jdbc.MensagemDAO;
@@ -52,6 +56,7 @@ public class autenticador extends HttpServlet {
 		String nome = request.getParameter("nome");
 		String senha = request.getParameter("senha");
 
+		System.out.println(nome+" "+senha);
 		Usuario usu = new Usuario();// CRIA UM NOVO USUARIO DE BEAN.USUARIO
 		usu.setNome(nome);// SETA SEUS PARAMETROS
 		usu.setSenha(senha);// SETA SEUS PARAMETROS
@@ -67,14 +72,25 @@ public class autenticador extends HttpServlet {
 																			// O NOME E SENHA FORNECIDOS E JA CHECADOS
 			MensagemDAO mensagemDAO = new MensagemDAO();
 			// sessao.setMaxInactiveInterval(3000);
-			if (usuAutenticado.getNome().equals("admin")) {
+			if (usuAutenticado.getNome().equals("admin") && request.getParameter("dispositivo").equals("desktop")) {
 				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado.getNome());
 				request.setAttribute("lista", lista);
 				request.getRequestDispatcher("home.jsp").forward(request, response);
-			} else {
+			} else if (request.getParameter("dispositivo").equals("desktop")){
 				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado.getNome());
 				request.setAttribute("lista", lista);
 				request.getRequestDispatcher("home.jsp").forward(request, response);
+			}
+			else {//android--dividir p admin tbm
+				
+				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado.getNome());
+				JSONObject json = new JSONObject();
+				json.put("LOGIN", nome);
+				json.put("AMIGOS", lista);
+				PrintWriter pw = response.getWriter();
+				pw.write(json.toString());
+				pw.print(json.toString());
+				
 			}
 		} else {
 			response.sendRedirect("erroLogin.jsp");// PAGINA QUE INDICA QUE USUARIO E/OU SENHA ESTAO INCORRETOS

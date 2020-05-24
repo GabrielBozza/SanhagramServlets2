@@ -6,7 +6,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="./styles/style1.css">
     <meta charset="ISO-8859-1">
-	<title>Página - Login</title>
+	<title>Login Sanhagram</title>
 </head>
 
 <body>
@@ -24,7 +24,7 @@
 
         <div class="bottom">
 
-            <form autocomplete="off" action="autenticador" method="post">
+            <form autocomplete="off" action="autenticador?dispositivo=desktop" method="post">
 
                 <div class="mid2">
                     <br><input class = "textarea" placeholder = "Nome de usuario" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nome de usuario'" type="text" id="Login" name="nome" required> 

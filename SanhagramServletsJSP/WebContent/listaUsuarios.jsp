@@ -10,7 +10,7 @@
 	rel="stylesheet">
 <script src=".\js\scriptelaprincip.js"></script>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Alterações - Área admin</title>
 </head>
 <body>
 	<script>
@@ -140,7 +140,8 @@
 				} else{
 			%>
 						<table border="0"
-				style="font-family: Helvetica; font-size: 19px; margin-left: 500px; margin-top: 30px; padding: 5px; border-radius: 13px; background: #ffffff; text-align: left; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+				style="width:300px;font-family: Helvetica; font-size: 19px; margin-left: 500px; margin-top: 30px; padding: 5px; border-radius: 13px; background: #ffffff; text-align: left; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+				<caption style="margin-bottom:10px;font-weight:bold;font-family: Helvetica; font-size: 21px;">Grupos</caption>
 				<tr style="height: 35px; padding: 5px; text-align: center;">
 					<th style="padding: 10px;">Nome</th>
 					<th style="padding: 10px;"></th>

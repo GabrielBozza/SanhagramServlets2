@@ -6,6 +6,7 @@
 <head>
     <link rel="stylesheet" href="./styles/style2.css">
     <script src="./js/scriptregister.js"></script>
+    <title>Cadastrar Usuário</title>
 </head>
 
 <body>

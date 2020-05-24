@@ -10,7 +10,7 @@
 	rel="stylesheet">
 <script src=".\js\scriptelaprincip.js"></script>
 <meta charset="ISO-8859-1">
-<title>Lista mensagens</title>
+<title>Mensagens Salvas</title>
 </head>
 <body>
   <script>
