@@ -14,7 +14,7 @@
 			localStorage.setItem("modoApagarMensagens","naoApagar");
 	</script>
 <h1 style="color:white;text-align:center;font-family:Helvetica;margin-top:300px;">Algum erro ocorreu!</h1>
-<h3 style="text-align:center;"><a href="UsuarioControlador?acao=pagInicial" style="text-decoration:none;color:red;text-align:center;font-family:Helvetica;">Voltar para a página inicial</a></h3>	
+<h3 style="text-align:center;"><a href="UsuarioControlador?acao=pagInicial&dispositivo=desktop" style="text-decoration:none;color:red;text-align:center;font-family:Helvetica;">Voltar para a página inicial</a></h3>	
 <script>
 alert("Algum erro ocorreu: Cadastro já existente, login incorreto ou outros erros!!!")
 </script>

@@ -39,8 +39,10 @@ public class UsuarioControlador extends HttpServlet {
 
 		Usuario usu = new Usuario();// NOVO OBJETO BEAN.USUARIO
 		Mensagem mensagem = new Mensagem();// NOVO OBJETO BEAN.MENSAGEM
-		String acao = request.getParameter("acao");// PARAMETRO PASSADO PELAS PAGINAS JSP A USUARIOCONTROLADOR PARA
-													// INDICAR O QUE DESEJAM FAZER
+		
+		String acao = request.getParameter("acao");// PARAMETRO PASSADO P/ INDICAR O QUE DESEJAM FAZER
+		String dispositivo = request.getParameter("dispositivo");
+		
 		UsuarioDAO2 usuDAO = new UsuarioDAO2();// NOVO OBJETO USUARIODAO
 		MensagemDAO mensagemDAO = new MensagemDAO();// NOVO OBJETO MENSAGEMDAO
 
@@ -49,7 +51,7 @@ public class UsuarioControlador extends HttpServlet {
 			RequestDispatcher saida = request.getRequestDispatcher("login.jsp");
 			saida.forward(request, response);
 
-		} else {// USUARIO AUTENTICADO
+		} else if (dispositivo.equals("desktop")){////*******************************************************DESKTOP************************************************************
 
 			if (acao != null && acao.equals("lis")) {// ACAO LISTAR (3 POSSIBILIDADES - PARA 1-CADASTRO DE GRUPOS, 2-VER/ALTERAR USUARIOS, 3-VER/ALTERAR GRUPOS)
 
@@ -197,12 +199,12 @@ public class UsuarioControlador extends HttpServlet {
 					String nomeUsuario = request.getParameter("nomeUsuario");
 					mensagemDAO.SairGrupo(nomeUsuario, nomeGrupo);// RETIRA USUARIO DO GRUPO
 					
-					response.sendRedirect("UsuarioControlador?acao=alt&nomeusu=" + nomeGrupo + "&flagGrupo='1'");//VOLTA PARA PAG DE ALTERAR O GRUPO
+					response.sendRedirect("UsuarioControlador?acao=alt&nomeusu=" + nomeGrupo + "&flagGrupo='1'&dispositivo=desktop");//VOLTA PARA PAG DE ALTERAR O GRUPO
 					
 				} else {// USUARIO QUE SAIU POR CONTA PROPRIA DO GRUPO
 					
 					mensagemDAO.SairGrupo(usuAutenticado, nomeGrupo);
-					response.sendRedirect("UsuarioControlador?acao=pagInicial");// SAI DO GRUPO E VAI PARA A PAG INICIAL--PERDE CONVERSAS DO GRUPO
+					response.sendRedirect("UsuarioControlador?acao=pagInicial&dispositivo=desktop");// SAI DO GRUPO E VAI PARA A PAG INICIAL--PERDE CONVERSAS DO GRUPO
 				}
 
 			} else if (acao != null && acao.equals("AdicionarAoGrupo")) {//ADMIN ALTERANDO GRUPOS ADD USUARIOS
@@ -243,7 +245,7 @@ public class UsuarioControlador extends HttpServlet {
 
 					}
 
-					response.sendRedirect("UsuarioControlador?acao=alt&nomeusu=" + nomeGrupo + "&flagGrupo='1'");//VOLTA À PAG DE ALTERAR GRUPOS
+					response.sendRedirect("UsuarioControlador?acao=alt&nomeusu=" + nomeGrupo + "&flagGrupo='1'&dispositivo=desktop");//VOLTA À PAG DE ALTERAR GRUPOS
 					
 				} else {// AREA DO ADMIN SOMENTE
 					
@@ -277,7 +279,7 @@ public class UsuarioControlador extends HttpServlet {
 
 					if (destinatario.equals("ADefinirUsuario")) {//EXCLUIU MENSAGEM SALVA COMO RASCUNHO--VOLTA PARA PAG DE MENSAGENS SALVAS
 						
-						String prox_pag = "UsuarioControlador?acao=lismsgmSalvas&remetente=" + remetente;
+						String prox_pag = "UsuarioControlador?acao=lismsgmSalvas&remetente=" + remetente+"&dispositivo=desktop";
 						response.sendRedirect(prox_pag);
 						
 					} else {
@@ -305,7 +307,7 @@ public class UsuarioControlador extends HttpServlet {
 					
 					mensagemDAO.UsuarioRemovido(nome);//MODIFICA SEU NOME NAS MENSAGENS PARA 'NOME* (REMOVIDO)'
 					
-					response.sendRedirect("UsuarioControlador?acao=lis&grupo=lisusuarios");
+					response.sendRedirect("UsuarioControlador?acao=lis&grupo=lisusuarios&dispositivo=desktop");
 					
 				} else {//AREA RESTRITA AO ADMIN
 					
@@ -367,12 +369,16 @@ public class UsuarioControlador extends HttpServlet {
 					RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
 					saida.forward(request, response);
 				}
-			} 
+			}
 			else {//QUALQUER ACAO NAO ESPECIFICADA ACIMA
 				
 				RequestDispatcher saida = request.getRequestDispatcher("erroLogin.jsp");
 				saida.forward(request, response);
 			}
+			
+		}
+		else if (dispositivo.equals("android")){//****************************************************ANDROID*************************************************************
+			
 			
 		}
 		
@@ -383,197 +389,204 @@ public class UsuarioControlador extends HttpServlet {
 	 *      response)
 	 */
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)//METODO POST***************************************************POST*******************
 			throws ServletException, IOException {//FORMS CHAMAM O METODO POST PARA ESCREVER DADOS NO BD
 		
 		String acao = request.getParameter("acao");
+		String dispositivo = request.getParameter("dispositivo");
 		
-		if (acao.equals("alterar")) {
-			
-			// String sid = request.getParameter("id");
-			String snome = request.getParameter("nome");
-			String semail = request.getParameter("email");
-			String ssenha = request.getParameter("senha");
-			String sdata = request.getParameter("data");
-
-			// criando objeto usuario e atribuindo valores da tela--DO FORM - 'NAME' DO INPUT
-			Usuario usuario = new Usuario();
-			usuario.setNome(snome);
-			usuario.setEmail(semail);
-			usuario.setSenha(ssenha);
-			usuario.setDatanasc(sdata);
-			// usuario.setId(Integer.parseInt(sid));
-
-			// criando um usuarioDAO PARA ACESSAR O BD
-			UsuarioDAO2 usuDao = new UsuarioDAO2();
-			
-			// Salvando no banco de dados
-			usuDao.alterar(usuario);
-			
-			response.sendRedirect("UsuarioControlador?acao=lis&grupo=lisusuarios");
-			
-		} else if (acao.equals("enviar")) {
-
-			String remetente = request.getParameter("remetente");
-			String destinatario = request.getParameter("destinatario");
-			String texto_mensagem = request.getParameter("texto_mensagem");
-			
-			//CRIA OBJETOS NECESSÁRIOS
-			MensagemDAO mensagemDAO = new MensagemDAO();
-			UsuarioDAO2 usuDAO = new UsuarioDAO2();
-			Mensagem mensagem = new Mensagem();
-
-			if ((usuDAO.tipoUsuario(destinatario).equals("grupo")
-					&& mensagemDAO.ChecaPertencimentoGrupo(remetente, destinatario).equals("pertence"))
-					|| (!usuDAO.tipoUsuario(destinatario).equals("grupo")
-							&& usuDAO.ChecaExistenciaUsuario(destinatario).equals("existe"))
-					|| (destinatario.equals("ADefinirUsuario"))) {//CONDICAO 1-SE FOR CONVERSA EM GRUPO E VC PERTENCE A ELE 2-SE FOR CONVERSA NORMAL E A PESSOA EXISTE
-																  //3-SE FOR PARA SALVAR UMA MENSAGEM--destinatario=ADefinirUsuario
-
-				try {
-					
-					mensagem.setRemetente(remetente);
-					mensagem.setDestinatario(destinatario);
-					mensagem.setTexto_mensagem(texto_mensagem);
-
-					if (usuDAO.tipoUsuario(destinatario).equals("grupo")) {
+		if(dispositivo.equals("desktop")) {//*******************************************************DESKTOP**************************************************************
+			if (acao.equals("alterar")) {
+				
+				// String sid = request.getParameter("id");
+				String snome = request.getParameter("nome");
+				String semail = request.getParameter("email");
+				String ssenha = request.getParameter("senha");
+				String sdata = request.getParameter("data");
+	
+				// criando objeto usuario e atribuindo valores da tela--DO FORM - 'NAME' DO INPUT
+				Usuario usuario = new Usuario();
+				usuario.setNome(snome);
+				usuario.setEmail(semail);
+				usuario.setSenha(ssenha);
+				usuario.setDatanasc(sdata);
+				// usuario.setId(Integer.parseInt(sid));
+	
+				// criando um usuarioDAO PARA ACESSAR O BD
+				UsuarioDAO2 usuDao = new UsuarioDAO2();
+				
+				// Salvando no banco de dados
+				usuDao.alterar(usuario);
+				
+				response.sendRedirect("UsuarioControlador?acao=lis&grupo=lisusuarios&dispositivo=desktop");
+				
+			} else if (acao.equals("enviar")) {
+	
+				String remetente = request.getParameter("remetente");
+				String destinatario = request.getParameter("destinatario");
+				String texto_mensagem = request.getParameter("texto_mensagem");
+				
+				//CRIA OBJETOS NECESSÁRIOS
+				MensagemDAO mensagemDAO = new MensagemDAO();
+				UsuarioDAO2 usuDAO = new UsuarioDAO2();
+				Mensagem mensagem = new Mensagem();
+	
+				if ((usuDAO.tipoUsuario(destinatario).equals("grupo")
+						&& mensagemDAO.ChecaPertencimentoGrupo(remetente, destinatario).equals("pertence"))
+						|| (!usuDAO.tipoUsuario(destinatario).equals("grupo")
+								&& usuDAO.ChecaExistenciaUsuario(destinatario).equals("existe"))
+						|| (destinatario.equals("ADefinirUsuario"))) {//CONDICAO 1-SE FOR CONVERSA EM GRUPO E VC PERTENCE A ELE 2-SE FOR CONVERSA NORMAL E A PESSOA EXISTE
+																	  //3-SE FOR PARA SALVAR UMA MENSAGEM--destinatario=ADefinirUsuario
+	
+					try {
 						
-						mensagemDAO.enviarParaGrupo(mensagem);
-						String prox_pag = "UsuarioControlador?acao=lismsgm&remetente=" + remetente + "&destinatario="
-								+ destinatario;
-						response.sendRedirect(prox_pag);
+						mensagem.setRemetente(remetente);
+						mensagem.setDestinatario(destinatario);
+						mensagem.setTexto_mensagem(texto_mensagem);
+	
+						if (usuDAO.tipoUsuario(destinatario).equals("grupo")) {
+							
+							mensagemDAO.enviarParaGrupo(mensagem);
+							String prox_pag = "UsuarioControlador?acao=lismsgm&remetente=" + remetente + "&destinatario="
+									+ destinatario+"&dispositivo=desktop";
+							response.sendRedirect(prox_pag);
+							
+						} else {
+							
+							if (destinatario.equals("ADefinirUsuario")) {
+								
+								mensagemDAO.enviar(mensagem);
+								String prox_pag = "UsuarioControlador?acao=lismsgmSalvas&remetente=" + remetente+"&dispositivo=desktop";
+								response.sendRedirect(prox_pag);
+							} else {
+								
+								mensagemDAO.enviar(mensagem);
+								String prox_pag = "UsuarioControlador?acao=lismsgm&remetente=" + remetente
+										+ "&destinatario=" + destinatario+"&dispositivo=desktop";
+								response.sendRedirect(prox_pag);
+	
+							}
+	
+						}
+					}
+	
+					catch (Exception e) {
+						System.out.println(e);
+	
+					}
+	
+				} else {// USUARIO NAO EXISTE OU NAO ESTA CADASTRADO NO GRUPO
+					
+					RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
+					saida.forward(request, response);
+				}
+			} else if (acao.equals("cadastrar")) {
+				
+				String nome = request.getParameter("nome");
+				String email = request.getParameter("email");
+				String senha = request.getParameter("senha");
+				String data = request.getParameter("data");
+	
+				try {
+	
+					Usuario usuario = new Usuario();
+					
+					usuario.setNome(nome);
+					usuario.setEmail(email);
+					usuario.setSenha(senha);
+					usuario.setDatanasc(data);
+	
+					UsuarioDAO2 usuarioDAO = new UsuarioDAO2();
+					
+					String resultadocadastro = usuarioDAO.cadastro(usuario);
+					
+					if (resultadocadastro.equals("cadastradoComSucesso")) {//SE JAH NAO EXISTE UM GRUPO COM ESSE NOME
+						
+						response.sendRedirect("UsuarioControlador?acao=lis&grupo=lisusuarios&dispositivo=desktop");
 						
 					} else {
 						
-						if (destinatario.equals("ADefinirUsuario")) {
-							
-							mensagemDAO.enviar(mensagem);
-							String prox_pag = "UsuarioControlador?acao=lismsgmSalvas&remetente=" + remetente;
-							response.sendRedirect(prox_pag);
-						} else {
-							
-							mensagemDAO.enviar(mensagem);
-							String prox_pag = "UsuarioControlador?acao=lismsgm&remetente=" + remetente
-									+ "&destinatario=" + destinatario;
-							response.sendRedirect(prox_pag);
-
-						}
-
+						RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
+						saida.forward(request, response);
 					}
 				}
-
+	
 				catch (Exception e) {
 					System.out.println(e);
-
+	
 				}
-
-			} else {// USUARIO NAO EXISTE OU NAO ESTA CADASTRADO NO GRUPO
 				
-				RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
-				saida.forward(request, response);
-			}
-		} else if (acao.equals("cadastrar")) {
-			
-			String nome = request.getParameter("nome");
-			String email = request.getParameter("email");
-			String senha = request.getParameter("senha");
-			String data = request.getParameter("data");
-
-			try {
-
-				Usuario usuario = new Usuario();
+			} else if (acao.equals("cadastrarGrupo")) {
 				
-				usuario.setNome(nome);
-				usuario.setEmail(email);
-				usuario.setSenha(senha);
-				usuario.setDatanasc(data);
-
-				UsuarioDAO2 usuarioDAO = new UsuarioDAO2();
-				
-				String resultadocadastro = usuarioDAO.cadastro(usuario);
-				
-				if (resultadocadastro.equals("cadastradoComSucesso")) {//SE JAH NAO EXISTE UM GRUPO COM ESSE NOME
-					
-					response.sendRedirect("UsuarioControlador?acao=lis&grupo=lisusuarios");
-					
-				} else {
-					
-					RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
-					saida.forward(request, response);
-				}
-			}
-
-			catch (Exception e) {
-				System.out.println(e);
-
-			}
-			
-		} else if (acao.equals("cadastrarGrupo")) {
-			
-			String nome_grupo = request.getParameter("nome_grupo");
-			String integrantes_grupo = request.getParameter("listaNovoGrupo").substring(0,
-					request.getParameter("listaNovoGrupo").length() - 1);// COMPLICADO PASSAR ARRAY DE JS PARA
-																			// JAVA-->STRING COM DELIMITADORES
-			String integrantes[] = integrantes_grupo.split("\\|");// separa os nomes dos usuarios (estao separados por '|')
-
-			try {// CADASTRA O GRUPO EM SI COMO UM USUARIO APENAS COM NOME E FLAG_GRUPO=1
-
-				Usuario usuario = new Usuario();
-				usuario.setNome(nome_grupo);
-
-				UsuarioDAO2 usuarioDAO = new UsuarioDAO2();
-				String resultadoCadastro = usuarioDAO.cadastroGrupo(usuario);
-
-				if (resultadoCadastro.equals("cadastradoComSucesso")) {
-
-					try {// ENVIA MENSAGENS AO GRUPO INDICANDO A ENTRADA DE SEUS MEMBROS INDIVIDUALMENTE
-							// E UMA MENSAGEM PARA INDICAR QUE O USUARIO PERTENCE AO GRUPO
-
-						for (String remetente : integrantes) {
-							
-							Mensagem mensagem = new Mensagem();
-							Mensagem mensagem2 = new Mensagem();
-
-							mensagem.setRemetente(remetente);
-							mensagem.setDestinatario(nome_grupo);
-							mensagem.setTexto_mensagem("");// MENSAGEM QUE MANTEM A REFERENCIA DO USUARIO AO GRUPO E NAO
-															// APARECE
-															// NO CHAT
-
-							MensagemDAO mensagemDAO = new MensagemDAO();
-							mensagemDAO.enviarParaGrupo(mensagem);
-
-							mensagem2.setRemetente(nome_grupo);
-							mensagem2.setDestinatario(nome_grupo);
-							mensagem2.setTexto_mensagem(remetente + " entrou no grupo");
-
-							MensagemDAO mensagemDAO2 = new MensagemDAO();
-							mensagemDAO2.enviarParaGrupo(mensagem2);
-
+				String nome_grupo = request.getParameter("nome_grupo");
+				String integrantes_grupo = request.getParameter("listaNovoGrupo").substring(0,
+						request.getParameter("listaNovoGrupo").length() - 1);// COMPLICADO PASSAR ARRAY DE JS PARA
+																				// JAVA-->STRING COM DELIMITADORES
+				String integrantes[] = integrantes_grupo.split("\\|");// separa os nomes dos usuarios (estao separados por '|')
+	
+				try {// CADASTRA O GRUPO EM SI COMO UM USUARIO APENAS COM NOME E FLAG_GRUPO=1
+	
+					Usuario usuario = new Usuario();
+					usuario.setNome(nome_grupo);
+	
+					UsuarioDAO2 usuarioDAO = new UsuarioDAO2();
+					String resultadoCadastro = usuarioDAO.cadastroGrupo(usuario);
+	
+					if (resultadoCadastro.equals("cadastradoComSucesso")) {
+	
+						try {// ENVIA MENSAGENS AO GRUPO INDICANDO A ENTRADA DE SEUS MEMBROS INDIVIDUALMENTE
+								// E UMA MENSAGEM PARA INDICAR QUE O USUARIO PERTENCE AO GRUPO
+	
+							for (String remetente : integrantes) {
+								
+								Mensagem mensagem = new Mensagem();
+								Mensagem mensagem2 = new Mensagem();
+	
+								mensagem.setRemetente(remetente);
+								mensagem.setDestinatario(nome_grupo);
+								mensagem.setTexto_mensagem("");// MENSAGEM QUE MANTEM A REFERENCIA DO USUARIO AO GRUPO E NAO
+																// APARECE
+																// NO CHAT
+	
+								MensagemDAO mensagemDAO = new MensagemDAO();
+								mensagemDAO.enviarParaGrupo(mensagem);
+	
+								mensagem2.setRemetente(nome_grupo);
+								mensagem2.setDestinatario(nome_grupo);
+								mensagem2.setTexto_mensagem(remetente + " entrou no grupo");
+	
+								MensagemDAO mensagemDAO2 = new MensagemDAO();
+								mensagemDAO2.enviarParaGrupo(mensagem2);
+	
+							}
+	
 						}
-
+	
+						catch (Exception e) {
+							System.out.println(e);
+	
+						}
+	
+						response.sendRedirect("UsuarioControlador?acao=lis&grupo=grupo&dispositivo=desktop");
+					} else {
+	
+						RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
+						saida.forward(request, response);
+	
 					}
-
-					catch (Exception e) {
-						System.out.println(e);
-
-					}
-
-					response.sendRedirect("UsuarioControlador?acao=lis&grupo=grupo");
-				} else {
-
-					RequestDispatcher saida = request.getRequestDispatcher("ErroAreaAdmin.jsp");
-					saida.forward(request, response);
-
+	
 				}
-
+	
+				catch (Exception e) {
+					System.out.println(e);
+	
+				}
+	
 			}
-
-			catch (Exception e) {
-				System.out.println(e);
-
-			}
-
+		}
+		else if (dispositivo.equals("android")) {//***********************************************ANDROID**************************************************************
+			
+			
 		}
 	}
 

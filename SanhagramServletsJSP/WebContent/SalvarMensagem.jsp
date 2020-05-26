@@ -46,7 +46,7 @@
 							<img class="iconegrupo" style="border-radius:40px;" src=".\img\img4.png" alt="Otario">
 						</div>
 						<div class="textocorpo" id="nomeusuario">
-							<a href="UsuarioControlador?acao=pagInicial"
+							<a href="UsuarioControlador?acao=pagInicial&dispositivo=desktop"
 								style="font-weight:500;font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;"><%=request.getSession().getAttribute("usuAutenticado")%></a>
 						</div>
 					</div>
@@ -55,13 +55,13 @@
 						for (String s : listaResultado) {
 					%>
 
-					<a href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>">
+					<a href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>&dispositivo=desktop">
 						<div class="conversa" style="height:60px;background: #d2f7f3;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
 							<div class="imgconversa">
 								<img class="iconegrupo" style="border-radius:40px;" src=".\img\avatar1.jpg" alt="Otario">
 							</div>
 							<div class="textocorpo" id="nomeusuario">
-								<a id="verconversa" style="font-weight:500;width:100%;font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;" href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"><%=s%></a>
+								<a id="verconversa" style="font-weight:500;width:100%;font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;" href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>&dispositivo=desktop"><%=s%></a>
 							</div>
 						</div>
 					</a>
@@ -105,7 +105,7 @@
 		</div>
 		<div class="mid2" id="chat" style="padding-top:150px;background:#8ee6de;">
 			<br> <br>
-			<form autocomplete="off" action="UsuarioControlador?acao=enviar" method="post">
+			<form autocomplete="off" action="UsuarioControlador?acao=enviar&dispositivo=desktop" method="post">
 				<input type="hidden" id="remetente" name="remetente"
 					value=<%=request.getSession().getAttribute("usuAutenticado")%>>
 				<input type="hidden" id="destinatario" name="destinatario" value="ADefinirUsuario"> 

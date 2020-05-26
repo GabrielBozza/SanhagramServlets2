@@ -49,7 +49,7 @@
 								src=".\img\img4.png" alt="Otario">
 						</div>
 						<div class="textocorpo" id="nomeusuario">
-							<a href="UsuarioControlador?acao=pagInicial"
+							<a href="UsuarioControlador?acao=pagInicial&dispositivo=desktop"
 								style="font-weight: 500; font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;"><%=request.getSession().getAttribute("usuAutenticado")%></a>
 						</div>
 					</div>
@@ -59,10 +59,11 @@
 					%>
 
 					<a
-						href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"
-						onclick="voltarModoNormal()"> <%
- 	if (s.equals(request.getAttribute("conversaAtual"))) {
- %>
+						href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>&dispositivo=desktop"
+						onclick="voltarModoNormal()"> 
+						<%
+ 						if (s.equals(request.getAttribute("conversaAtual"))) {
+ 						%>
 						<div class="conversa"
 							style="height: 60px; background-image: linear-gradient(to bottom right, #ABF1BC, #87CDF6); border: 2px solid #2bffb5; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
 							<%
@@ -81,7 +82,7 @@
 								<div class="textocorpo" id="nomeusuario">
 									<a id="verconversa"
 										style="font-weight: 500; font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;"
-										href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"
+										href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>&dispositivo=desktop"
 										onclick="voltarModoNormal()"><%=s%></a>
 								</div>
 							</div></a>
@@ -157,12 +158,12 @@
 			<br>
 			<div style="width: 100%; float: right;">
 				<div id="BolhaMensagem"
-					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-left: 20px; float: left; text-align: center; border: 0px; border-radius: 15px; background-image: linear-gradient(to bottom right, #EECDA3, #EF629F); padding: 8px;">
+					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-left: 20px; float: left; text-align: center; border: 0px; border-radius: 5px 15px 15px 15px; background-image: linear-gradient(to bottom right, #EECDA3, #EF629F); padding: 8px;">
 					<a
 						style="padding-left: 2px; padding-top: 2px; float: left; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: left; color: black;"><%=m.getRemetente()%></a>
 					<a
-						style="font-weight: 700; padding-left: 12px; padding-right: 2px; padding-top: 2px; float: right; font-size: 10px; font-family: Helvetica; margin-left: 0px; color: #4f4f4f;"><%=m.getData_envio().substring(11, 16)%></a><br>
-					<a style="font-family: Helvetica; margin-left: 0px; color: white;"><%=m.getTexto_mensagem()%></a>
+						style="font-weight: 700; padding-left: 12px; padding-right: 2px; padding-top: 2px; float: right; font-size: 10px; font-family: Helvetica; margin-left: 0px; color: #636363;"><%=m.getData_envio().substring(11, 16)%></a><br>
+					<a style="font-family: Helvetica; margin-left: 0px; color: white;padding:3px;"><%=m.getTexto_mensagem()%></a>
 				</div>
 			</div>
 
@@ -172,12 +173,12 @@
 			<br>
 			<div style="width: 100%; float: right;">
 				<div id="BolhaMensagem"
-					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-left: 20px; float: left; text-align: center; border: 0px; border-radius: 15px; background-image: linear-gradient(to bottom right, #48A9FE, #0BEEF9); padding: 8px;">
+					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-left: 20px; float: left; text-align: center; border: 0px; border-radius: 5px 15px 15px 15px; background: #1f93ff; padding: 8px;">
 					<a
 						style="padding-left: 2px; padding-top: 2px; float: left; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: left; color: #ffe5b0;"><%=m.getRemetente()%></a>
 					<a
-						style="font-weight: 700; padding-left: 12px; padding-right: 2px; padding-top: 2px; float: right; font-size: 10px; font-family: Helvetica; margin-left: 0px; color: #4f4f4f;"><%=m.getData_envio().substring(11, 16)%></a><br>
-					<a style="font-family: Helvetica; margin-left: 0px; color: white;"><%=m.getTexto_mensagem()%></a>
+						style="font-weight: 700; padding-left: 12px; padding-right: 2px; padding-top: 2px; float: right; font-size: 10px; font-family: Helvetica; margin-left: 0px; color: #474747;"><%=m.getData_envio().substring(11, 16)%></a><br>
+					<a style="font-family: Helvetica; margin-left: 0px; color: white;padding:3px;"><%=m.getTexto_mensagem()%></a>
 				</div>
 			</div>
 			<%
@@ -191,17 +192,17 @@
 			<div style="width: 100%; float: left;">
 				<div style="float: right; margin-top: 35px; margin-right: 1%;">
 					<a class="marcador"
-						href="UsuarioControlador?remetente=<%=m.getRemetente()%>&destinatario=<%=m.getDestinatario()%>&acao=exmsgm&idmensagem=<%=m.getIdmensagem()%>"
+						href="UsuarioControlador?remetente=<%=m.getRemetente()%>&destinatario=<%=m.getDestinatario()%>&acao=exmsgm&idmensagem=<%=m.getIdmensagem()%>&dispositivo=desktop"
 						style="font-size: 20px; visibility: hidden; font-family: Helvetica; font-style: normal; color: red; text-decoration: none;"><i
 						class="fa fa-fw fa-trash"></i></a>
 				</div>
 				<div id="BolhaMensagem"
-					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-right: 2px; float: right; text-align: center; border: 0px; border-radius: 15px; background-image: linear-gradient(to bottom right, #02d46e, #41fac6); padding: 8px;">
+					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-right: 2px; float: right; text-align: center; border: 0px; border-radius: 15px 5px 15px 15px; background: #1ed985; padding: 8px;">
 					<a
-						style="padding-left: 12px; padding-right: 2px; padding-top: 2px; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: right; float: right; color: #96020b;">Você</a>
+						style="padding-left: 12px; padding-right: 2px; padding-top: 2px; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: right; float: right; color: #ad5900;"> </a>
 					<a
-						style="font-weight: 700; padding-left: 2px; padding-top: 2px; float: left; font-size: 10px; font-family: Helvetica; color: #4f4f4f;"><%=m.getData_envio().substring(11, 16)%></a><br>
-					<a style="font-family: Helvetica; margin-left: 0px; color: white;"><%=m.getTexto_mensagem()%></a>
+						style="font-weight: 700; padding-left: 2px; padding-top: 2px; float: left; font-size: 10px; font-family: Helvetica; color: #474747;"><%=m.getData_envio().substring(11, 16)%></a><br>
+					<a style="font-family: Helvetica; margin-left: 0px; color: white;padding:3px;"><%=m.getTexto_mensagem()%></a>
 				</div>
 
 			</div>
@@ -223,8 +224,8 @@
 			<%
 				if (listaResultado.get(0).getFlag_grupo() == 1) {
 			%>
-			<a href="UsuarioControlador?acao=SairGrupo&nomeGrupo=<%=request.getSession().getAttribute("destinatarioMsgm")%>&nomeUsuario=<%=request.getSession().getAttribute("usuAutenticado")%>"
-				style="outline: none; position: fixed; bottom: 86.2%; right: 1%; width: 145px; height: 35px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background: #f8fbfd; font-weight: bold; font-family: Helvetica; border-radius: 40px; border: 1.7px solid red; cursor: pointer; color: red;">
+			<a href="UsuarioControlador?acao=SairGrupo&nomeGrupo=<%=request.getSession().getAttribute("destinatarioMsgm")%>&nomeUsuario=<%=request.getSession().getAttribute("usuAutenticado")%>&dispositivo=desktop"
+				style="outline: none; position: fixed; bottom: 86.0%; right: 1%; width: 145px; height: 35px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); background: #f8fbfd; font-weight: bold; font-family: Helvetica; border-radius: 40px; border: 1.7px solid red; cursor: pointer; color: red;">
 				<i style="font-size: 18px;margin-top:7px;" class="fa fa-fw fa-sign-out"></i> Sair
 				do Grupo
 			</a>
@@ -269,7 +270,7 @@
 					}
 				}
 			</script>
-			<form autocomplete="off" action="UsuarioControlador?acao=enviar"
+			<form autocomplete="off" action="UsuarioControlador?acao=enviar&dispositivo=desktop"
 				method="post">
 				<input type="hidden" id="remetente" name="remetente"
 					value=<%=request.getSession().getAttribute("usuAutenticado")%>>

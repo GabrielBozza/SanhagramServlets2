@@ -14,11 +14,11 @@
   </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <br>
-<a href="UsuarioControlador?acao=pagInicial" style="margin-left:100px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"><i class="fa fa-fw fa-home"></i> Início</a>
-<a id="MensagensRecentes" style="margin-left:150px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;" href="UsuarioControlador?acao=lis&grupo=cadgrupo"><i class="fa fa-fw fa-pencil"></i> Criar Grupo</a>
-<a href="UsuarioControlador?acao=lis&grupo=lisusuarios" style="margin-left:150px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"><i class="fa fa-fw fa-user"></i> Usuários</a>
-<a href="UsuarioControlador?acao=lis&grupo=lisgrupos" style="margin-left:150px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"><i class="fa fa-fw fa-users"></i> Grupos</a>
-<a href="UsuarioControlador?acao=cad" style="margin-left:150px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"> <i class="fa fa-fw fa-save"></i> Cadastro</a>
+<a href="UsuarioControlador?acao=pagInicial&dispositivo=desktop" style="margin-left:100px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"><i class="fa fa-fw fa-home"></i> Início</a>
+<a id="MensagensRecentes" style="margin-left:150px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;" href="UsuarioControlador?acao=lis&grupo=cadgrupo&dispositivo=desktop"><i class="fa fa-fw fa-pencil"></i> Criar Grupo</a>
+<a href="UsuarioControlador?acao=lis&grupo=lisusuarios&dispositivo=desktop" style="margin-left:150px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"><i class="fa fa-fw fa-user"></i> Usuários</a>
+<a href="UsuarioControlador?acao=lis&grupo=lisgrupos&dispositivo=desktop" style="margin-left:150px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"><i class="fa fa-fw fa-users"></i> Grupos</a>
+<a href="UsuarioControlador?acao=cad&dispositivo=desktop" style="margin-left:150px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"> <i class="fa fa-fw fa-save"></i> Cadastro</a>
 <a href="autenticador" style="margin-left:150px;font-size:18px;color:black;font-family:Helvetica;text-decoration:none;"><i class="fa fa-fw fa-sign-out"></i> Sair</a><br><br>
 
 
@@ -35,7 +35,7 @@
 	
 
 		<table border="0" id="tabelaUsuarios" border-radius="13px"
-		style="font-family: Helvetica; font-size: 18px;  margin-top: 50px; padding: 0px;margin-left:60px;border-radius:13px;background:#8ee6de;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
+		style="font-family: Helvetica; font-size: 18px;  margin-top: 50px; padding: 0px;margin-left:60px;border-radius:13px;background: #d2f7f3;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
 			<tr style="height: 35px; padding: 5px;">
 			<th style="padding: 10px;">Nome</th>
 			<th style="padding: 10px;">Email</th>
@@ -59,10 +59,10 @@
 	</div>
 	
 	
-	<div style="float:right;width:60%;height:510px;border-radius:13px;background:#8ee6de;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);margin-top:50px;">
-	<div style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2);background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);color:white;font-weight:600;font-family: Helvetica; font-size: 22px;text-align:center;margin-top: 10px;margin-bottom: 10px;padding:15px;width:95%;margin-left:7px;border-radius:13px;">Novo Grupo</div>
+	<div style="float:right;width:55%;height:510px;border-radius:13px;background:#8ee6de;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);margin-right:50px;margin-top:50px;">
+	<div style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2);background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);color:white;font-weight:600;font-family: Helvetica; font-size: 22px;text-align:center;margin-top: 10px;margin-bottom: 10px;padding:15px;width:91%;margin-left:19px;border-radius:13px;">Novo Grupo</div>
 		<table id="tabelaNovoGrupo" border="0"
-		style="color:black;font-family: Helvetica; font-size: 18px;  margin-top: 0px; margin-left:62px;padding: 0px;table-layout:fixed;width:560px;background:white;border-radius:13px;">
+		style="box-shadow: 2px 2px 5px rgba(0,0,0,0.2);color:black;font-family: Helvetica; font-size: 18px;  margin-top: 0px; margin-left:22px;padding: 0px;table-layout:fixed;width:560px;background:white;border-radius:13px;">
 			<tr style=" padding: 5px;height:35px; ">
 			<td style="width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
 			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
@@ -127,11 +127,11 @@
 			<td style="padding: 10px;width:140px;overflow:hidden;white-space:nowrap;text-align:center;"></td>
 			</tr>
 		</table>
-			<form autocomplete="off" action="UsuarioControlador?acao=cadastrarGrupo" method="post">
+			<form autocomplete="off" action="UsuarioControlador?acao=cadastrarGrupo&dispositivo=desktop" method="post">
 				<input type="hidden" id="listaNovoGrupo" name="listaNovoGrupo" value="">			
 				<br><input class="textarea" type="text" id="texto_mensagem"
 					placeholder="Nome do grupo" name="nome_grupo"
-					style="margin-left:62px;border:0px;border-radius:13px;position:relative; width: 76%;height:50px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);font-size:16px;font-family: Helvetica; background: #ffffff;text-align: center;color: black;"
+					style="margin-left:22px;border:0px;border-radius:13px;position:relative; width: 83.5%;height:50px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);font-size:16px;font-family: Helvetica; background: #ffffff;text-align: center;color: black;"
 					required> <input type="submit" value="CRIAR"
 					style="position:relative;width: 90px; height: 50px;box-shadow: 2px 2px 5px rgba(0,0,0,0.2);background-image: linear-gradient(to bottom right, #2AF598, #08B3E5);font-weight:bold;font-family: Helvetica;text-align: center;border-radius: 13px; border-width: 0px;cursor: pointer;color:white;"
 					>

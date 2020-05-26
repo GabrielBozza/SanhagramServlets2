@@ -17,14 +17,14 @@
 	<script>
 			localStorage.setItem("modoApagarMensagens","naoApagar");
 	</script>
-	<a href="UsuarioControlador?acao=pagInicial" style="margin-left:20px;font-size:18px;color:white;font-family:Helvetica;text-decoration:none;"><i class="fa fa-fw fa-home"></i> Início</a>
+	<a href="UsuarioControlador?acao=pagInicial&dispositivo=desktop" style="margin-left:20px;font-size:18px;color:white;font-family:Helvetica;text-decoration:none;"><i class="fa fa-fw fa-home"></i> Início</a>
     <div class="middle">
 
         <div class="top">
             <img class="displayed" src="./img/logoteste.jpeg" alt="Otario">
         </div>
         
-            <form action="UsuarioControlador?acao=cadastrar" method="post">
+            <form action="UsuarioControlador?acao=cadastrar&dispositivo=desktop" method="post">
             <div class="mid2">
                 <input class="textarea" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" type="text"
                     id="Email" name="email">

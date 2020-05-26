@@ -56,7 +56,7 @@ public class autenticador extends HttpServlet {
 		String nome = request.getParameter("nome");
 		String senha = request.getParameter("senha");
 
-		System.out.println(nome+" "+senha);
+		//System.out.println(nome+" "+senha);
 		Usuario usu = new Usuario();// CRIA UM NOVO USUARIO DE BEAN.USUARIO
 		usu.setNome(nome);// SETA SEUS PARAMETROS
 		usu.setSenha(senha);// SETA SEUS PARAMETROS
@@ -71,12 +71,12 @@ public class autenticador extends HttpServlet {
 			sessao.setAttribute("usuAutenticado", usuAutenticado.getNome());// PASSA COMO ATRIBUTO UM OBJETO USUARIO COM
 																			// O NOME E SENHA FORNECIDOS E JA CHECADOS
 			MensagemDAO mensagemDAO = new MensagemDAO();
-			// sessao.setMaxInactiveInterval(3000);
+		
 			if (usuAutenticado.getNome().equals("admin") && request.getParameter("dispositivo").equals("desktop")) {
 				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado.getNome());
 				request.setAttribute("lista", lista);
 				request.getRequestDispatcher("home.jsp").forward(request, response);
-			} else if (request.getParameter("dispositivo").equals("desktop")){
+			} else if (!usuAutenticado.getNome().equals("admin") && request.getParameter("dispositivo").equals("desktop")){
 				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado.getNome());
 				request.setAttribute("lista", lista);
 				request.getRequestDispatcher("home.jsp").forward(request, response);

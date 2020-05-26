@@ -232,7 +232,6 @@ public class UsuarioDAO2 {
 				usuRetorno.setEmail(resultado.getString("email"));
 				usuRetorno.setSenha(resultado.getString("senha"));
 				usuRetorno.setDatanasc(resultado.getString("datanasc"));
-				System.out.println("UHUUUUUUUUUUU!");
 			}
 			
 			System.out.println("Encontrado com sucesso!");

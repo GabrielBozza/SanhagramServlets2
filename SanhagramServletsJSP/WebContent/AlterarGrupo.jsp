@@ -62,7 +62,7 @@
 								src=".\img\img4.png" alt="Otario">
 						</div>
 						<div class="textocorpo" id="nomeusuario">
-							<a href="UsuarioControlador?acao=pagInicial"
+							<a href="UsuarioControlador?acao=pagInicial&dispositivo=desktop"
 								style="font-weight: 500; font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;"><%=request.getSession().getAttribute("usuAutenticado")%></a>
 						</div>
 					</div>
@@ -72,7 +72,7 @@
 					%>
 
 					<a
-						href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>">
+						href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>&dispositivo=desktop">
 						<div class="conversa"
 							style="height: 60px; background: #d2f7f3; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
 							<div class="imgconversa">
@@ -82,7 +82,7 @@
 							<div class="textocorpo" id="nomeusuario">
 								<a id="verconversa"
 									style="font-weight: 500; width: 100%; font-size: 18px; color: black; font-family: Helvetica; text-decoration: none;"
-									href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>"><%=s%></a>
+									href="UsuarioControlador?acao=lismsgm&remetente=<%=request.getSession().getAttribute("usuAutenticado")%>&destinatario=<%=s%>&dispositivo=desktop"><%=s%></a>
 							</div>
 						</div>
 					</a>
@@ -128,7 +128,7 @@
 				<tr style="height: 25px; padding: 5px;">
 					<td style="padding: 10px;text-align:left;"><%=u%></td>
 					<td style="padding: 10px;"><a onclick="feedbackRemoveuUsuario('<%=u%>','<%=request.getAttribute("nomeGrupoAtual")%>')"
-						href="UsuarioControlador?acao=SairGrupo&nomeGrupo=<%=request.getAttribute("nomeGrupoAtual")%>&nomeUsuario=<%=u%>"
+						href="UsuarioControlador?acao=SairGrupo&nomeGrupo=<%=request.getAttribute("nomeGrupoAtual")%>&nomeUsuario=<%=u%>&dispositivo=desktop"
 						style="color: red; text-decoration: none;">Remover</a>
 				</tr>
 				<%
@@ -147,7 +147,7 @@
 				%>
 				<tr style="height: 25px; padding: 5px;">
 					<td style="padding: 10px; text-align:left;"><%=u%></td>
-					<td style="padding: 10px;"><a onclick="feedbackAddUsuario('<%=u%>','<%=request.getAttribute("nomeGrupoAtual")%>')" href="UsuarioControlador?acao=AdicionarAoGrupo&nomeGrupo=<%=request.getAttribute("nomeGrupoAtual")%>&nomeUsuario=<%=u%>"
+					<td style="padding: 10px;"><a onclick="feedbackAddUsuario('<%=u%>','<%=request.getAttribute("nomeGrupoAtual")%>')" href="UsuarioControlador?acao=AdicionarAoGrupo&nomeGrupo=<%=request.getAttribute("nomeGrupoAtual")%>&nomeUsuario=<%=u%>&dispositivo=desktop"
 						style="color: blue; text-decoration: none;">Adicionar</a>
 				</tr>
 				<%
