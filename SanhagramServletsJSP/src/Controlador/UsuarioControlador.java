@@ -1,7 +1,11 @@
 package Controlador;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
 
 import bean.Usuario;
 import jdbc.UsuarioDAO2;
@@ -46,7 +52,7 @@ public class UsuarioControlador extends HttpServlet {
 		UsuarioDAO2 usuDAO = new UsuarioDAO2();// NOVO OBJETO USUARIODAO
 		MensagemDAO mensagemDAO = new MensagemDAO();// NOVO OBJETO MENSAGEMDAO
 
-		if (request.getSession().getAttribute("usuAutenticado") == null) {// USUARIO SEM AUTENTICACAO
+		if (request.getSession().getAttribute("usuAutenticado") == null && dispositivo.equals("desktop")) {// USUARIO SEM AUTENTICACAO NA VERSAO WEB
 
 			RequestDispatcher saida = request.getRequestDispatcher("login.jsp");
 			saida.forward(request, response);
@@ -57,9 +63,9 @@ public class UsuarioControlador extends HttpServlet {
 
 				String usuAutenticado = (String) request.getSession().getAttribute("usuAutenticado");
 
-				if (usuAutenticado.equals("admin")) {//SOMENTE SE O USUARIO AUTENTICADO FOR O ADMIN - AREA RESTRITA
+				if (usuAutenticado.equals("admin")) {//AREA RESTRITA AO ADMIN
 
-					if (request.getParameter("grupo").equals("cadgrupo")) {//RETORNA PAG PARA CRIAR GRUPOS
+					if (request.getParameter("grupo").equals("cadgrupo")) {//PAGINA PARA CRIAR GRUPOS
 						
 						request.setAttribute("tipo", "cadgrupo");//ATRIBUTO PARA IDENTIFICAR A PAGINA
 						
@@ -69,7 +75,7 @@ public class UsuarioControlador extends HttpServlet {
 						RequestDispatcher saida = request.getRequestDispatcher("CadastroGrupo.jsp");
 						saida.forward(request, response);
 						
-					} else if (request.getParameter("grupo").equals("lisusuarios")) {//RETORNA PAG COM UMA LISTA DE TODOS OS USU E OPCOES PARA EXCLUÍ-LOS E ALTERÁ-LOS
+					} else if (request.getParameter("grupo").equals("lisusuarios")) {//PAGINA COM UMA LISTA DE TODOS OS USU
 						
 						request.setAttribute("tipo", "lisusuarios");//ATRIBUTO PARA IDENTIFICAR A PAGINA
 						
@@ -379,6 +385,341 @@ public class UsuarioControlador extends HttpServlet {
 		}
 		else if (dispositivo.equals("android")){//****************************************************ANDROID*************************************************************
 			
+			if(acao.equals("listarMsgm")){//-----------------------------------------------------------------OK-OK
+				String remetente = request.getParameter("remetente");
+				String destinatario = request.getParameter("destinatario");
+
+				if (usuDAO.tipoUsuario(destinatario).equals("grupo")) {//EH UMA CONVERSA EM GRUPO
+						
+					List<Mensagem> lista = mensagemDAO.buscarMensagensGrupo(remetente, destinatario);
+					
+					JSONObject json = new JSONObject();
+					json.put("LOGIN", remetente);
+					json.put("DESTINATARIO", destinatario);
+					json.put("MENSAGENS", lista);
+
+					PrintWriter pw = response.getWriter();
+					pw.write(json.toString());
+					pw.print(json.toString());
+	
+						
+				} else {
+						
+					List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);
+				
+					JSONObject json = new JSONObject();
+					json.put("LOGIN", remetente);
+					json.put("DESTINATARIO", destinatario);
+					json.put("MENSAGENS", lista);
+
+					PrintWriter pw = response.getWriter();
+					pw.write(json.toString());
+					pw.print(json.toString());
+						
+				}
+				
+			}
+			else if(acao.equals("listarConversas")){//---------------------------------------------------------------OK-TESTAR
+				
+				String login = request.getParameter("login");
+				List<String> lista = mensagemDAO.buscarRecentes(login);
+				
+				JSONObject json = new JSONObject();
+				json.put("LOGIN", login);
+				json.put("CONVERSAS", lista);
+				
+				PrintWriter pw = response.getWriter();
+				pw.write(json.toString());
+				pw.print(json.toString());
+			}
+			else if(acao.equals("excluirMsgm")){//---------------------------------------------------------------OK-TESTAR--TEM QUE SOH DEIXAR APAGAR AS PROPRIAS MSGNS
+				
+				String remetente = request.getParameter("remetente");
+				String destinatario = request.getParameter("destinatario");
+				String idmensagem = request.getParameter("idmensagem");
+				
+				mensagemDAO.deletar(Integer.parseInt(idmensagem));
+				
+				if (usuDAO.tipoUsuario(destinatario).equals("grupo")) {//EH UMA CONVERSA EM GRUPO
+					
+					List<Mensagem> lista = mensagemDAO.buscarMensagensGrupo(remetente, destinatario);
+					
+					JSONObject json = new JSONObject();
+					json.put("LOGIN", remetente);
+					json.put("DESTINATARIO", destinatario);
+					json.put("MENSAGENS", lista);
+
+					PrintWriter pw = response.getWriter();
+					pw.write(json.toString());
+					pw.print(json.toString());
+	
+						
+				} else {
+						
+					List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);
+				
+					JSONObject json = new JSONObject();
+					json.put("LOGIN", remetente);
+					json.put("DESTINATARIO", destinatario);
+					json.put("MENSAGENS", lista);
+
+					PrintWriter pw = response.getWriter();
+					pw.write(json.toString());
+					pw.print(json.toString());
+						
+				}
+			
+			}
+			else if(acao.equals("listarMsgmSalvas")){//DESNECESSARIO--SOH FAZER DESTINATARIO ACIMA = ADefinirUsuario---------POSSIVELM EXCLUIR
+				
+				String remetente = request.getParameter("remetente");
+				String destinatario = "ADefinirUsuario";
+						
+				List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);
+				
+				JSONObject json = new JSONObject();
+				json.put("LOGIN", remetente);
+				json.put("DESTINATARIO", destinatario);
+				json.put("MENSAGENS", lista);
+
+				PrintWriter pw = response.getWriter();
+				pw.write(json.toString());
+				pw.print(json.toString());
+						
+				
+			}
+			else if(acao.equals("listarUsuarios")){//---------------------------------------------------------------OK-TESTAR
+				
+				String login = request.getParameter("login");
+
+				if(login.equals("admin")) {
+					
+					List<Usuario> lista = usuDAO.buscarTodos();
+					
+					JSONObject json = new JSONObject();
+					json.put("LOGIN", login);
+					json.put("USUARIOS", lista);
+					
+					PrintWriter pw = response.getWriter();
+					pw.write(json.toString());
+					pw.print(json.toString());
+				
+				}
+			}
+			else if(acao.equals("alterarCadastro")){//---------------------------------------------------------------OK-TESTAR
+				
+				String login = request.getParameter("login");
+				String nomeUsuario = request.getParameter("nomeUsuario");
+
+				if(login.equals("admin")) {
+					
+					Usuario usuario = usuDAO.buscarporNome(nomeUsuario);
+					
+					JSONObject json = new JSONObject();
+					json.put("LOGIN", login);
+					json.put("USUARIOALTERAR", usuario);
+					
+					PrintWriter pw = response.getWriter();
+					pw.write(json.toString());
+					pw.print(json.toString());
+				
+				}
+			}
+			else if(acao.equals("excluirUsuario")){//---------------------------------------------------------------OK-TESTAR
+				
+				String nome = request.getParameter("nomeusuario");
+				String login = request.getParameter("login");
+				
+				if(login.equals("admin")) {
+					
+					usu.setNome(nome);
+					usuDAO.deletar(usu);//DELETA USUARIO 
+					mensagemDAO.UsuarioRemovido(nome);//MODIFICA SEU NOME NAS MENSAGENS PARA 'NOME* (REMOVIDO)'
+					
+					List<Usuario> lista = usuDAO.buscarTodos();
+					
+					JSONObject json = new JSONObject();
+					json.put("LOGIN", login);
+					json.put("USUARIOS", lista);
+					
+					PrintWriter pw = response.getWriter();
+					pw.write(json.toString());
+					pw.print(json.toString());
+				
+				}
+			}
+			else if(acao.equals("listarGrupos")){//---------------------------------------------------------------OK-TESTAR
+				
+				String login = request.getParameter("login");
+
+				if(login.equals("admin")) {
+					
+					List<Usuario> lista = usuDAO.buscarGrupos();
+					
+					JSONObject json = new JSONObject();
+					json.put("LOGIN", login);
+					json.put("GRUPOS", lista);
+					
+					PrintWriter pw = response.getWriter();
+					pw.write(json.toString());
+					pw.print(json.toString());
+				
+				}
+			}
+			else if(acao.equals("listarUsuariosDoGrupo")){//---------------------------------------------------------------OK-TESTAR
+				
+				String login = request.getParameter("login");
+				String nomeGrupo = request.getParameter("nomeGrupo");
+
+				if(login.equals("admin")) {
+					
+					List<Usuario> listaTodosUsuariosObjeto = usuDAO.buscarTodos();
+
+					List<String> listaUsuariosGrupo = mensagemDAO.buscarIntegrantesGrupo(nomeGrupo);
+					
+					List<String> listaTodosUsuarios = new ArrayList<String>();
+					for(Usuario u : listaTodosUsuariosObjeto){
+						listaTodosUsuarios.add(u.getNome());
+					}
+					
+					Set<String> todosUsuarios = new HashSet<String>(listaTodosUsuarios);
+					Set<String> usuariosDoGrupo = new HashSet<String>(listaUsuariosGrupo);
+					todosUsuarios.removeAll(usuariosDoGrupo);//USUARIOS QUE AINDA NAO PERTENCEM AO GRUPO
+					
+					JSONObject json = new JSONObject();
+					json.put("LOGIN", login);
+					json.put("GRUPO", nomeGrupo);
+					json.put("USUARIOSDOGRUPO", listaUsuariosGrupo);
+					json.put("USUARIOSFORADOGRUPO", todosUsuarios);					
+					
+					PrintWriter pw = response.getWriter();
+					pw.write(json.toString());
+					pw.print(json.toString());
+				
+				}
+			}
+			else if(acao.equals("removerDoGrupo")){//---------------------------------------------------------------OK-TESTAR
+				
+				String login = request.getParameter("login");
+				String nomeGrupo = request.getParameter("nomeGrupo");
+				String nomeUsuario = request.getParameter("nomeUsuario");
+				
+				if (login.equals("admin")) {
+					
+					mensagemDAO.SairGrupo(nomeUsuario, nomeGrupo);// RETIRA USUARIO DO GRUPO
+					
+					List<Usuario> listaTodosUsuariosObjeto = usuDAO.buscarTodos();
+
+					List<String> listaUsuariosGrupo = mensagemDAO.buscarIntegrantesGrupo(nomeGrupo);
+					
+					List<String> listaTodosUsuarios = new ArrayList<String>();
+					for(Usuario u : listaTodosUsuariosObjeto){
+						listaTodosUsuarios.add(u.getNome());
+					}
+					
+					Set<String> todosUsuarios = new HashSet<String>(listaTodosUsuarios);
+					Set<String> usuariosDoGrupo = new HashSet<String>(listaUsuariosGrupo);
+					todosUsuarios.removeAll(usuariosDoGrupo);//USUARIOS QUE AINDA NAO PERTENCEM AO GRUPO
+					
+					JSONObject json = new JSONObject();
+					json.put("LOGIN", login);
+					json.put("GRUPO", nomeGrupo);
+					json.put("USUARIOSDOGRUPO", listaUsuariosGrupo);
+					json.put("USUARIOSFORADOGRUPO", todosUsuarios);					
+					
+					PrintWriter pw = response.getWriter();
+					pw.write(json.toString());
+					pw.print(json.toString());
+					
+				} 
+				
+			}
+			else if(acao.equals("adicionarAoGrupo")){//---------------------------------------------------------------OK-TESTAR
+				
+				String login = request.getParameter("login");
+				String nomeGrupo = request.getParameter("nomeGrupo");
+				String nomeUsuario = request.getParameter("nomeUsuario");
+				
+				if (login.equals("admin")) {
+					
+					try {
+	
+						Mensagem mensagem1 = new Mensagem();
+						Mensagem mensagem2 = new Mensagem();
+		
+						mensagem1.setRemetente(nomeUsuario);
+						mensagem1.setDestinatario(nomeGrupo);
+						mensagem1.setTexto_mensagem("");
+		
+						MensagemDAO mensagemDAO1 = new MensagemDAO();
+						mensagemDAO1.enviarParaGrupo(mensagem1);
+		
+						mensagem2.setRemetente(nomeGrupo);
+						mensagem2.setDestinatario(nomeGrupo);
+						mensagem2.setTexto_mensagem(nomeUsuario + " entrou no grupo");
+		
+						MensagemDAO mensagemDAO2 = new MensagemDAO();
+						mensagemDAO2.enviarParaGrupo(mensagem2);
+	
+					}
+	
+					catch (Exception e) {
+						System.out.println(e);
+	
+					}
+					
+					List<Usuario> listaTodosUsuariosObjeto = usuDAO.buscarTodos();
+
+					List<String> listaUsuariosGrupo = mensagemDAO.buscarIntegrantesGrupo(nomeGrupo);
+					
+					List<String> listaTodosUsuarios = new ArrayList<String>();
+					
+					for(Usuario u : listaTodosUsuariosObjeto){
+						
+						listaTodosUsuarios.add(u.getNome());
+						
+					}
+					
+					Set<String> todosUsuarios = new HashSet<String>(listaTodosUsuarios);
+					Set<String> usuariosDoGrupo = new HashSet<String>(listaUsuariosGrupo);
+					todosUsuarios.removeAll(usuariosDoGrupo);//USUARIOS QUE AINDA NAO PERTENCEM AO GRUPO
+					
+					JSONObject json = new JSONObject();
+					json.put("LOGIN", login);
+					json.put("GRUPO", nomeGrupo);
+					json.put("USUARIOSDOGRUPO", listaUsuariosGrupo);
+					json.put("USUARIOSFORADOGRUPO", todosUsuarios);					
+					
+					PrintWriter pw = response.getWriter();
+					pw.write(json.toString());
+					pw.print(json.toString());
+					
+				}
+				
+			}
+			else if(acao.equals("sairDoGrupo")){//---------------------------------------------------------------OK-TESTAR
+				
+				String nomeGrupo = request.getParameter("nomeGrupo");
+				String login = request.getParameter("login");
+				
+				mensagemDAO.SairGrupo(login, nomeGrupo);
+				
+				List<String> lista = mensagemDAO.buscarRecentes(login);
+				
+				JSONObject json = new JSONObject();
+				json.put("LOGIN", login);
+				json.put("CONVERSAS", lista);
+				
+				PrintWriter pw = response.getWriter();
+				pw.write(json.toString());
+				pw.print(json.toString());
+				
+			}
+			else{
+				
+				//ERRO
+				
+			}
 			
 		}
 		
@@ -396,26 +737,22 @@ public class UsuarioControlador extends HttpServlet {
 		String dispositivo = request.getParameter("dispositivo");
 		
 		if(dispositivo.equals("desktop")) {//*******************************************************DESKTOP**************************************************************
+			
 			if (acao.equals("alterar")) {
 				
-				// String sid = request.getParameter("id");
 				String snome = request.getParameter("nome");
 				String semail = request.getParameter("email");
 				String ssenha = request.getParameter("senha");
 				String sdata = request.getParameter("data");
 	
-				// criando objeto usuario e atribuindo valores da tela--DO FORM - 'NAME' DO INPUT
 				Usuario usuario = new Usuario();
 				usuario.setNome(snome);
 				usuario.setEmail(semail);
 				usuario.setSenha(ssenha);
 				usuario.setDatanasc(sdata);
-				// usuario.setId(Integer.parseInt(sid));
-	
-				// criando um usuarioDAO PARA ACESSAR O BD
+
 				UsuarioDAO2 usuDao = new UsuarioDAO2();
 				
-				// Salvando no banco de dados
 				usuDao.alterar(usuario);
 				
 				response.sendRedirect("UsuarioControlador?acao=lis&grupo=lisusuarios&dispositivo=desktop");
@@ -426,7 +763,6 @@ public class UsuarioControlador extends HttpServlet {
 				String destinatario = request.getParameter("destinatario");
 				String texto_mensagem = request.getParameter("texto_mensagem");
 				
-				//CRIA OBJETOS NECESSÁRIOS
 				MensagemDAO mensagemDAO = new MensagemDAO();
 				UsuarioDAO2 usuDAO = new UsuarioDAO2();
 				Mensagem mensagem = new Mensagem();
@@ -586,6 +922,240 @@ public class UsuarioControlador extends HttpServlet {
 		}
 		else if (dispositivo.equals("android")) {//***********************************************ANDROID**************************************************************
 			
+			if(acao.equals("enviarMsgm")){
+				
+				String remetente = request.getParameter("remetente");//= login 
+				String destinatario = request.getParameter("destinatario");
+				String texto_mensagem = request.getParameter("texto_mensagem");
+				
+				MensagemDAO mensagemDAO = new MensagemDAO();
+				UsuarioDAO2 usuDAO = new UsuarioDAO2();
+				Mensagem mensagem = new Mensagem();
+	
+				if ((usuDAO.tipoUsuario(destinatario).equals("grupo")
+						&& mensagemDAO.ChecaPertencimentoGrupo(remetente, destinatario).equals("pertence"))
+						|| (!usuDAO.tipoUsuario(destinatario).equals("grupo")
+								&& usuDAO.ChecaExistenciaUsuario(destinatario).equals("existe"))
+						|| (destinatario.equals("ADefinirUsuario"))) {
+	
+					try {
+						
+						mensagem.setRemetente(remetente);
+						mensagem.setDestinatario(destinatario);
+						mensagem.setTexto_mensagem(texto_mensagem);
+	
+						if (usuDAO.tipoUsuario(destinatario).equals("grupo")) {
+							
+							mensagemDAO.enviarParaGrupo(mensagem);
+							
+							List<Mensagem> lista = mensagemDAO.buscarMensagensGrupo(remetente, destinatario);
+							
+							JSONObject json = new JSONObject();
+							json.put("LOGIN", remetente);
+							json.put("DESTINATARIO", destinatario);
+							json.put("MENSAGENS", lista);
+
+							PrintWriter pw = response.getWriter();
+							pw.write(json.toString());
+							pw.print(json.toString());
+							
+							
+						} else {
+								
+							mensagemDAO.enviar(mensagem);
+								
+							List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);
+								
+							JSONObject json = new JSONObject();
+							json.put("LOGIN", remetente);
+							json.put("DESTINATARIO", destinatario);
+							json.put("MENSAGENS", lista);
+
+							PrintWriter pw = response.getWriter();
+							pw.write(json.toString());
+							pw.print(json.toString());
+	
+						}
+					}
+	
+					catch (Exception e) {
+						System.out.println(e);
+	
+					}
+	
+				} else {// USUARIO NAO EXISTE OU NAO ESTA CADASTRADO NO GRUPO
+					
+					//ERRO
+				}
+
+			}
+			else if(acao.equals("cadastrarUsuario")){
+				
+				String login = request.getParameter("login");
+				
+				String nome = request.getParameter("nome");
+				String email = request.getParameter("email");
+				String senha = request.getParameter("senha");
+				String data = request.getParameter("data");
+	
+				if(login.equals("admin")) {
+					
+					try {
+		
+						Usuario usuario = new Usuario();
+						
+						usuario.setNome(nome);
+						usuario.setEmail(email);
+						usuario.setSenha(senha);
+						usuario.setDatanasc(data);
+		
+						UsuarioDAO2 usuarioDAO = new UsuarioDAO2();
+						
+						String resultadocadastro = usuarioDAO.cadastro(usuario);
+						
+						if (resultadocadastro.equals("cadastradoComSucesso")) {
+						
+							List<Usuario> lista = usuarioDAO.buscarTodos();
+							
+							JSONObject json = new JSONObject();
+							json.put("LOGIN", login);
+							json.put("USUARIOS", lista);
+							
+							PrintWriter pw = response.getWriter();
+							pw.write(json.toString());
+							pw.print(json.toString());
+						
+						} else {
+						
+							//ERRO
+							
+						}
+					}
+	
+					catch (Exception e) {
+						
+						System.out.println(e);
+	
+					}
+
+				}
+				else {
+					
+					//ERRO
+				
+				}
+			}
+			else if(acao.equals("alterarUsuario")){
+				
+				String login = request.getParameter("login");
+				
+				String nome = request.getParameter("nome");
+				String email = request.getParameter("email");
+				String senha = request.getParameter("senha");
+				String data = request.getParameter("data");
+	
+				Usuario usuario = new Usuario();
+				
+				usuario.setNome(nome);
+				usuario.setEmail(email);
+				usuario.setSenha(senha);
+				usuario.setDatanasc(data);
+
+				UsuarioDAO2 usuarioDAO = new UsuarioDAO2();
+				
+				usuarioDAO.alterar(usuario);
+				
+				List<Usuario> lista = usuarioDAO.buscarTodos();
+				
+				JSONObject json = new JSONObject();
+				json.put("LOGIN", login);
+				json.put("USUARIOS", lista);
+				
+				PrintWriter pw = response.getWriter();
+				pw.write(json.toString());
+				pw.print(json.toString());
+				
+			}
+			else if(acao.equals("criarGrupo")){
+				
+				String login = request.getParameter("login");
+				
+				String nomeGrupo = request.getParameter("nomeGrupo");
+				String integrantesGrupo = request.getParameter("listaNovoGrupo").substring(0, request.getParameter("listaNovoGrupo").length() - 1);
+				String integrantes[] = integrantesGrupo.split("\\|");// separa os nomes dos usuarios (estao separados por '|')
+	
+				try {// CADASTRA O GRUPO EM SI COMO UM USUARIO APENAS COM NOME E FLAG_GRUPO=1
+	
+					if(login.equals("admin")) {
+					
+						Usuario usuario = new Usuario();
+						usuario.setNome(nomeGrupo);
+						
+						UsuarioDAO2 usuarioDAO = new UsuarioDAO2();
+						String resultadoCadastro = usuarioDAO.cadastroGrupo(usuario);
+						
+						if (resultadoCadastro.equals("cadastradoComSucesso")) {
+		
+							try {
+		
+								for (String remetente : integrantes) {
+									
+									Mensagem mensagem = new Mensagem();
+									Mensagem mensagem2 = new Mensagem();
+		
+									mensagem.setRemetente(remetente);
+									mensagem.setDestinatario(nomeGrupo);
+									mensagem.setTexto_mensagem("");
+		
+									MensagemDAO mensagemDAO = new MensagemDAO();
+									mensagemDAO.enviarParaGrupo(mensagem);
+		
+									mensagem2.setRemetente(nomeGrupo);
+									mensagem2.setDestinatario(nomeGrupo);
+									mensagem2.setTexto_mensagem(remetente + " entrou no grupo");
+		
+									MensagemDAO mensagemDAO2 = new MensagemDAO();
+									mensagemDAO2.enviarParaGrupo(mensagem2);
+		
+								}
+		
+							}
+		
+							catch (Exception e) {
+								System.out.println(e);
+		
+							}
+								
+							List<Usuario> lista = usuarioDAO.buscarGrupos();
+								
+							JSONObject json = new JSONObject();
+							json.put("LOGIN", login);
+							json.put("GRUPOS", lista);
+								
+							PrintWriter pw = response.getWriter();
+							pw.write(json.toString());
+							pw.print(json.toString());
+							
+						} else {
+		
+							//ERRO
+		
+						}
+					}
+	
+				}
+	
+				catch (Exception e) {
+					System.out.println(e);
+	
+				}
+	
+			}
+			else{
+				
+				//ERRO
+				
+			}
 			
 		}
 	}

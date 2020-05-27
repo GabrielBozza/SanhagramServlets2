@@ -81,7 +81,7 @@ public class autenticador extends HttpServlet {
 				request.setAttribute("lista", lista);
 				request.getRequestDispatcher("home.jsp").forward(request, response);
 			}
-			else {//android--dividir p admin tbm
+			else {//android
 				
 				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado.getNome());
 				JSONObject json = new JSONObject();
