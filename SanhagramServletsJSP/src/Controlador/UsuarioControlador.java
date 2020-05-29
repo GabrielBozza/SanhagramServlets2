@@ -514,10 +514,12 @@ public class UsuarioControlador extends HttpServlet {
 				if(login.equals("admin")) {
 					
 					Usuario usuario = usuDAO.buscarporNome(nomeUsuario);
+					List<Usuario> atributosUsuario = new ArrayList<Usuario>();
+					atributosUsuario.add(usuario);
 					
 					JSONObject json = new JSONObject();
 					json.put("LOGIN", login);
-					json.put("USUARIOALTERAR", usuario);
+					json.put("USUARIOALTERAR", atributosUsuario);
 					
 					PrintWriter pw = response.getWriter();
 					pw.write(json.toString());
@@ -1132,7 +1134,7 @@ public class UsuarioControlador extends HttpServlet {
 							json.put("LOGIN", login);
 							json.put("GRUPOS", lista);
 								
-							PrintWriter pw = response.getWriter();
+							PrintWriter pw = response.getWriter(); 
 							pw.write(json.toString());
 							pw.print(json.toString());
 							

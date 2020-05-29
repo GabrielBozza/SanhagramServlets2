@@ -86,7 +86,7 @@ public class autenticador extends HttpServlet {
 				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado.getNome());
 				JSONObject json = new JSONObject();
 				json.put("LOGIN", nome);
-				json.put("AMIGOS", lista);
+				json.put("CONVERSAS", lista);
 				PrintWriter pw = response.getWriter();
 				pw.write(json.toString());
 				pw.print(json.toString());
