@@ -1,7 +1,9 @@
 package Controlador;
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -398,6 +400,7 @@ public class UsuarioControlador extends HttpServlet {
 					json.put("DESTINATARIO", destinatario);
 					json.put("MENSAGENS", lista);
 
+					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter pw = response.getWriter();
 					pw.write(json.toString());
 					pw.print(json.toString());
@@ -412,6 +415,7 @@ public class UsuarioControlador extends HttpServlet {
 					json.put("DESTINATARIO", destinatario);
 					json.put("MENSAGENS", lista);
 
+					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter pw = response.getWriter();
 					pw.write(json.toString());
 					pw.print(json.toString());
@@ -428,6 +432,7 @@ public class UsuarioControlador extends HttpServlet {
 				json.put("LOGIN", login);
 				json.put("CONVERSAS", lista);
 				
+				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter pw = response.getWriter();
 				pw.write(json.toString());
 				pw.print(json.toString());
@@ -449,6 +454,7 @@ public class UsuarioControlador extends HttpServlet {
 					json.put("DESTINATARIO", destinatario);
 					json.put("MENSAGENS", lista);
 
+					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter pw = response.getWriter();
 					pw.write(json.toString());
 					pw.print(json.toString());
@@ -463,6 +469,7 @@ public class UsuarioControlador extends HttpServlet {
 					json.put("DESTINATARIO", destinatario);
 					json.put("MENSAGENS", lista);
 
+					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter pw = response.getWriter();
 					pw.write(json.toString());
 					pw.print(json.toString());
@@ -482,6 +489,7 @@ public class UsuarioControlador extends HttpServlet {
 				json.put("DESTINATARIO", destinatario);
 				json.put("MENSAGENS", lista);
 
+				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter pw = response.getWriter();
 				pw.write(json.toString());
 				pw.print(json.toString());
@@ -500,6 +508,7 @@ public class UsuarioControlador extends HttpServlet {
 					json.put("LOGIN", login);
 					json.put("USUARIOS", lista);
 					
+					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter pw = response.getWriter();
 					pw.write(json.toString());
 					pw.print(json.toString());
@@ -521,6 +530,7 @@ public class UsuarioControlador extends HttpServlet {
 					json.put("LOGIN", login);
 					json.put("USUARIOALTERAR", atributosUsuario);
 					
+					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter pw = response.getWriter();
 					pw.write(json.toString());
 					pw.print(json.toString());
@@ -544,6 +554,7 @@ public class UsuarioControlador extends HttpServlet {
 					json.put("LOGIN", login);
 					json.put("USUARIOS", lista);
 					
+					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter pw = response.getWriter();
 					pw.write(json.toString());
 					pw.print(json.toString());
@@ -562,6 +573,7 @@ public class UsuarioControlador extends HttpServlet {
 					json.put("LOGIN", login);
 					json.put("GRUPOS", lista);
 					
+					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter pw = response.getWriter();
 					pw.write(json.toString());
 					pw.print(json.toString());
@@ -594,6 +606,7 @@ public class UsuarioControlador extends HttpServlet {
 					json.put("USUARIOSDOGRUPO", listaUsuariosGrupo);
 					json.put("USUARIOSFORADOGRUPO", todosUsuarios);					
 					
+					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter pw = response.getWriter();
 					pw.write(json.toString());
 					pw.print(json.toString());
@@ -629,6 +642,7 @@ public class UsuarioControlador extends HttpServlet {
 					json.put("USUARIOSDOGRUPO", listaUsuariosGrupo);
 					json.put("USUARIOSFORADOGRUPO", todosUsuarios);					
 					
+					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter pw = response.getWriter();
 					pw.write(json.toString());
 					pw.print(json.toString());
@@ -692,6 +706,7 @@ public class UsuarioControlador extends HttpServlet {
 					json.put("USUARIOSDOGRUPO", listaUsuariosGrupo);
 					json.put("USUARIOSFORADOGRUPO", todosUsuarios);					
 					
+					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter pw = response.getWriter();
 					pw.write(json.toString());
 					pw.print(json.toString());
@@ -712,6 +727,7 @@ public class UsuarioControlador extends HttpServlet {
 				json.put("LOGIN", login);
 				json.put("CONVERSAS", lista);
 				
+				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter pw = response.getWriter();
 				pw.write(json.toString());
 				pw.print(json.toString());
@@ -957,6 +973,7 @@ public class UsuarioControlador extends HttpServlet {
 							json.put("DESTINATARIO", destinatario);
 							json.put("MENSAGENS", lista);
 
+							response.setContentType("text/html; charset=UTF-8");
 							PrintWriter pw = response.getWriter();
 							pw.write(json.toString());
 							pw.print(json.toString());
@@ -973,6 +990,7 @@ public class UsuarioControlador extends HttpServlet {
 							json.put("DESTINATARIO", destinatario);
 							json.put("MENSAGENS", lista);
 
+							response.setContentType("text/html; charset=UTF-8");
 							PrintWriter pw = response.getWriter();
 							pw.write(json.toString());
 							pw.print(json.toString());
@@ -1023,6 +1041,7 @@ public class UsuarioControlador extends HttpServlet {
 							json.put("LOGIN", login);
 							json.put("USUARIOS", lista);
 							
+							response.setContentType("text/html; charset=UTF-8");
 							PrintWriter pw = response.getWriter();
 							pw.write(json.toString());
 							pw.print(json.toString());
@@ -1073,6 +1092,7 @@ public class UsuarioControlador extends HttpServlet {
 				json.put("LOGIN", login);
 				json.put("USUARIOS", lista);
 				
+				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter pw = response.getWriter();
 				pw.write(json.toString());
 				pw.print(json.toString());
@@ -1134,6 +1154,7 @@ public class UsuarioControlador extends HttpServlet {
 							json.put("LOGIN", login);
 							json.put("GRUPOS", lista);
 								
+							response.setContentType("text/html; charset=UTF-8");
 							PrintWriter pw = response.getWriter(); 
 							pw.write(json.toString());
 							pw.print(json.toString());
