@@ -133,9 +133,9 @@
 				<div id="BolhaMensagem"
 					style="width: 400px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-right: 5px; float: right; text-align: center; border: 0px; border-radius: 15px; background: #1ed985; padding: 8px;">
 					<a
-						style="padding-left: 12px; padding-right: 2px; padding-top: 2px; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: right; float: right; color: #1976f7;">Rascunho</a>
+						style="padding-left: 12px; padding-right: 2px; padding-top: 2px; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: right; float: right; color: #1976f7;"></a>
 					<a
-						style="font-weight: 600; padding-left: 2px; padding-top: 2px; float: left; font-size: 11px; font-family: Helvetica; color: black;"><%=m.getData_envio().substring(8, 10)%>/<%=m.getData_envio().substring(5, 7)%>/<%=m.getData_envio().substring(0, 4)%></a><br>
+						style="font-weight: 600; padding-left: 2px; padding-top: 2px; font-size: 13px; font-family: Helvetica; color: white;"><%=m.getData_envio().substring(8, 10)%>/<%=m.getData_envio().substring(5, 7)%>/<%=m.getData_envio().substring(0, 4)%></a><br>
 					<a style="font-family: Helvetica; margin-left: 0px; color: white;padding:3px;"><%=m.getTexto_mensagem()%></a>
 				</div>
 				<form autocomplete="off" action="UsuarioControlador?acao=enviar&dispositivo=desktop"

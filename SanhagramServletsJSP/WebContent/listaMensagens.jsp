@@ -158,11 +158,11 @@
 			<br>
 			<div style="width: 100%; float: right;">
 				<div id="BolhaMensagem"
-					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-left: 20px; float: left; text-align: center; border: 0px; border-radius: 5px 15px 15px 15px; background-image: linear-gradient(to bottom right, #EECDA3, #EF629F); padding: 8px;">
+					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-left: 20px; float: left; text-align: center; border: 0px; border-radius: 15px 15px 15px 5px; background-image: linear-gradient(to bottom right, #EECDA3, #EF629F); padding: 8px;">
 					<a
 						style="padding-left: 2px; padding-top: 2px; float: left; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: left; color: black;"><%=m.getRemetente()%></a>
 					<a
-						style="font-weight: 700; padding-left: 12px; padding-right: 2px; padding-top: 2px; float: right; font-size: 10px; font-family: Helvetica; margin-left: 0px; color: #636363;"><%=m.getData_envio().substring(11, 16)%></a><br>
+						style="font-weight: 700; padding-left: 12px; padding-right: 2px; padding-top: 2px; float: right; font-size: 10px; font-family: Helvetica; margin-left: 0px; color: white;"><%=m.getData_envio().substring(11, 16)%></a><br>
 					<a style="font-family: Helvetica; margin-left: 0px; color: white;padding:3px;"><%=m.getTexto_mensagem()%></a>
 				</div>
 			</div>
@@ -173,11 +173,11 @@
 			<br>
 			<div style="width: 100%; float: right;">
 				<div id="BolhaMensagem"
-					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-left: 20px; float: left; text-align: center; border: 0px; border-radius: 5px 15px 15px 15px; background: #1f93ff; padding: 8px;">
+					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-left: 20px; float: left; text-align: center; border: 0px; border-radius: 15px 15px 15px 5px; background: #1f93ff; padding: 8px;">
 					<a
 						style="padding-left: 2px; padding-top: 2px; float: left; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: left; color: #ffe5b0;"><%=m.getRemetente()%></a>
 					<a
-						style="font-weight: 700; padding-left: 12px; padding-right: 2px; padding-top: 2px; float: right; font-size: 10px; font-family: Helvetica; margin-left: 0px; color: #474747;"><%=m.getData_envio().substring(11, 16)%></a><br>
+						style="font-weight: 700; padding-left: 12px; padding-right: 2px; padding-top: 2px; float: right; font-size: 10px; font-family: Helvetica; margin-left: 0px; color: white;"><%=m.getData_envio().substring(11, 16)%></a><br>
 					<a style="font-family: Helvetica; margin-left: 0px; color: white;padding:3px;"><%=m.getTexto_mensagem()%></a>
 				</div>
 			</div>
@@ -197,11 +197,11 @@
 						class="fa fa-fw fa-trash"></i></a>
 				</div>
 				<div id="BolhaMensagem"
-					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-right: 2px; float: right; text-align: center; border: 0px; border-radius: 15px 5px 15px 15px; background: #1ed985; padding: 8px;">
+					style="max-width: 530px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; margin-top: 20px; margin-right: 2px; float: right; text-align: center; border: 0px; border-radius: 15px 15px 5px 15px; background: #1ed985; padding: 8px;">
 					<a
 						style="padding-left: 12px; padding-right: 2px; padding-top: 2px; font-size: 13px; font-family: Helvetica; font-weight: bold; text-align: right; float: right; color: #ad5900;"> </a>
 					<a
-						style="font-weight: 700; padding-left: 2px; padding-top: 2px; float: left; font-size: 10px; font-family: Helvetica; color: #474747;"><%=m.getData_envio().substring(11, 16)%></a><br>
+						style="font-weight: 700; padding-left: 2px; padding-top: 2px; float: left; font-size: 10px; font-family: Helvetica; color: white;"><%=m.getData_envio().substring(11, 16)%></a><br>
 					<a style="font-family: Helvetica; margin-left: 0px; color: white;padding:3px;"><%=m.getTexto_mensagem()%></a>
 				</div>
 
