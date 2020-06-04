@@ -56,37 +56,50 @@ public class autenticador extends HttpServlet {
 		String nome = request.getParameter("nome");
 		String senha = request.getParameter("senha");
 
-		//System.out.println(nome+" "+senha);
-		Usuario usu = new Usuario();// CRIA UM NOVO USUARIO DE BEAN.USUARIO
-		usu.setNome(nome);// SETA SEUS PARAMETROS
-		usu.setSenha(senha);// SETA SEUS PARAMETROS
+		Usuario usu = new Usuario();
+		usu.setNome(nome);
+		usu.setSenha(senha);
 
-		UsuarioDAO2 usuDAO = new UsuarioDAO2();// CRIA UM OBJETO USUARIODAO PARA PODER OBTER INFOS DO BD COM RELACAO AO
-												// OBJETO USUARIO
+		UsuarioDAO2 usuDAO = new UsuarioDAO2();
+		
 		Usuario usuAutenticado = usuDAO.autenticacao(usu);// CHAMA A FUNCAO AUTENTICACAO DE USUARIODAO-->RETORNA NULL SE
 															// NAO ENCONTRAR O PAR USUARIO,SENHA CORRETO
 
 		if (usuAutenticado != null) {// ENCONTROU O PAR USUARIO,SENHA DADO E O LOGIN FOI BEM SUCEDIDO
+			
 			HttpSession sessao = request.getSession();
+			
 			sessao.setAttribute("usuAutenticado", usuAutenticado.getNome());// PASSA COMO ATRIBUTO UM OBJETO USUARIO COM
 																			// O NOME E SENHA FORNECIDOS E JA CHECADOS
 			MensagemDAO mensagemDAO = new MensagemDAO();
 		
 			if (usuAutenticado.getNome().equals("admin") && request.getParameter("dispositivo").equals("desktop")) {
+				
 				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado.getNome());
 				request.setAttribute("lista", lista);
+				
 				request.getRequestDispatcher("home.jsp").forward(request, response);
+				
 			} else if (!usuAutenticado.getNome().equals("admin") && request.getParameter("dispositivo").equals("desktop")){
+				
 				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado.getNome());
 				request.setAttribute("lista", lista);
+				
 				request.getRequestDispatcher("home.jsp").forward(request, response);
+				
 			}
 			else {//android
 				
 				List<String> lista = mensagemDAO.buscarRecentes(usuAutenticado.getNome());
+				String chave_usuario = usuDAO.GerarChaveUsuario(usuAutenticado.getNome());
+				
 				JSONObject json = new JSONObject();
+				
 				json.put("LOGIN", nome);
 				json.put("CONVERSAS", lista);
+				json.put("CHAVE_USUARIO", chave_usuario);
+				
+				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter pw = response.getWriter();
 				pw.write(json.toString());
 				pw.print(json.toString());

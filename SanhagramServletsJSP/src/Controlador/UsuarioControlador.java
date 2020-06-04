@@ -385,10 +385,10 @@ public class UsuarioControlador extends HttpServlet {
 			}
 			
 		}
-		else if (dispositivo.equals("android")){//****************************************************ANDROID*************************************************************
+		else if (dispositivo.equals("android") && usuDAO.ChecaChaveUsuario(request.getParameter("chaveUSU"),request.getParameter("login"))){//****************************************************ANDROID*************************************************************
 			
 			if(acao.equals("listarMsgm")){//-----------------------------------------------------------------OK-OK
-				String remetente = request.getParameter("remetente");
+				String remetente = request.getParameter("login");
 				String destinatario = request.getParameter("destinatario");
 
 				if (usuDAO.tipoUsuario(destinatario).equals("grupo")) {//EH UMA CONVERSA EM GRUPO
@@ -439,7 +439,7 @@ public class UsuarioControlador extends HttpServlet {
 			}
 			else if(acao.equals("excluirMsgm")){//---------------------------------------------------------------OK-TESTAR--TEM QUE SOH DEIXAR APAGAR AS PROPRIAS MSGNS
 				
-				String remetente = request.getParameter("remetente");
+				String remetente = request.getParameter("login");
 				String destinatario = request.getParameter("destinatario");
 				String idmensagem = request.getParameter("idmensagem");
 				
@@ -479,7 +479,7 @@ public class UsuarioControlador extends HttpServlet {
 			}
 			else if(acao.equals("listarMsgmSalvas")){//DESNECESSARIO--SOH FAZER DESTINATARIO ACIMA = ADefinirUsuario---------POSSIVELM EXCLUIR
 				
-				String remetente = request.getParameter("remetente");
+				String remetente = request.getParameter("login");
 				String destinatario = "ADefinirUsuario";
 						
 				List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);
@@ -733,6 +733,35 @@ public class UsuarioControlador extends HttpServlet {
 				pw.print(json.toString());
 				
 			}
+			else if(acao.equals("sair")){//---------------------------------------------------------------OK-TESTAR
+				
+				String nomeUSU = request.getParameter("login");
+				String chaveUSU = request.getParameter("chaveUSU");
+				
+				if(usuDAO.ApagarChaveUsuario(chaveUSU, nomeUSU)) {
+				
+				JSONObject json = new JSONObject();
+				json.put("RESULTADO", "SUCESSO");
+				
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter pw = response.getWriter();
+				pw.write(json.toString());
+				pw.print(json.toString());
+				
+				}
+				else {
+					
+					JSONObject json = new JSONObject();
+					json.put("RESULTADO", "ERRO");
+					
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter pw = response.getWriter();
+					pw.write(json.toString());
+					pw.print(json.toString());
+				}
+				
+				
+			}
 			else{
 				
 				//ERRO
@@ -753,6 +782,7 @@ public class UsuarioControlador extends HttpServlet {
 		
 		String acao = request.getParameter("acao");
 		String dispositivo = request.getParameter("dispositivo");
+		UsuarioDAO2 usuDAO = new UsuarioDAO2();
 		
 		if(dispositivo.equals("desktop")) {//*******************************************************DESKTOP**************************************************************
 			
@@ -782,7 +812,6 @@ public class UsuarioControlador extends HttpServlet {
 				String texto_mensagem = request.getParameter("texto_mensagem");
 				
 				MensagemDAO mensagemDAO = new MensagemDAO();
-				UsuarioDAO2 usuDAO = new UsuarioDAO2();
 				Mensagem mensagem = new Mensagem();
 	
 				if ((usuDAO.tipoUsuario(destinatario).equals("grupo")
@@ -938,16 +967,15 @@ public class UsuarioControlador extends HttpServlet {
 	
 			}
 		}
-		else if (dispositivo.equals("android")) {//***********************************************ANDROID**************************************************************
+		else if (dispositivo.equals("android") && usuDAO.ChecaChaveUsuario(request.getParameter("chaveUSU"),request.getParameter("login"))) {//***********************************************ANDROID**************************************************************
 			
 			if(acao.equals("enviarMsgm")){
 				
-				String remetente = request.getParameter("remetente");//= login 
+				String remetente = request.getParameter("login");
 				String destinatario = request.getParameter("destinatario");
 				String texto_mensagem = request.getParameter("texto_mensagem");
 				
 				MensagemDAO mensagemDAO = new MensagemDAO();
-				UsuarioDAO2 usuDAO = new UsuarioDAO2();
 				Mensagem mensagem = new Mensagem();
 	
 				if ((usuDAO.tipoUsuario(destinatario).equals("grupo")

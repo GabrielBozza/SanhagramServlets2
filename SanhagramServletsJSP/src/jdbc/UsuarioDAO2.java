@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import bean.Usuario;
 
@@ -267,6 +268,84 @@ public class UsuarioDAO2 {
 			System.out.println("Erro de SQL:" + e.getMessage());
 		}
 		return tipo;
+	}
+	
+	public String GerarChaveUsuario(String nomeUSU) {
+		
+		String sql = "INSERT INTO CHAVE_USUARIO (chave, nomeUsuario) values (?,?)";
+
+		UUID chave = UUID.randomUUID();
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql);
+			preparador.setString(1, chave.toString());//? 1
+			preparador.setString(2, nomeUSU);//? 2
+			
+			preparador.execute();
+			preparador.close();
+			
+			System.out.println("Chave gerada com sucesso!");
+			return chave.toString();
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+			return "Erro";
+		}
+		
+	}
+	
+	public boolean ApagarChaveUsuario(String chave, String nomeUSU) {
+		
+		String sql = "DELETE FROM CHAVE_USUARIO WHERE chave=? AND nomeUsuario=?";
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql);
+			preparador.setString(1, chave);//? 1
+			preparador.setString(2, nomeUSU);//? 2
+			
+			preparador.execute();
+			preparador.close();
+			
+			System.out.println("Chave apagada com sucesso!");
+			return true;
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+			return false;
+		}
+		
+	}
+	
+	public boolean ChecaChaveUsuario(String chave, String nomeUSU) {
+		
+		String sql = "SELECT * FROM CHAVE_USUARIO WHERE chave=? AND nomeUsuario=?";
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql);
+			preparador.setString(1, chave);//? 1
+			preparador.setString(2, nomeUSU);//? 2
+			
+			ResultSet resultado = preparador.executeQuery();
+			
+			if(resultado.next()) {
+				
+				System.out.println("Par (chave,usuario) encontrado com sucesso!");
+				return true;
+
+			}
+			else {
+				
+				System.out.println("Erro - Par (chave, usuario) não encontrado!");
+				return false;
+				
+			}
+			
+			}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+			return false;
+		}
+		
 	}
 	
 }
