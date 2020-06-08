@@ -67,6 +67,7 @@ public class autenticador extends HttpServlet {
 
 		if (usuAutenticado != null) {// ENCONTROU O PAR USUARIO,SENHA DADO E O LOGIN FOI BEM SUCEDIDO
 			
+			System.out.println("AAAAAAAAA");
 			HttpSession sessao = request.getSession();
 			
 			sessao.setAttribute("usuAutenticado", usuAutenticado.getNome());// PASSA COMO ATRIBUTO UM OBJETO USUARIO COM
@@ -95,6 +96,7 @@ public class autenticador extends HttpServlet {
 				
 				JSONObject json = new JSONObject();
 				
+				json.put("RESULTADO", "SUCESSO");
 				json.put("LOGIN", nome);
 				json.put("CONVERSAS", lista);
 				json.put("CHAVE_USUARIO", chave_usuario);
@@ -105,8 +107,23 @@ public class autenticador extends HttpServlet {
 				pw.print(json.toString());
 				
 			}
-		} else {
-			response.sendRedirect("erroLogin.jsp");// PAGINA QUE INDICA QUE USUARIO E/OU SENHA ESTAO INCORRETOS
+		} else if (request.getParameter("dispositivo").equals("desktop")){
+			
+			response.sendRedirect("erroLogin.jsp");
+			
+		}
+		else if (request.getParameter("dispositivo").equals("android")) {
+			
+			JSONObject json = new JSONObject();
+			
+			json.put("RESULTADO", "ERRO");
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter pw = response.getWriter();
+			pw.write(json.toString());
+			pw.print(json.toString());
+			
+			
 		}
 	}
 
