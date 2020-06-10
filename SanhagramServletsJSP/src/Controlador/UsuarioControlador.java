@@ -742,7 +742,7 @@ public class UsuarioControlador extends HttpServlet {
 				pw.print(json.toString());
 				
 			}			
-			else if(acao.equals("excluirGrupo")){//---------------------------------------------------------------OK-TESTAR
+			else if(acao.equals("excluirGrupo")){//---------------------------------------------------------------OK-OK
 				
 				String nomeGrupo = request.getParameter("nomeGrupo");
 				String login = request.getParameter("login");
@@ -768,7 +768,7 @@ public class UsuarioControlador extends HttpServlet {
 				}
 				
 			}
-			else if(acao.equals("sair")){//---------------------------------------------------------------OK-TESTAR
+			else if(acao.equals("sair")){//---------------------------------------------------------------OK-OK
 				
 				String nomeUSU = request.getParameter("login");
 				String chaveUSU = request.getParameter("chaveUSU");
