@@ -140,7 +140,6 @@ public class UsuarioDAO2 {
 			while(resultados.next()){
 				Usuario prox_usuario = new Usuario();
 				
-				//prox_usuario.setId(resultados.getInt("idusuario"));
 				prox_usuario.setNome(resultados.getString("nome"));
 				prox_usuario.setEmail(resultados.getString("email"));
 				prox_usuario.setSenha(resultados.getString("senha"));
@@ -169,11 +168,7 @@ public class UsuarioDAO2 {
 			while(resultados.next()){
 				Usuario prox_usuario = new Usuario();
 				
-				//prox_usuario.setId(resultados.getInt("idusuario"));
 				prox_usuario.setNome(resultados.getString("nome"));
-				//prox_usuario.setEmail(resultados.getString("email"));
-				//prox_usuario.setSenha(resultados.getString("senha"));
-				//prox_usuario.setDatanasc(resultados.getString("datanasc"));
 				
 				lista.add(prox_usuario);				
 			}
@@ -199,7 +194,7 @@ public class UsuarioDAO2 {
 		
 			if (resultado.next()) {
 				usuRetorno = new Usuario();
-				//usuRetorno.setId(resultado.getInt("idusuario"));
+
 				usuRetorno.setNome(resultado.getString("nome"));
 				usuRetorno.setEmail(resultado.getString("email"));
 				usuRetorno.setSenha(resultado.getString("senha"));
@@ -228,7 +223,7 @@ public class UsuarioDAO2 {
 			
 			if (resultado.next()) {
 				usuRetorno = new Usuario();
-				//usuRetorno.setId(resultado.getInt("idusuario"));
+
 				usuRetorno.setNome(resultado.getString("nome"));
 				usuRetorno.setEmail(resultado.getString("email"));
 				usuRetorno.setSenha(resultado.getString("senha"));
@@ -255,12 +250,10 @@ public class UsuarioDAO2 {
 			
 			if(resultado.next()) {
 				if (resultado.getInt("flag_grupo")==1) {
-					//System.out.println("1");
 					tipo = "grupo";
 				}
 				else {
 					tipo= "usuario";
-					//System.out.println("0");
 				}
 			}
 			

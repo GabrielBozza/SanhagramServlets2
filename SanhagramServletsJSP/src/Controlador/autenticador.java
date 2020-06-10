@@ -67,7 +67,6 @@ public class autenticador extends HttpServlet {
 
 		if (usuAutenticado != null) {// ENCONTROU O PAR USUARIO,SENHA DADO E O LOGIN FOI BEM SUCEDIDO
 			
-			System.out.println("AAAAAAAAA");
 			HttpSession sessao = request.getSession();
 			
 			sessao.setAttribute("usuAutenticado", usuAutenticado.getNome());// PASSA COMO ATRIBUTO UM OBJETO USUARIO COM

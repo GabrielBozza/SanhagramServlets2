@@ -423,7 +423,7 @@ public class UsuarioControlador extends HttpServlet {
 				}
 				
 			}
-			else if(acao.equals("listarConversas")){//---------------------------------------------------------------OK-TESTAR
+			else if(acao.equals("listarConversas")){//---------------------------------------------------------------OK-OK
 				
 				String login = request.getParameter("login");
 				List<String> lista = mensagemDAO.buscarRecentes(login);
@@ -437,7 +437,7 @@ public class UsuarioControlador extends HttpServlet {
 				pw.write(json.toString());
 				pw.print(json.toString());
 			}
-			else if(acao.equals("excluirMsgm")){//---------------------------------------------------------------OK-TESTAR--TEM QUE SOH DEIXAR APAGAR AS PROPRIAS MSGNS
+			else if(acao.equals("excluirMsgm")){//---------------------------------------------------------------OK-OK
 				
 				String remetente = request.getParameter("login");
 				String destinatario = request.getParameter("destinatario");
@@ -481,6 +481,8 @@ public class UsuarioControlador extends HttpServlet {
 				
 				String remetente = request.getParameter("login");
 				String destinatario = "ADefinirUsuario";
+				
+				System.out.println("AAAAAAAAAAAAAAAAAAA");
 						
 				List<Mensagem> lista = mensagemDAO.buscarMensagens(remetente, destinatario);
 				
@@ -496,7 +498,7 @@ public class UsuarioControlador extends HttpServlet {
 						
 				
 			}
-			else if(acao.equals("listarUsuarios")){//---------------------------------------------------------------OK-TESTAR
+			else if(acao.equals("listarUsuarios")){//---------------------------------------------------------------OK-OK
 				
 				String login = request.getParameter("login");
 
@@ -515,7 +517,7 @@ public class UsuarioControlador extends HttpServlet {
 				
 				}
 			}
-			else if(acao.equals("alterarCadastro")){//---------------------------------------------------------------OK-TESTAR
+			else if(acao.equals("alterarCadastro")){//---------------------------------------------------------------OK-OK
 				
 				String login = request.getParameter("login");
 				String nomeUsuario = request.getParameter("nomeUsuario");
@@ -537,7 +539,7 @@ public class UsuarioControlador extends HttpServlet {
 				
 				}
 			}
-			else if(acao.equals("excluirUsuario")){//---------------------------------------------------------------OK-TESTAR
+			else if(acao.equals("excluirUsuario")){//---------------------------------------------------------------OK-OK
 				
 				String nome = request.getParameter("nomeusuario");
 				String login = request.getParameter("login");
@@ -561,7 +563,7 @@ public class UsuarioControlador extends HttpServlet {
 				
 				}
 			}
-			else if(acao.equals("listarGrupos")){//---------------------------------------------------------------OK-TESTAR
+			else if(acao.equals("listarGrupos")){//---------------------------------------------------------------OK-OK
 				
 				String login = request.getParameter("login");
 
@@ -580,7 +582,7 @@ public class UsuarioControlador extends HttpServlet {
 				
 				}
 			}
-			else if(acao.equals("listarUsuariosDoGrupo")){//---------------------------------------------------------------OK-TESTAR
+			else if(acao.equals("listarUsuariosDoGrupo")){//---------------------------------------------------------------OK-OK
 				
 				String login = request.getParameter("login");
 				String nomeGrupo = request.getParameter("nomeGrupo");
@@ -613,7 +615,7 @@ public class UsuarioControlador extends HttpServlet {
 				
 				}
 			}
-			else if(acao.equals("removerDoGrupo")){//---------------------------------------------------------------OK-TESTAR
+			else if(acao.equals("removerDoGrupo")){//---------------------------------------------------------------OK-OK
 				
 				String login = request.getParameter("login");
 				String nomeGrupo = request.getParameter("nomeGrupo");
@@ -650,7 +652,7 @@ public class UsuarioControlador extends HttpServlet {
 				} 
 				
 			}
-			else if(acao.equals("adicionarAoGrupo")){//---------------------------------------------------------------OK-TESTAR
+			else if(acao.equals("adicionarAoGrupo")){//---------------------------------------------------------------OK-OK
 				
 				String login = request.getParameter("login");
 				String nomeGrupo = request.getParameter("nomeGrupo");
@@ -714,12 +716,19 @@ public class UsuarioControlador extends HttpServlet {
 				}
 				
 			}
-			else if(acao.equals("sairDoGrupo")){//---------------------------------------------------------------OK-TESTAR
+			else if(acao.equals("sairDoGrupo")){//---------------------------------------------------------------OK-OK
 				
 				String nomeGrupo = request.getParameter("nomeGrupo");
 				String login = request.getParameter("login");
 				
-				mensagemDAO.SairGrupo(login, nomeGrupo);
+				String resultado = mensagemDAO.SairGrupo(login, nomeGrupo);
+				
+				if(resultado.equals("GRUPOVAZIO")) {//APAGA O GRUPO SEM NINGUEM
+					
+					usu.setNome(nomeGrupo);
+					usuDAO.deletar(usu);
+					
+				}
 				
 				List<String> lista = mensagemDAO.buscarRecentes(login);
 				
@@ -731,6 +740,32 @@ public class UsuarioControlador extends HttpServlet {
 				PrintWriter pw = response.getWriter();
 				pw.write(json.toString());
 				pw.print(json.toString());
+				
+			}			
+			else if(acao.equals("excluirGrupo")){//---------------------------------------------------------------OK-TESTAR
+				
+				String nomeGrupo = request.getParameter("nomeGrupo");
+				String login = request.getParameter("login");
+				
+				if(login.equals("admin")) {
+					
+					mensagemDAO.ExcluirMensagensGrupoExcluido(nomeGrupo);
+					
+					usu.setNome(nomeGrupo);
+					usuDAO.deletar(usu);
+					
+					List<Usuario> lista = usuDAO.buscarGrupos();
+					
+					JSONObject json = new JSONObject();
+					json.put("LOGIN", login);
+					json.put("GRUPOS", lista);
+					
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter pw = response.getWriter();
+					pw.write(json.toString());
+					pw.print(json.toString());
+				
+				}
 				
 			}
 			else if(acao.equals("sair")){//---------------------------------------------------------------OK-TESTAR

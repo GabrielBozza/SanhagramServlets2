@@ -131,8 +131,7 @@ public class MensagemDAO {
 	
 	public String ChecaPertencimentoGrupo(String remetente,String nomegrupo) {//CHECA SE A MENSAGEM VAZIA - QUE INDICA QUE O USUARIO ESTA NO GRUPO AINDA EXISTE
 		
-		//String sql = "SELECT * FROM MENSAGENS WHERE REMETENTE = ? AND DESTINATARIO = ? ";
-		String sql = "SELECT * FROM MENSAGENS WHERE REMETENTE = ? AND DESTINATARIO = ? AND TEXTO_MENSAGEM='' ";//-->FUTURo --funciona
+		String sql = "SELECT * FROM MENSAGENS WHERE REMETENTE = ? AND DESTINATARIO = ? AND TEXTO_MENSAGEM='' ";
 		
 		try {
 			PreparedStatement preparador = conexao.prepareStatement(sql);
@@ -193,15 +192,14 @@ public class MensagemDAO {
 	
 	public List<Mensagem> buscarMensagensGrupo(String remetente, String destinatario) {//BUSCA E RETORNA TODAS AS MENSAGENS PARA O GRUPO A PARTIR DO MOMENTO QUE ELE FOI ADD E ORDENA POR DATA_ENVIO
 		
-		//String sql = "SELECT * FROM MENSAGENS WHERE DESTINATARIO=? ORDER BY DATA_ENVIO";
 		String sql="SELECT * FROM sanhagram.MENSAGENS WHERE DESTINATARIO=? AND IDMENSAGENS>(SELECT IDMENSAGENS FROM sanhagram.MENSAGENS WHERE DESTINATARIO=? AND REMETENTE=? AND TEXTO_MENSAGEM='') AND TEXTO_MENSAGEM!='' ORDER BY DATA_ENVIO";
 		List<Mensagem> lista = new ArrayList<Mensagem>();
 		
 		try {
 			PreparedStatement preparador = conexao.prepareStatement(sql);
 			preparador.setString(1, destinatario);//? 1
-			preparador.setString(2, destinatario);//? 2--->FUTURAMENTE-FUNCIONA
-			preparador.setString(3, remetente);//? 2--->FUTURAMENTE-FUNCIONA
+			preparador.setString(2, destinatario);//? 2
+			preparador.setString(3, remetente);//? 3
 			ResultSet resultados = preparador.executeQuery();
 			
 			while(resultados.next()){
@@ -247,7 +245,7 @@ public class MensagemDAO {
 		
 	}
 	
-	public void SairGrupo(String nomeUsuario, String nomeGrupo) {//EXCLUI MENSAGEM DADO SEU ID
+	public String SairGrupo(String nomeUsuario, String nomeGrupo) {//REMOVE USUARIO DO GRUPO
 		
 		String sql = "DELETE FROM MENSAGENS WHERE REMETENTE = ? AND DESTINATARIO = ? AND TEXTO_MENSAGEM=''";//APAGA SOH A MENSAGEM REFERENCIA AO GRUPO-->MENSAGEM VAZIA
 		
@@ -273,13 +271,106 @@ public class MensagemDAO {
 			PreparedStatement preparador2 = conexao.prepareStatement(sql2);
 			preparador2.setString(1, nomeGrupo);//? 1
 			preparador2.setString(2, nomeGrupo);//? 2
-			preparador2.setString(3, nomeUsuario+" saiu do grupo");//? 1
-			preparador2.setString(4, nomeGrupo);//? 2
+			preparador2.setString(3, nomeUsuario+" saiu do grupo");//? 3
+			preparador2.setString(4, nomeGrupo);//? 4
 			
 			preparador2.execute();
 			preparador2.close();
 			
-			System.out.println("Usuario "+nomeUsuario+" removido do grupo "+nomeGrupo+" com sucesso!");
+			System.out.println("Mensagem de saida do grupo enviada com sucesso!");
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+		}
+		
+		String sql3 = "SELECT COUNT(*) FROM MENSAGENS WHERE destinatario=? AND flag_grupo=? AND texto_mensagem=?;";
+		
+		try {
+			PreparedStatement preparador3 = conexao.prepareStatement(sql3);
+			preparador3.setString(1, nomeGrupo);//? 1
+			preparador3.setString(2, "1");//? 2
+			preparador3.setString(3, "");//? 3
+
+			ResultSet resultados = preparador3.executeQuery();
+
+			if(resultados.next()) {
+				if(resultados.getString("COUNT(*)").equals("0")) {//GRUPO FICOU VAZIO
+					System.out.println("Grupo vazio!");
+					
+					String sql4 = "DELETE FROM MENSAGENS WHERE (destinatario=? OR remetente=?) AND flag_grupo=?;";
+					
+					try {
+						PreparedStatement preparador4 = conexao.prepareStatement(sql4);
+						preparador4.setString(1, nomeGrupo);//? 1
+						preparador4.setString(2, nomeGrupo);//? 2
+						preparador4.setString(3, "1");//? 3
+						
+						preparador4.execute();
+						preparador4.close();
+						
+						System.out.println("Mensagens do grupo vazio excluídas com sucesso!");
+						return "GRUPOVAZIO";
+					}
+					catch (SQLException e ){
+						System.out.println("Erro - " + e.getMessage());
+					}
+				}
+				else {
+					System.out.println("Grupo com "+resultados.getString("COUNT(*)")+" usuário(s)");
+					
+					String sql5 = "DELETE FROM sanhagram.mensagens WHERE idmensagens IN (SELECT * FROM (SELECT idmensagens FROM sanhagram.mensagens WHERE (idmensagens < (SELECT MIN(idmensagens) FROM sanhagram.mensagens WHERE destinatario=? AND texto_mensagem=?)) AND destinatario=? AND flag_grupo=?) TMPTBL);";
+					String sql6="SET SQL_SAFE_UPDATES = 0;";
+					String sql7="SET SQL_SAFE_UPDATES = 1;";
+					
+					try {
+						PreparedStatement preparador6 = conexao.prepareStatement(sql6);
+						preparador6.execute();
+						preparador6.close();
+						
+						PreparedStatement preparador5 = conexao.prepareStatement(sql5);
+						preparador5.setString(1, nomeGrupo);//? 1
+						preparador5.setString(2, "");//? 2
+						preparador5.setString(3, nomeGrupo);//? 3
+						preparador5.setString(4, "1");//? 4
+						
+						preparador5.execute();
+						preparador5.close();
+						
+						PreparedStatement preparador7 = conexao.prepareStatement(sql7);
+						preparador7.execute();
+						preparador7.close();
+						
+						System.out.println("Mensagens inacessíveis do grupo excluídas com sucesso!");
+					}
+					catch (SQLException e ){
+						System.out.println("Erro - " + e.getMessage());
+					}
+					return "GRUPONAOVAZIO";
+				}
+			}
+		}
+		catch (SQLException e ){
+			System.out.println("Erro - " + e.getMessage());
+		}
+		
+		return "GRUPONAOVAZIO";
+		
+	}
+	
+	public void ExcluirMensagensGrupoExcluido(String nomeGrupo) {
+		
+		String sql = "DELETE FROM sanhagram.mensagens WHERE (remetente=? OR destinatario=?) AND flag_grupo=?";
+		
+		try {
+			PreparedStatement preparador = conexao.prepareStatement(sql);
+			preparador.setString(1, nomeGrupo);//? 1
+			preparador.setString(2, nomeGrupo);//? 3
+			preparador.setString(3, "1");//? 4
+			
+			preparador.execute();
+			preparador.close();
+			
+			System.out.println("Todas as Mensagens do grupo foram excluídas com sucesso!");
 		}
 		catch (SQLException e ){
 			System.out.println("Erro - " + e.getMessage());
@@ -288,13 +379,6 @@ public class MensagemDAO {
 	}
 	
 	public List<String> buscarRecentes(String destinatario) {//BUSCA E RETORNA OS AMIGOS QUE CONVERSARAM COM O USUARIO ORDENADOS DO MAIS RECENTE PARA O MAIS ANTIGO
-		
-		//String sql = "SELECT DISTINCT amigo FROM (SELECT REMETENTE AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS\r\n" + 
-		//		"WHERE DESTINATARIO=?\r\n" + 
-		//		"UNION ALL\r\n" + 
-		//		"SELECT DESTINATARIO AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS\r\n" + 
-		//		"WHERE REMETENTE=? AND DESTINATARIO!='ADefinirUsuario' ORDER BY DATA_ENVIO DESC) AS amigo";-->NAO ATUALIZA QUANDO OUTRA PESSOA MANDA ALGO PARA O GRUPO
-		
 		
 		String sql = "SELECT DISTINCT amigo FROM (SELECT REMETENTE AS amigo,DATA_ENVIO FROM sanhagram.MENSAGENS \r\n" + 
 				"				WHERE DESTINATARIO=?\r\n" + 
